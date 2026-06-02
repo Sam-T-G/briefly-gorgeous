@@ -1,15 +1,50 @@
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ease.js";
 import { revealChapterTitle, revealTransition } from "./opening.js";
 
 export function animateChapter2(): void {
   revealChapterTitle("ch2-open");
 
-  attachFadeFromMargin("ch2-deemed");
+  attachDeemedReveal("ch2-deemed");
   attachVergePivot("ch2-verge");
   attachFadeFromMargin("ch2-lens");
 
   revealTransition("ch2-close");
+}
+
+function attachDeemedReveal(id: string): void {
+  const slot = document.getElementById(id);
+  if (!slot) return;
+  const setup = slot.querySelector(".setup");
+  const firstHalf = slot.querySelector(".quote-half-first");
+  const secondHalf = slot.querySelector(".quote-half-second");
+  const cite = slot.querySelector(".chrome-citation");
+  const analysis = slot.querySelector(".analysis");
+
+  if (setup) gsap.set(setup, { opacity: 0, y: 8 });
+  if (firstHalf) gsap.set(firstHalf, { opacity: 0, y: 14 });
+  if (secondHalf) gsap.set(secondHalf, { opacity: 0, y: 14 });
+  if (cite) gsap.set(cite, { opacity: 0, y: 6 });
+  if (analysis) gsap.set(analysis, { opacity: 0, y: 8 });
+
+  ScrollTrigger.create({
+    trigger: slot,
+    start: "top 65%",
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
+      if (firstHalf) {
+        tl.to(firstHalf, { opacity: 1, y: 0, duration: 1.1, ease: "editorial" }, "+=0.2");
+      }
+      if (secondHalf) {
+        tl.to(secondHalf, { opacity: 1, y: 0, duration: 1.3, ease: "editorial" }, "+=1.2");
+      }
+      if (cite) tl.to(cite, { opacity: 1, y: 0, duration: 0.5, ease: "editorial" }, "+=0.3");
+      if (analysis) tl.to(analysis, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" }, "-=0.15");
+    }
+  });
 }
 
 function attachFadeFromMargin(id: string): void {

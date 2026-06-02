@@ -43,8 +43,11 @@ if (prefersReducedMotion()) {
   animateChapter3();
   animateClosing();
   installAutoAdvance({
-    triggerSlotIds: ["ch1-open", "ch2-open", "ch3-open", "ch3-close"],
-    delayMs: 2500
+    triggerSlotIds: ["ch1-open", "ch2-open", "ch2-deemed", "ch3-open", "ch3-close"],
+    delayMs: 2500,
+    delayOverridesMs: {
+      "ch2-deemed": 6500
+    }
   });
 }
 

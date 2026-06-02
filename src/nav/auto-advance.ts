@@ -3,6 +3,7 @@ import { goToNext } from "./checkpoints.js";
 type Config = {
   triggerSlotIds: ReadonlyArray<string>;
   delayMs: number;
+  delayOverridesMs?: Readonly<Record<string, number>>;
   scrollDurationS?: number;
   intersectionRatio?: number;
 };
@@ -42,13 +43,14 @@ export function installAutoAdvance(config: Config): void {
           if (pendingId !== null) cancel(true);
           if (isReadingMode()) continue;
           pendingId = id;
+          const delay = config.delayOverridesMs?.[id] ?? config.delayMs;
           pendingTimer = setTimeout(() => {
             if (pendingId === null) return;
             fired.add(pendingId);
             pendingId = null;
             pendingTimer = null;
             goToNext({ duration: scrollDuration });
-          }, config.delayMs);
+          }, delay);
         } else if (pendingId === id) {
           cancel(true);
         }
