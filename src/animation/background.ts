@@ -29,9 +29,9 @@ const KEYFRAMES: Frame[] = [
   { id: "ch1-close",  bg: PORCELAIN,           body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 0 },
   { id: "ch2-open",   bg: DEEMED_VELLUM,       body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
   { id: "ch2-deemed", bg: VERGE_BONE,          body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
-  { id: "ch2-verge",  bg: LATE_TOBACCO,        body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
+  { id: "ch2-verge",  bg: LATE_TOBACCO,        body: PORCELAIN,     display: PORCELAIN,        chrome: PORCELAIN,       share: 1 },
   { id: "ch2-lens",   bg: DISAPPEARING_INDIGO, body: BODY_INVERTED, display: DISPLAY_INVERTED, chrome: CHROME_INVERTED, share: 1 },
-  { id: "ch2-close",  bg: DISAPPEARING_INDIGO, body: BODY_INVERTED, display: DISPLAY_INVERTED, chrome: CHROME_INVERTED, share: 1 },
+  { id: "ch2-close",  bg: DISAPPEARING_INDIGO, body: LATE_TOBACCO,  display: LATE_TOBACCO,     chrome: LATE_TOBACCO,    share: 1 },
   { id: "ch3-open",   bg: BESIDE_PAPER,        body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 }
 ];
 
