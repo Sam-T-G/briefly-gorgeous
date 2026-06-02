@@ -66,31 +66,6 @@ function attachVerdictCut(id: string): void {
       invalidateOnRefresh: true
     }
   });
-
-  const wash = slot.querySelector(".verdict-wash") as HTMLElement | null;
-  const display = slot.querySelector(".verdict-display") as HTMLElement | null;
-  if (!wash || !display) return;
-
-  gsap.set(wash, { opacity: 0 });
-  gsap.set(display, { opacity: 0 });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: slot,
-      start: "top top",
-      end: "+=200%",
-      pin: true,
-      scrub: 1,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      refreshPriority: -5
-    }
-  });
-
-  tl.to(wash, { opacity: 1, ease: "none", duration: 0.12 }, 0);
-  tl.to(display, { opacity: 1, ease: "none", duration: 0.1 }, 0.04);
-  tl.to(display, { opacity: 0, ease: "none", duration: 0.18 }, 0.62);
-  tl.to(wash, { opacity: 0, ease: "none", duration: 0.2 }, 0.7);
 }
 
 function attachPairedFragment(id: string): void {

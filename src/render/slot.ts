@@ -201,17 +201,6 @@ function renderQuote(
     inner.appendChild(aside);
   }
 
-  if (slot.id === "ch1-verdict") {
-    const wash = document.createElement("div");
-    wash.className = "verdict-wash";
-    wash.setAttribute("aria-hidden", "true");
-    const display = document.createElement("p");
-    display.className = "verdict-display";
-    display.textContent = "He could be her father.";
-    wash.appendChild(display);
-    inner.parentElement?.appendChild(wash);
-  }
-
   if (slot.id === "ch2-verge") {
     const deemed = content.slots.find(
       (s): s is Extract<Slot, { type: "quote-block" }> =>

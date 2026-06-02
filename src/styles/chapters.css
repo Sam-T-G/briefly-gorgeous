@@ -318,32 +318,6 @@
   pointer-events: none;
 }
 
-.verdict-wash {
-  position: fixed;
-  inset: 0;
-  background: var(--verdict);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 50;
-  display: grid;
-  place-items: center;
-  padding-inline: var(--gutter);
-  will-change: opacity;
-}
-.verdict-display {
-  font-family: var(--display-stack);
-  font-weight: 700;
-  font-size: clamp(2.75rem, 6.5vw, 5.5rem);
-  letter-spacing: 0.03em;
-  line-height: 1.12;
-  text-align: center;
-  color: var(--porcelain);
-  opacity: 0;
-  max-width: 36rem;
-  margin: 0;
-  will-change: opacity;
-}
-
 .verge-pivot {
   position: fixed;
   inset: 0;
