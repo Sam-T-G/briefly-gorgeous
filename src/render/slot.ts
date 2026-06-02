@@ -4,6 +4,9 @@ type SpanTarget = { className: string; text: string };
 
 const INLINE_ITALIC = /\*([^*\n]+)\*/g;
 
+const assetUrl = (path: string): string =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 function applyLanding(el: HTMLElement, landing: Landing | undefined): void {
   if (!landing) return;
   el.dataset["landingWeight"] = landing.weight;
@@ -128,7 +131,7 @@ function renderChapterTitle(
     const portrait = document.createElement("figure");
     portrait.className = "vuong-portrait";
     const img = document.createElement("img");
-    img.src = "/images/vuong-portrait-2019.jpg";
+    img.src = assetUrl("images/vuong-portrait-2019.jpg");
     img.alt = "Portrait of Ocean Vuong, 2019. Photograph by slowking4, CC BY-SA 2.0.";
     img.loading = "lazy";
     img.decoding = "async";
@@ -623,7 +626,7 @@ function renderInfoCard(
     const figure = document.createElement("figure");
     figure.className = "opening-cover";
     const img = document.createElement("img");
-    img.src = "/images/penguin-cover-on-earth-2019.jpg";
+    img.src = assetUrl("images/penguin-cover-on-earth-2019.jpg");
     img.alt = "Cover of On Earth We're Briefly Gorgeous, Penguin Press 2019";
     img.loading = "lazy";
     img.decoding = "async";
@@ -635,7 +638,7 @@ function renderInfoCard(
     const figure = document.createElement("figure");
     figure.className = "opening-hine";
     const img = document.createElement("img");
-    img.src = "/images/hine-hartford-tobacco-1917.jpg";
+    img.src = assetUrl("images/hine-hartford-tobacco-1917.jpg");
     img.alt =
       "Truck of tobacco workers leaving Post Office Square at 6:00 A.M. bound for the American Sumatra Tobacco Farm, Hartford, Connecticut. Lewis Hine, 1917.";
     img.loading = "lazy";

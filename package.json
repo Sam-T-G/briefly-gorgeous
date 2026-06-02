@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "parse-content": "tsx src/build/parse-content.ts",
     "build:pptx": "tsx scripts/build-pptx.ts",
-    "build:playbook": "tsx scripts/build-playbook.ts"
+    "build:playbook": "tsx scripts/build-playbook.ts",
+    "build:playbook:pdf": "tsx scripts/build-playbook.ts && tsx scripts/playbook-to-pdf.ts"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -44,7 +44,7 @@ if (prefersReducedMotion()) {
   animateClosing();
   installAutoAdvance({
     triggerSlotIds: ["ch1-open", "ch2-open", "ch3-open", "ch3-close"],
-    delayMs: 4000
+    delayMs: 2500
   });
 }
 
