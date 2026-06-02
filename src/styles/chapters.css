@@ -62,6 +62,11 @@
 }
 .slot[data-type="quote-block"] .quote { font-size: clamp(1.65rem, 2.4vw, 2.2rem); }
 
+.slot .quote:has(.cinnamon-target),
+.slot .quote:has(.verdict-target) {
+  text-indent: 0;
+}
+
 .setup {
   margin: 0 0 1.5rem;
   color: var(--body);
@@ -252,7 +257,6 @@
 
 .cinnamon-target {
   position: relative;
-  display: inline-block;
 }
 .cinnamon-underline {
   position: absolute;
@@ -266,15 +270,15 @@
 
 .verdict-target {
   position: relative;
-  display: inline-block;
 }
 .verdict-underline {
   position: absolute;
   left: 0;
   bottom: -3px;
-  height: 1.5px;
+  height: 1px;
   width: 0;
-  background: var(--verdict);
+  background: var(--hunted-rust);
+  opacity: 0.85;
   pointer-events: none;
 }
 

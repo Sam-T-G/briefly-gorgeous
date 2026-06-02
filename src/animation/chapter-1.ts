@@ -90,7 +90,7 @@ function attachCinnamonUnderline(id: string): void {
   gsap.set(underline, { width: 0 });
 
   gsap.to(underline, {
-    width: () => target.offsetWidth,
+    width: () => target.getBoundingClientRect().width,
     duration: 0.8,
     ease: "power2.inOut",
     scrollTrigger: {
@@ -131,10 +131,10 @@ function attachVerdictCut(id: string): void {
   gsap.set(underline, { width: 0 });
 
   gsap.to(underline, {
-    width: () => target.offsetWidth,
-    duration: 0.55,
-    ease: "expo.out",
-    delay: 0.2,
+    width: () => target.getBoundingClientRect().width,
+    duration: 1.0,
+    ease: "power1.out",
+    delay: 0.45,
     scrollTrigger: {
       trigger: slot,
       start: "top 55%",
