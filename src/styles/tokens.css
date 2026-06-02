@@ -1,0 +1,70 @@
+:root {
+  --porcelain: oklch(97.2% 0.008 85);
+  --sunflower-napkin: oklch(88.5% 0.085 92);
+  --errant-cinnamon: oklch(58.4% 0.118 48);
+  --fringed-blond: oklch(82.1% 0.060 84);
+  --wooden-divider: oklch(36.5% 0.034 55);
+  --scalpel: oklch(22.0% 0.010 250);
+  --verdict: oklch(43.0% 0.165 25);
+
+  --deemed-vellum: oklch(96.2% 0.012 78);
+  --verge-bone: oklch(91.5% 0.018 70);
+  --late-tobacco: oklch(78.4% 0.052 58);
+  --gorgeous-ember: oklch(64.8% 0.142 36);
+  --hunted-rust: oklch(48.2% 0.118 28);
+  --majoritarian-graphite: oklch(31.5% 0.018 60);
+  --disappearing-indigo: oklch(22.4% 0.038 250);
+
+  --beside-paper: oklch(96% 0.012 85);
+  --nho-blue: oklch(56% 0.055 240);
+  --parataxis-ink: oklch(28% 0.045 250);
+  --future-bone: oklch(89% 0.018 75);
+  --remember-rust: oklch(58% 0.058 45);
+  --standard-story-grey: oklch(48% 0.012 250);
+  --sovereign-leaf: oklch(62% 0.060 145);
+
+  --bg: var(--porcelain);
+  --body: var(--wooden-divider);
+  --display: var(--scalpel);
+  --accent: var(--errant-cinnamon);
+  --chrome: var(--fringed-blond);
+
+  --display-stack: "Söhne Breit", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --body-stack: "Lyon Text", "Source Serif Pro", Georgia, "Times New Roman", serif;
+  --mono-stack: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --measure: 36rem;
+  --gutter: clamp(1.5rem, 4vw, 3rem);
+  --leading-body: 1.58;
+  --leading-display: 1.05;
+
+  --ease-editorial: cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+@supports not (color: oklch(0% 0 0)) {
+  :root {
+    --porcelain: #F6F2EA;
+    --sunflower-napkin: #EFD89A;
+    --errant-cinnamon: #B47148;
+    --fringed-blond: #DCC592;
+    --wooden-divider: #5C4632;
+    --scalpel: #2A2F34;
+    --verdict: #9B2A1F;
+
+    --deemed-vellum: #F4EDE0;
+    --verge-bone: #EBE1CF;
+    --late-tobacco: #D4B994;
+    --gorgeous-ember: #C66A4A;
+    --hunted-rust: #8E4127;
+    --majoritarian-graphite: #4A4239;
+    --disappearing-indigo: #27313F;
+
+    --beside-paper: #F4F0E8;
+    --nho-blue: #5C7B9C;
+    --parataxis-ink: #2E3744;
+    --future-bone: #E5DDCB;
+    --remember-rust: #9C6E4C;
+    --standard-story-grey: #6B7280;
+    --sovereign-leaf: #6F9166;
+  }
+}

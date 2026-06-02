@@ -1,0 +1,15 @@
+[data-mode="static"] .slot {
+  min-height: auto;
+  display: block;
+  padding-block: 2rem;
+}
+[data-mode="static"] .slot-inner { margin: 0; }
+[data-mode="static"] .chapter-title-label { font-size: 2rem; letter-spacing: 0.08em; }
+[data-mode="static"] .quote { font-size: 1.15rem; }
+[data-mode="static"] .cinnamon-underline,
+[data-mode="static"] .verdict-underline { width: 100%; }
+
+@media print {
+  .slot { min-height: auto; display: block; }
+  .skip, .help-overlay { display: none; }
+}
