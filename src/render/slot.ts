@@ -575,6 +575,20 @@ function renderWorksCited(
   inner: HTMLElement,
   slot: Extract<Slot, { type: "works-cited-entry" }>
 ): void {
+  const photo = document.createElement("figure");
+  photo.className = "vuong-loc-reading";
+  const img = document.createElement("img");
+  img.src = assetUrl("images/vuong-loc-reading-2015.jpg");
+  img.alt = "Ocean Vuong reading at the Library of Congress, 2015. Photograph by slowking4, CC BY-NC 3.0.";
+  img.loading = "lazy";
+  img.decoding = "async";
+  const photoCaption = document.createElement("figcaption");
+  photoCaption.className = "vuong-loc-reading-caption";
+  photoCaption.textContent = "Vuong reading at the Library of Congress · 2015 · slowking4, CC BY-NC 3.0";
+  photo.appendChild(img);
+  photo.appendChild(photoCaption);
+  inner.appendChild(photo);
+
   const heading = document.createElement("h2");
   heading.className = "chapter-title-label";
   heading.textContent = "Works Cited";
