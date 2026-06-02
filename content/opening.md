@@ -1,6 +1,6 @@
 ---
 chapter: opening
-status: bootstrap-fixture
+status: content-locked
 ---
 
 ## opening-landing

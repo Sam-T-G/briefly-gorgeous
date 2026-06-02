@@ -1,6 +1,6 @@
 ---
 chapter: ch1-exposure
-status: bootstrap-fixture
+status: content-locked
 ---
 
 ## ch1-open
@@ -19,53 +19,43 @@ The shots are held by arms that belong to men who will soon cut open the macaque
 ### citation
 Vuong 43
 
+### pull_quote_text
+printed with sunflowers
+
+### pull_quote_citation
+Vuong 43
+
+### pull_quote_landing_weight
+high
+
+### pull_quote_landing_note
+The civility grace note. Three quiet words that name what the napkin is doing. PPTX renders the pull-quote in ACCENT red, italicized, off-set from the main quote; WEB reveals it on a delayed scrub after the main quote settles, so the audience reads "printed with sunflowers" as the punctum that detonates the analysis. Do not stack it with the main quote reveal — it earns its own beat.
+
 ### setup
 Early in the novel Vuong braids two scenes into one prose flow with no chapter break.
 
 ### analysis
-Five men in a fluorescent-lit garage are about to eat the brain of a live macaque. The civility is the cover the killing wears.
+Five men in a fluorescent-lit garage are about to eat the brain of a live macaque. The civility is the cover the killing wears. The polite yellow of a sunflower napkin does the same work as the porcelain plate. Belonging and predation share one vocabulary.
 
 ---
 
-## ch1-napkin
-type: quote-inline
+## ch1-soldier-reads
+type: paired-fragment
 
-### quote
-printed with sunflowers
-
-### citation
-Vuong 43
-
-### analysis
-The polite yellow of a table-linen does the same work as the porcelain plate. Belonging and predation share one vocabulary.
-
----
-
-## ch1-cinnamon
-type: quote-inline
-
-### quote
+### left
 errant cinnamon tint
 
-### citation
-Vuong 44
-
-### analysis
-Vuong cuts mid-paragraph from the garage to a 1968 checkpoint. The soldier reads the mother's hair before he reads her.
-
----
-
-## ch1-recognition
-type: quote-inline
-
-### quote
+### right
 fringed blond around the temples
 
 ### citation
 Vuong 44
 
+### setup
+Vuong cuts mid-paragraph from the garage to a 1968 checkpoint. The soldier reads the mother's hair before he reads her.
+
 ### analysis
-What the soldier sees is not the woman; it is a likeness to whiteness. Recognition precedes personhood.
+Two fragments, one act. The cinnamon names the difference. The blond names the likeness. What the soldier sees is not the woman. It is a likeness to whiteness. Recognition precedes personhood.
 
 ---
 
@@ -84,19 +74,11 @@ The soldier looks at the infant Rose.
 ### analysis
 The verdict that spares Rose is the same logic that kills the macaque. The mother has been read; the page cannot un-read her.
 
----
+### landing_weight
+cinematic
 
-## ch1-divider
-type: quote-block
-
-### quote
-the first soldier steps back. The second one moves the wooden divider, waves the woman forward
-
-### citation
-Vuong 45
-
-### analysis
-The barrier does not lift. It gives. The reading is finished and the body is allowed through.
+### landing_note
+CI 1's earned moment. Single-line verdict. The line must land alone before the analysis reveals. PPTX renders the quote in ACCENT red at +35% size; WEB pins the section, scrubs the quote in via SplitText word-by-word, holds the line on screen for one full beat before the citation and analysis cascade in. No transform flash. The pause itself is the cut.
 
 ---
 
@@ -116,12 +98,18 @@ To maintain white racial comfort, white spectators ignore the adverse impacts of
 Snyder-Young 89
 
 ### analysis
-Solórzano and Yosso name the dominant point of reference: white, male, middle-class, straight. Snyder-Young names the cover that lets the verdict feel like mercy — a well-intentioned action keeps its own adverse impact invisible. The cinnamon tint and the blond temples are doing the work of recognition. Rose only lives because the soldier reads the same logic onto her that kills the macaque.
+The soldier reads the body before he reads the woman. Recognition precedes personhood. Solórzano and Yosso name the standard he reads by: white, male, middle-class, straight. Snyder-Young extends the move. The well-intentioned action is the cover that lets the verdict feel like mercy. Rose lives because the soldier reads the same logic onto her that kills the macaque.
 
 ---
 
 ## ch1-close
-type: transition
+type: quote-transition
+
+### quote
+the first soldier steps back. The second one moves the wooden divider, waves the woman forward
+
+### citation
+Vuong 45
 
 ### prose
-The crosscut exposes what civility hides. The next chapter takes that exposure and asks what visibility itself is.
+The barrier does not lift. It gives. The reading is finished and the body is allowed through. The crosscut exposes what civility hides. The next chapter takes that exposure and asks what visibility itself is.

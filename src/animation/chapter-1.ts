@@ -1,54 +1,19 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ease.js";
-import { revealChapterTitle, revealTransition } from "./opening.js";
+import { revealChapterTitle } from "./opening.js";
 
 export function animateChapter1(): void {
   revealChapterTitle("ch1-open");
 
   attachQuoteReveal("ch1-macaque");
-  attachQuoteReveal("ch1-napkin");
+  attachPairedFragment("ch1-soldier-reads");
   attachQuoteReveal("ch1-verdict");
-  attachQuoteReveal("ch1-divider");
 
-  attachCinnamonUnderline("ch1-cinnamon");
-  attachCinnamonUnderline("ch1-recognition");
-  attachCrosscut("ch1-recognition");
-  attachDividerOpens("ch1-divider");
   attachVerdictCut("ch1-verdict");
 
   attachLensBundle("ch1-lens");
-  revealTransition("ch1-close");
-}
-
-function attachCrosscut(id: string): void {
-  const slot = document.getElementById(id);
-  if (!slot) return;
-  const stage = slot.querySelector(".crosscut-stage");
-  const dinner = slot.querySelector(".crosscut-panel-dinner");
-  const checkpoint = slot.querySelector(".crosscut-panel-checkpoint");
-  const divider = slot.querySelector(".crosscut-divider");
-  if (!stage || !dinner || !checkpoint || !divider) return;
-
-  gsap.set(dinner, { opacity: 1 });
-  gsap.set(checkpoint, { opacity: 0 });
-  gsap.set(divider, { x: 0 });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: slot,
-      start: "top top",
-      end: "+=180%",
-      pin: stage,
-      scrub: 1,
-      anticipatePin: 1,
-      invalidateOnRefresh: true
-    }
-  });
-
-  tl.to(dinner, { opacity: 0, ease: "none" }, 0);
-  tl.to(checkpoint, { opacity: 1, ease: "none" }, 0);
-  tl.to(divider, { x: 24, ease: "none", duration: 0.15 }, 0.85);
+  attachQuoteTransition("ch1-close");
 }
 
 function attachQuoteReveal(id: string): void {
@@ -80,47 +45,6 @@ function attachQuoteReveal(id: string): void {
   });
 }
 
-function attachCinnamonUnderline(id: string): void {
-  const slot = document.getElementById(id);
-  if (!slot) return;
-  const target = slot.querySelector(".cinnamon-target") as HTMLElement | null;
-  const underline = slot.querySelector(".cinnamon-underline");
-  if (!target || !underline) return;
-
-  gsap.set(underline, { width: 0 });
-
-  gsap.to(underline, {
-    width: () => target.getBoundingClientRect().width,
-    duration: 0.8,
-    ease: "power2.inOut",
-    scrollTrigger: {
-      trigger: slot,
-      start: "top 55%",
-      toggleActions: "play none none reverse",
-      invalidateOnRefresh: true
-    }
-  });
-}
-
-function attachDividerOpens(id: string): void {
-  const slot = document.getElementById(id);
-  if (!slot) return;
-  const rule = slot.querySelector(".divider-rule");
-  if (!rule) return;
-  gsap.set(rule, { scaleX: 0, transformOrigin: "left center" });
-
-  gsap.to(rule, {
-    scaleX: 1,
-    duration: 1.1,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: slot,
-      start: "top 55%",
-      toggleActions: "play none none reverse"
-    }
-  });
-}
-
 function attachVerdictCut(id: string): void {
   const slot = document.getElementById(id);
   if (!slot) return;
@@ -140,6 +64,108 @@ function attachVerdictCut(id: string): void {
       start: "top 55%",
       toggleActions: "play none none reverse",
       invalidateOnRefresh: true
+    }
+  });
+
+  const wash = slot.querySelector(".verdict-wash") as HTMLElement | null;
+  const display = slot.querySelector(".verdict-display") as HTMLElement | null;
+  if (!wash || !display) return;
+
+  gsap.set(wash, { opacity: 0 });
+  gsap.set(display, { opacity: 0 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: slot,
+      start: "top top",
+      end: "+=200%",
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      refreshPriority: -5
+    }
+  });
+
+  tl.to(wash, { opacity: 1, ease: "none", duration: 0.12 }, 0);
+  tl.to(display, { opacity: 1, ease: "none", duration: 0.1 }, 0.04);
+  tl.to(display, { opacity: 0, ease: "none", duration: 0.18 }, 0.62);
+  tl.to(wash, { opacity: 0, ease: "none", duration: 0.2 }, 0.7);
+}
+
+function attachPairedFragment(id: string): void {
+  const slot = document.getElementById(id);
+  if (!slot) return;
+  const setup = slot.querySelector(".setup");
+  const left = slot.querySelector(".paired-fragment-left");
+  const right = slot.querySelector(".paired-fragment-right");
+  const cite = slot.querySelector(".chrome-citation");
+  const analysis = slot.querySelector(".analysis");
+
+  if (setup) gsap.set(setup, { opacity: 0, y: 8 });
+  if (left) gsap.set(left, { opacity: 0, x: -22 });
+  if (right) gsap.set(right, { opacity: 0, x: 22 });
+  if (cite) gsap.set(cite, { opacity: 0, y: 6 });
+  if (analysis) gsap.set(analysis, { opacity: 0, y: 8 });
+
+  ScrollTrigger.create({
+    trigger: slot,
+    start: "top 65%",
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
+      const panes: Element[] = [];
+      if (left) panes.push(left);
+      if (right) panes.push(right);
+      if (panes.length > 0) {
+        tl.to(
+          panes,
+          { opacity: 1, x: 0, duration: 0.9, ease: "editorial" },
+          setup ? "-=0.3" : 0
+        );
+      }
+      if (cite) tl.to(cite, { opacity: 1, y: 0, duration: 0.55, ease: "editorial" }, "-=0.35");
+      if (analysis) tl.to(analysis, { opacity: 1, y: 0, duration: 0.8, ease: "editorial" }, "-=0.2");
+    }
+  });
+}
+
+function attachQuoteTransition(id: string): void {
+  const slot = document.getElementById(id);
+  if (!slot) return;
+  const setup = slot.querySelector(".setup");
+  const quote = slot.querySelector(".quote-transition-quote");
+  const cite = slot.querySelector(".chrome-citation");
+  const paragraphs = slot.querySelectorAll(".transition-paragraph");
+
+  if (setup) gsap.set(setup, { opacity: 0, y: 8 });
+  if (quote) gsap.set(quote, { opacity: 0, y: 10 });
+  if (cite) gsap.set(cite, { opacity: 0, y: 6 });
+  if (paragraphs.length > 0) gsap.set(paragraphs, { opacity: 0, y: 8 });
+
+  ScrollTrigger.create({
+    trigger: slot,
+    start: "top 70%",
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
+      if (quote) {
+        tl.to(
+          quote,
+          { opacity: 1, y: 0, duration: 0.9, ease: "editorial" },
+          setup ? "-=0.3" : 0
+        );
+      }
+      if (cite) tl.to(cite, { opacity: 1, y: 0, duration: 0.55, ease: "editorial" }, "-=0.4");
+      if (paragraphs.length > 0) {
+        tl.to(
+          paragraphs,
+          { opacity: 1, y: 0, duration: 0.85, ease: "editorial", stagger: 0.14 },
+          "+=0.1"
+        );
+      }
     }
   });
 }

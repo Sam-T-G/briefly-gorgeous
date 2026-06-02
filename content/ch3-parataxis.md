@@ -1,6 +1,6 @@
 ---
 chapter: ch3-parataxis
-status: drafting
+status: content-locked
 ---
 
 ## ch3-open
@@ -10,43 +10,32 @@ subtitle: Parataxis
 
 ---
 
-## ch3-nho
-type: bilingual-pair
+## ch3-fragment-stream
+type: bilingual-stream
 
-### en
-In Vietnamese, the word for missing someone and remembering them is the same.
+### pair_1_en
+In Vietnamese, the word for missing someone and remembering them is the same:
 
-### vi
+### pair_1_vi
 nhớ
 
-### citation
+### pair_1_citation
 Vuong 152
 
-### setup
-Early in Part III, the prose stops narrating scenes and runs in fragments. Inside that stream Vuong names a word.
-
-### analysis
-One word holds both verbs. The diacritic carries the sắc tone, high-rising. English needs two; Vietnamese has one.
-
----
-
-## ch3-miss
-type: bilingual-pair
-
-### en
+### pair_2_en
 I miss you more than I remember you.
 
-### vi
-Con nhớ mẹ hơn con nhớ mẹ.
+### pair_2_vi
+Con nhớ mẹ không?
 
-### citation
+### pair_2_citation
 Vuong 152
 
 ### setup
-The next sentence in the fragment stream.
+Early in Part III, the prose stops narrating scenes and runs in fragments. Vuong names the Vietnamese word, then sets Rose's question beside an English answer that pulls the word apart.
 
 ### analysis
-Two verbs in English. One verb twice in Vietnamese. The English sentence names what Vietnamese cannot help but say.
+One word holds both verbs. The diacritic carries the sắc tone, high-rising. English needs two; Vietnamese has one. The English sentence names what Vietnamese cannot help but say.
 
 ---
 
@@ -64,6 +53,15 @@ A few pages further into the stream, Vuong names his own device.
 
 ### analysis
 No main verb in the first sentence. Three noun phrases, side by side. The next two sentences name what the grammar already did.
+
+### landing_weight
+cinematic
+
+### landing_split_at
+. That's called parataxis
+
+### landing_note
+CI 3's hinge. Vuong names his own device in the middle of using it. PPTX renders the first sentence in body weight to demonstrate the no-verb parataxis ("A person beside a person inside a life."), then reveals the next two declarations stacked in ACCENT red ("That's called parataxis. / That's called the future."). The two "That's called" declarations should be visually stacked on separate lines so the audience reads the repetition as the grammar Vuong is teaching them in real time. WEB pins the section, scrubs in the first sentence with a slow word-by-word SplitText that lets each noun phrase land beside the last (the *physical* parataxis of the reveal mirrors the grammatical parataxis of the line), pauses, then reveals "That's called parataxis." and "That's called the future." as two separate lines with a held beat between them.
 
 ---
 
@@ -83,7 +81,7 @@ Historical amnesia in the United States is an organized, systematic, and intenti
 Ha and Tompkins 201–02
 
 ### analysis
-Ikemoto names the trap of letting the standard story set the terms. Ha and Tompkins name what the standard story does: historical amnesia is organized, systematic, intentional — Vietnamese American memory gets left out as a *feature*, not an accident. So Vuong's parataxis is not stylistic decoration. It is the grammar Little Dog has to invent because the standard grammar was already disqualified from telling his family's story.
+Vuong's parataxis is not decoration. It is the grammar Little Dog had to invent because the standard grammar was disqualified from telling his family's story. Ikemoto names the trap. Responding only to the standard story lets it dominate the discourse. Ha and Tompkins extend the case. Historical amnesia is organized, systematic, intentional. Vietnamese American memory gets left out as a feature, not an accident.
 
 ---
 
@@ -91,4 +89,4 @@ Ikemoto names the trap of letting the standard story set the terms. Ha and Tompk
 type: transition
 
 ### prose
-The letter ends where it began. The next page is the thesis.
+The letter ends where it began.

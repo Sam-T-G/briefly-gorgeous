@@ -1,6 +1,31 @@
-import type { Slot } from "../content/index.generated.js";
+import { content, type Slot } from "../content/index.generated.js";
 
 type SpanTarget = { className: string; text: string };
+
+const INLINE_ITALIC = /\*([^*\n]+)\*/g;
+
+function appendInline(parent: Node, text: string): void {
+  let lastIndex = 0;
+  INLINE_ITALIC.lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while ((match = INLINE_ITALIC.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parent.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+    }
+    const em = document.createElement("em");
+    em.textContent = match[1]!;
+    parent.appendChild(em);
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    parent.appendChild(document.createTextNode(text.slice(lastIndex)));
+  }
+}
+
+function setInline(el: HTMLElement, text: string): void {
+  el.textContent = "";
+  appendInline(el, text);
+}
 
 export function renderSlot(slot: Slot): HTMLElement {
   const section = document.createElement("section");
@@ -19,14 +44,16 @@ export function renderSlot(slot: Slot): HTMLElement {
       break;
     case "quote-block":
     case "quote-inline":
-      if (slot.id === "ch1-recognition") {
-        renderCrosscut(section, inner, slot);
-      } else {
-        renderQuote(inner, slot);
-      }
+      renderQuote(inner, slot);
       break;
     case "bilingual-pair":
       renderBilingual(inner, slot);
+      break;
+    case "bilingual-stream":
+      renderBilingualStream(inner, slot);
+      break;
+    case "paired-fragment":
+      renderPairedFragment(inner, slot);
       break;
     case "lens-bundle":
       renderLensBundle(inner, slot);
@@ -34,11 +61,20 @@ export function renderSlot(slot: Slot): HTMLElement {
     case "transition":
       renderTransition(inner, slot);
       break;
+    case "quote-transition":
+      renderQuoteTransition(inner, slot);
+      break;
     case "info-card":
       renderInfoCard(inner, slot);
       break;
     case "thesis-reveal":
       renderThesis(inner, slot);
+      break;
+    case "verb-echo":
+      renderVerbEcho(inner, slot);
+      break;
+    case "research-trajectory":
+      renderResearchTrajectory(inner, slot);
       break;
     case "works-cited-entry":
       renderWorksCited(inner, slot);
@@ -68,8 +104,24 @@ function renderChapterTitle(
   if (slot.subtitle) {
     const subtitle = document.createElement("p");
     subtitle.className = "chapter-title-subtitle";
-    subtitle.textContent = slot.subtitle;
+    setInline(subtitle, slot.subtitle);
     inner.appendChild(subtitle);
+  }
+
+  if (slot.id === "opening-landing") {
+    const portrait = document.createElement("figure");
+    portrait.className = "vuong-portrait";
+    const img = document.createElement("img");
+    img.src = "/images/vuong-portrait-2019.jpg";
+    img.alt = "Portrait of Ocean Vuong, 2019. Photograph by slowking4, CC BY-SA 2.0.";
+    img.loading = "lazy";
+    img.decoding = "async";
+    const caption = document.createElement("figcaption");
+    caption.className = "vuong-portrait-caption";
+    caption.textContent = "Ocean Vuong · 2019 · slowking4, CC BY-SA 2.0";
+    portrait.appendChild(img);
+    portrait.appendChild(caption);
+    inner.parentElement?.appendChild(portrait);
   }
 }
 
@@ -80,7 +132,7 @@ function renderQuote(
   if (slot.setup) {
     const setup = document.createElement("p");
     setup.className = "setup";
-    setup.textContent = slot.setup;
+    setInline(setup, slot.setup);
     inner.appendChild(setup);
   }
   const quote = document.createElement("blockquote");
@@ -95,15 +147,111 @@ function renderQuote(
 
   const analysis = document.createElement("p");
   analysis.className = "analysis";
-  analysis.textContent = slot.analysis;
+  setInline(analysis, slot.analysis);
   inner.appendChild(analysis);
 
-  if (slot.id === "ch1-divider") {
-    const rule = document.createElement("span");
-    rule.className = "divider-rule";
-    rule.setAttribute("aria-hidden", "true");
-    inner.appendChild(rule);
+  if (slot.type === "quote-block" && slot.pullQuote) {
+    const aside = document.createElement("aside");
+    aside.className = "pull-quote";
+    const pullText = document.createElement("blockquote");
+    pullText.className = "quote pull-quote-text";
+    pullText.textContent = `"${slot.pullQuote.text}"`;
+    const pullCite = document.createElement("cite");
+    pullCite.className = "chrome-citation";
+    pullCite.textContent = slot.pullQuote.citation;
+    aside.appendChild(pullText);
+    aside.appendChild(pullCite);
+    inner.appendChild(aside);
   }
+
+  if (slot.id === "ch1-verdict") {
+    const wash = document.createElement("div");
+    wash.className = "verdict-wash";
+    wash.setAttribute("aria-hidden", "true");
+    const display = document.createElement("p");
+    display.className = "verdict-display";
+    display.textContent = "He could be her father.";
+    wash.appendChild(display);
+    inner.parentElement?.appendChild(wash);
+  }
+
+  if (slot.id === "ch2-verge") {
+    const deemed = content.slots.find(
+      (s): s is Extract<Slot, { type: "quote-block" }> =>
+        s.id === "ch2-deemed" && s.type === "quote-block"
+    );
+    if (deemed) {
+      const pivot = document.createElement("div");
+      pivot.className = "verge-pivot";
+      pivot.setAttribute("aria-hidden", "true");
+
+      pivot.appendChild(
+        buildVergePanel("deemed", deemed.quote, deemed.citation, false)
+      );
+      pivot.appendChild(
+        buildVergePanel("verge", slot.quote, slot.citation, true)
+      );
+
+      inner.parentElement?.appendChild(pivot);
+    }
+  }
+}
+
+function buildVergePanel(
+  variant: "deemed" | "verge",
+  raw: string,
+  citation: string,
+  marked: boolean
+): HTMLElement {
+  const panel = document.createElement("div");
+  panel.className = `verge-panel verge-panel-${variant}`;
+  const quote = document.createElement("blockquote");
+  quote.className = "quote";
+  if (marked) {
+    quote.appendChild(buildVergeQuoteText(raw));
+  } else {
+    quote.textContent = `"${raw}"`;
+  }
+  const cite = document.createElement("cite");
+  cite.className = "chrome-citation";
+  cite.textContent = citation;
+  panel.appendChild(quote);
+  panel.appendChild(cite);
+  return panel;
+}
+
+function buildVergeQuoteText(raw: string): DocumentFragment {
+  const frag = document.createDocumentFragment();
+  const seen1 = "first be seen";
+  const seen2 = "to be seen";
+  const hunted = "hunted";
+
+  const i1 = raw.indexOf(seen1);
+  const i2 = raw.indexOf(seen2, i1 + seen1.length);
+  const i3 = raw.lastIndexOf(hunted);
+
+  if (i1 < 0 || i2 < 0 || i3 < 0 || i2 <= i1 || i3 <= i2) {
+    frag.appendChild(document.createTextNode(`"${raw}"`));
+    return frag;
+  }
+
+  frag.appendChild(document.createTextNode(`"${raw.slice(0, i1)}`));
+  const a = document.createElement("span");
+  a.className = "verge-seen";
+  a.textContent = seen1;
+  frag.appendChild(a);
+  frag.appendChild(document.createTextNode(raw.slice(i1 + seen1.length, i2)));
+  const b = document.createElement("span");
+  b.className = "verge-seen";
+  b.textContent = seen2;
+  frag.appendChild(b);
+  frag.appendChild(document.createTextNode(raw.slice(i2 + seen2.length, i3)));
+  const h = document.createElement("span");
+  h.className = "verge-hunted";
+  h.textContent = hunted;
+  frag.appendChild(h);
+  frag.appendChild(document.createTextNode(`${raw.slice(i3 + hunted.length)}"`));
+  return frag;
 }
 
 function buildQuoteText(slotId: string, raw: string): DocumentFragment {
@@ -136,54 +284,9 @@ function buildQuoteText(slotId: string, raw: string): DocumentFragment {
 }
 
 function quoteAccent(slotId: string, raw: string): SpanTarget | null {
-  if (slotId === "ch1-cinnamon" && raw.includes("errant cinnamon tint"))
-    return { className: "cinnamon-target", text: "errant cinnamon tint" };
-  if (slotId === "ch1-recognition" && raw.includes("fringed blond around the temples"))
-    return { className: "cinnamon-target", text: "fringed blond around the temples" };
   if (slotId === "ch1-verdict" && raw.includes("He could be her father"))
     return { className: "verdict-target", text: "He could be her father" };
   return null;
-}
-
-function renderCrosscut(
-  section: HTMLElement,
-  inner: HTMLElement,
-  slot: Extract<Slot, { type: "quote-block" | "quote-inline" }>
-): void {
-  section.classList.add("crosscut");
-
-  const stage = document.createElement("div");
-  stage.className = "crosscut-stage";
-
-  const dinner = document.createElement("div");
-  dinner.className = "crosscut-panel crosscut-panel-dinner";
-  const dinnerEcho = document.createElement("p");
-  dinnerEcho.className = "crosscut-echo";
-  dinnerEcho.textContent = "the porcelain plate, the sunflower napkin";
-  const dinnerNote = document.createElement("p");
-  dinnerNote.className = "crosscut-note";
-  dinnerNote.textContent = "the dinner";
-  dinner.appendChild(dinnerNote);
-  dinner.appendChild(dinnerEcho);
-
-  const divider = document.createElement("span");
-  divider.className = "crosscut-divider";
-  divider.setAttribute("aria-hidden", "true");
-
-  const checkpoint = document.createElement("div");
-  checkpoint.className = "crosscut-panel crosscut-panel-checkpoint";
-  const checkpointNote = document.createElement("p");
-  checkpointNote.className = "crosscut-note";
-  checkpointNote.textContent = "the checkpoint";
-  checkpoint.appendChild(checkpointNote);
-  renderQuote(checkpoint, slot);
-
-  stage.appendChild(dinner);
-  stage.appendChild(divider);
-  stage.appendChild(checkpoint);
-
-  inner.classList.add("crosscut-inner");
-  inner.appendChild(stage);
 }
 
 function renderBilingual(
@@ -193,7 +296,7 @@ function renderBilingual(
   if (slot.setup) {
     const setup = document.createElement("p");
     setup.className = "setup";
-    setup.textContent = slot.setup;
+    setInline(setup, slot.setup);
     inner.appendChild(setup);
   }
   const en = document.createElement("blockquote");
@@ -211,7 +314,7 @@ function renderBilingual(
   inner.appendChild(cite);
   const analysis = document.createElement("p");
   analysis.className = "analysis";
-  analysis.textContent = slot.analysis;
+  setInline(analysis, slot.analysis);
   inner.appendChild(analysis);
 }
 
@@ -222,14 +325,14 @@ function renderLensBundle(
   if (slot.setup) {
     const setup = document.createElement("p");
     setup.className = "setup";
-    setup.textContent = slot.setup;
+    setInline(setup, slot.setup);
     inner.appendChild(setup);
   }
   inner.appendChild(buildLensItem("Methodology", slot.methodology));
   inner.appendChild(buildLensItem("Lens", slot.lens));
   const analysis = document.createElement("p");
   analysis.className = "analysis";
-  analysis.textContent = slot.analysis;
+  setInline(analysis, slot.analysis);
   inner.appendChild(analysis);
 }
 
@@ -259,9 +362,119 @@ function renderTransition(
   for (const text of paragraphs) {
     const p = document.createElement("p");
     p.className = "transition-paragraph";
-    p.textContent = text;
+    setInline(p, text);
     inner.appendChild(p);
   }
+}
+
+function renderBilingualStream(
+  inner: HTMLElement,
+  slot: Extract<Slot, { type: "bilingual-stream" }>
+): void {
+  if (slot.setup) {
+    const setup = document.createElement("p");
+    setup.className = "setup";
+    setInline(setup, slot.setup);
+    inner.appendChild(setup);
+  }
+  const stream = document.createElement("div");
+  stream.className = "bilingual-stream";
+  for (const pair of slot.pairs) {
+    const item = document.createElement("div");
+    item.className = "bilingual-stream-pair";
+    const en = document.createElement("blockquote");
+    en.className = "quote quote-en";
+    en.textContent = `"${pair.en}"`;
+    const vi = document.createElement("blockquote");
+    vi.className = "quote quote-vi";
+    vi.lang = "vi";
+    vi.textContent = pair.vi;
+    const cite = document.createElement("cite");
+    cite.className = "chrome-citation";
+    cite.textContent = pair.citation;
+    item.appendChild(en);
+    item.appendChild(vi);
+    item.appendChild(cite);
+    stream.appendChild(item);
+  }
+  inner.appendChild(stream);
+  const analysis = document.createElement("p");
+  analysis.className = "analysis";
+  setInline(analysis, slot.analysis);
+  inner.appendChild(analysis);
+}
+
+function renderPairedFragment(
+  inner: HTMLElement,
+  slot: Extract<Slot, { type: "paired-fragment" }>
+): void {
+  if (slot.setup) {
+    const setup = document.createElement("p");
+    setup.className = "setup";
+    setInline(setup, slot.setup);
+    inner.appendChild(setup);
+  }
+  const pair = document.createElement("div");
+  pair.className = "paired-fragment";
+  const left = document.createElement("blockquote");
+  left.className = "quote paired-fragment-left";
+  left.textContent = `"${slot.left}"`;
+  const right = document.createElement("blockquote");
+  right.className = "quote paired-fragment-right";
+  right.textContent = `"${slot.right}"`;
+  pair.appendChild(left);
+  pair.appendChild(right);
+  inner.appendChild(pair);
+  const cite = document.createElement("cite");
+  cite.className = "chrome-citation";
+  cite.textContent = slot.citation;
+  inner.appendChild(cite);
+  const analysis = document.createElement("p");
+  analysis.className = "analysis";
+  setInline(analysis, slot.analysis);
+  inner.appendChild(analysis);
+}
+
+function renderQuoteTransition(
+  inner: HTMLElement,
+  slot: Extract<Slot, { type: "quote-transition" }>
+): void {
+  if (slot.setup) {
+    const setup = document.createElement("p");
+    setup.className = "setup";
+    setInline(setup, slot.setup);
+    inner.appendChild(setup);
+  }
+  const quote = document.createElement("blockquote");
+  quote.className = "quote quote-transition-quote";
+  quote.textContent = `"${slot.quote}"`;
+  inner.appendChild(quote);
+  const cite = document.createElement("cite");
+  cite.className = "chrome-citation";
+  cite.textContent = slot.citation;
+  inner.appendChild(cite);
+  const paragraphs = slot.prose.split(/\n\n+/);
+  for (const text of paragraphs) {
+    const p = document.createElement("p");
+    p.className = "transition-paragraph";
+    setInline(p, text);
+    inner.appendChild(p);
+  }
+}
+
+function renderVerbEcho(
+  inner: HTMLElement,
+  slot: Extract<Slot, { type: "verb-echo" }>
+): void {
+  const list = document.createElement("ol");
+  list.className = "verb-echo";
+  for (const verb of slot.verbs) {
+    const li = document.createElement("li");
+    li.className = "verb-echo-item";
+    li.textContent = verb;
+    list.appendChild(li);
+  }
+  inner.appendChild(list);
 }
 
 function renderThesis(
@@ -270,8 +483,48 @@ function renderThesis(
 ): void {
   const p = document.createElement("p");
   p.className = "thesis";
-  p.textContent = slot.thesis;
+  setInline(p, slot.thesis);
   inner.appendChild(p);
+}
+
+function renderResearchTrajectory(
+  inner: HTMLElement,
+  slot: Extract<Slot, { type: "research-trajectory" }>
+): void {
+  if (slot.eyebrow) {
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "trajectory-eyebrow";
+    eyebrow.textContent = slot.eyebrow;
+    inner.appendChild(eyebrow);
+  }
+  const authorBlock = document.createElement("div");
+  authorBlock.className = "trajectory-author-block";
+  const author = document.createElement("p");
+  author.className = "trajectory-author";
+  author.textContent = slot.author;
+  authorBlock.appendChild(author);
+  if (slot.workTitle) {
+    const title = document.createElement("p");
+    title.className = "trajectory-work-title";
+    setInline(title, slot.workTitle);
+    authorBlock.appendChild(title);
+  }
+  inner.appendChild(authorBlock);
+
+  const quote = document.createElement("blockquote");
+  quote.className = "trajectory-quote";
+  quote.textContent = `"${slot.quote}"`;
+  inner.appendChild(quote);
+
+  const cite = document.createElement("cite");
+  cite.className = "chrome-citation trajectory-citation";
+  cite.textContent = slot.citation;
+  inner.appendChild(cite);
+
+  const role = document.createElement("p");
+  role.className = "trajectory-role";
+  setInline(role, slot.role);
+  inner.appendChild(role);
 }
 
 function renderWorksCited(
@@ -286,7 +539,7 @@ function renderWorksCited(
   ul.className = "works-cited-list";
   for (const entry of slot.entries) {
     const li = document.createElement("li");
-    li.textContent = entry;
+    appendInline(li, entry);
     ul.appendChild(li);
   }
   inner.appendChild(ul);
@@ -299,12 +552,12 @@ function renderInfoCard(
   if (slot.eyebrow) {
     const eyebrow = document.createElement("p");
     eyebrow.className = "info-eyebrow";
-    eyebrow.textContent = slot.eyebrow;
+    setInline(eyebrow, slot.eyebrow);
     inner.appendChild(eyebrow);
   }
   const title = document.createElement("h2");
   title.className = "info-title";
-  title.textContent = slot.title;
+  setInline(title, slot.title);
   inner.appendChild(title);
   const ul = document.createElement("ul");
   ul.className = "info-bullets";
@@ -315,25 +568,42 @@ function renderInfoCard(
       li.classList.add("has-glyph");
       li.appendChild(glyph);
     }
-    li.appendChild(document.createTextNode(text));
+    appendInline(li, text);
     ul.appendChild(li);
   });
   inner.appendChild(ul);
   if (slot.closer) {
     const closer = document.createElement("p");
     closer.className = "info-closer";
-    closer.textContent = slot.closer;
+    setInline(closer, slot.closer);
     inner.appendChild(closer);
   }
   if (slot.id === "opening-world") {
     const figure = document.createElement("figure");
     figure.className = "opening-cover";
     const img = document.createElement("img");
-    img.src = "https://images1.penguinrandomhouse.com/cover/9780525562047";
+    img.src = "/images/penguin-cover-on-earth-2019.jpg";
     img.alt = "Cover of On Earth We're Briefly Gorgeous, Penguin Press 2019";
     img.loading = "lazy";
     img.decoding = "async";
     figure.appendChild(img);
+    inner.parentElement?.appendChild(figure);
+  }
+
+  if (slot.id === "opening-pressures") {
+    const figure = document.createElement("figure");
+    figure.className = "opening-hine";
+    const img = document.createElement("img");
+    img.src = "/images/hine-hartford-tobacco-1917.jpg";
+    img.alt =
+      "Truck of tobacco workers leaving Post Office Square at 6:00 A.M. bound for the American Sumatra Tobacco Farm, Hartford, Connecticut. Lewis Hine, 1917.";
+    img.loading = "lazy";
+    img.decoding = "async";
+    const caption = document.createElement("figcaption");
+    caption.className = "opening-hine-caption";
+    caption.textContent = "Lewis Hine, Hartford, 1917 · LoC NCLC";
+    figure.appendChild(img);
+    figure.appendChild(caption);
     inner.parentElement?.appendChild(figure);
   }
 }

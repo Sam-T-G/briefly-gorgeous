@@ -20,12 +20,14 @@ function revealInfoCard(id: string): void {
   const bullets = slot.querySelectorAll(".info-bullets li");
   const closer = slot.querySelector(".info-closer");
   const cover = slot.querySelector(".opening-cover");
+  const hine = slot.querySelector(".opening-hine");
 
   if (eyebrow) gsap.set(eyebrow, { opacity: 0, y: 8 });
   if (title) gsap.set(title, { opacity: 0, y: 12 });
   if (bullets.length > 0) gsap.set(bullets, { opacity: 0, y: 8 });
   if (closer) gsap.set(closer, { opacity: 0, y: 8 });
   if (cover) gsap.set(cover, { opacity: 0, y: 6 });
+  if (hine) gsap.set(hine, { opacity: 0, y: 6 });
 
   ScrollTrigger.create({
     trigger: slot,
@@ -44,6 +46,7 @@ function revealInfoCard(id: string): void {
       }
       if (closer) tl.to(closer, { opacity: 1, y: 0, duration: 0.85, ease: "editorial" }, "-=0.2");
       if (cover) tl.to(cover, { opacity: 0.4, y: 0, duration: 1.1, ease: "editorial" }, "+=0.15");
+      if (hine) tl.to(hine, { opacity: 0.55, y: 0, duration: 1.2, ease: "editorial" }, "+=0.1");
     }
   });
 }
@@ -57,6 +60,7 @@ export function revealChapterTitle(
   const eyebrow = slot.querySelector(".chapter-title-eyebrow");
   const label = slot.querySelector(".chapter-title-label") as HTMLElement | null;
   const subtitle = slot.querySelector(".chapter-title-subtitle");
+  const portrait = slot.querySelector(".vuong-portrait");
 
   let words: Element[] = [];
   if (label) {
@@ -66,6 +70,7 @@ export function revealChapterTitle(
   }
   if (eyebrow) gsap.set(eyebrow, { opacity: 0 });
   if (subtitle) gsap.set(subtitle, { opacity: 0, y: 8 });
+  if (portrait) gsap.set(portrait, { opacity: 0, y: 6 });
 
   ScrollTrigger.create({
     trigger: slot,
@@ -92,6 +97,13 @@ export function revealChapterTitle(
           subtitle,
           { opacity: 1, y: 0, duration: 0.9, ease: "editorial" },
           "-=0.3"
+        );
+      }
+      if (portrait) {
+        tl.to(
+          portrait,
+          { opacity: 0.55, y: 0, duration: 1.2, ease: "editorial" },
+          "+=0.1"
         );
       }
     }
