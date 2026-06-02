@@ -350,6 +350,7 @@ function renderPlaceholder(
 function pressuresGlyph(slotId: string, idx: number): SVGElement | null {
   if (slotId !== "opening-pressures") return null;
   if (idx === 0) return buildSvgGlyph("family", FAMILY_GLYPH_D);
+  if (idx === 1) return buildSvgGlyph("trevor", TREVOR_GLYPH_D);
   if (idx === 2) return buildSvgGlyph("world", WORLD_GLYPH_D);
   return null;
 }
@@ -369,10 +370,14 @@ function buildSvgGlyph(name: string, paths: string[]): SVGElement {
 }
 
 const FAMILY_GLYPH_D = [
-  "M5 6.5a1.5 1.5 0 1 1 0-0.01z",
-  "M11 6.5a1.5 1.5 0 1 1 0-0.01z",
-  "M2.5 12.5c0-2 1.2-3.2 2.5-3.2s2.5 1.2 2.5 3.2",
-  "M8.5 12.5c0-2 1.2-3.2 2.5-3.2s2.5 1.2 2.5 3.2"
+  "M3.5 6.5 a1.5 1.5 0 1 0 3 0 a1.5 1.5 0 1 0 -3 0 z",
+  "M9.5 6.5 a1.5 1.5 0 1 0 3 0 a1.5 1.5 0 1 0 -3 0 z",
+  "M2.5 12.5 c0 -2 1.2 -3.2 2.5 -3.2 s2.5 1.2 2.5 3.2",
+  "M8.5 12.5 c0 -2 1.2 -3.2 2.5 -3.2 s2.5 1.2 2.5 3.2"
+];
+
+const TREVOR_GLYPH_D = [
+  "M8 13.5 C4.5 11 1.5 8.5 1.5 5.5 C1.5 3.6 3 2.2 4.9 2.2 C6.2 2.2 7.2 2.9 8 4 C8.8 2.9 9.8 2.2 11.1 2.2 C13 2.2 14.5 3.6 14.5 5.5 C14.5 8.5 11.5 11 8 13.5 Z"
 ];
 
 const WORLD_GLYPH_D = [

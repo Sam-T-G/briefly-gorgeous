@@ -51,7 +51,7 @@ errant cinnamon tint
 Vuong 44
 
 ### analysis
-Vuong cuts mid-paragraph from the garage to a 1968 checkpoint. The soldier reads the grandmother's hair before he reads her.
+Vuong cuts mid-paragraph from the garage to a 1968 checkpoint. The soldier reads the mother's hair before he reads her.
 
 ---
 
