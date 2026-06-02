@@ -12,7 +12,6 @@ export const CHECKPOINT_IDS = [
   "ch1-soldier-reads",
   "ch1-verdict",
   "ch1-lens",
-  "ch1-close",
   "ch2-open",
   "ch2-deemed",
   "ch2-verge",

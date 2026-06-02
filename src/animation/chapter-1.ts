@@ -13,7 +13,6 @@ export function animateChapter1(): void {
   attachVerdictCut("ch1-verdict");
 
   attachLensBundle("ch1-lens");
-  attachQuoteTransition("ch1-close");
 }
 
 function attachQuoteReveal(id: string): void {
@@ -102,45 +101,6 @@ function attachPairedFragment(id: string): void {
       }
       if (cite) tl.to(cite, { opacity: 1, y: 0, duration: 0.55, ease: "editorial" }, "-=0.35");
       if (analysis) tl.to(analysis, { opacity: 1, y: 0, duration: 0.8, ease: "editorial" }, "-=0.2");
-    }
-  });
-}
-
-function attachQuoteTransition(id: string): void {
-  const slot = document.getElementById(id);
-  if (!slot) return;
-  const setup = slot.querySelector(".setup");
-  const quote = slot.querySelector(".quote-transition-quote");
-  const cite = slot.querySelector(".chrome-citation");
-  const paragraphs = slot.querySelectorAll(".transition-paragraph");
-
-  if (setup) gsap.set(setup, { opacity: 0, y: 8 });
-  if (quote) gsap.set(quote, { opacity: 0, y: 10 });
-  if (cite) gsap.set(cite, { opacity: 0, y: 6 });
-  if (paragraphs.length > 0) gsap.set(paragraphs, { opacity: 0, y: 8 });
-
-  ScrollTrigger.create({
-    trigger: slot,
-    start: "top 70%",
-    once: true,
-    onEnter: () => {
-      const tl = gsap.timeline();
-      if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
-      if (quote) {
-        tl.to(
-          quote,
-          { opacity: 1, y: 0, duration: 0.9, ease: "editorial" },
-          setup ? "-=0.3" : 0
-        );
-      }
-      if (cite) tl.to(cite, { opacity: 1, y: 0, duration: 0.55, ease: "editorial" }, "-=0.4");
-      if (paragraphs.length > 0) {
-        tl.to(
-          paragraphs,
-          { opacity: 1, y: 0, duration: 0.85, ease: "editorial", stagger: 0.14 },
-          "+=0.1"
-        );
-      }
     }
   });
 }

@@ -99,17 +99,3 @@ Snyder-Young 89
 
 ### analysis
 The soldier reads the body before he reads the woman. Recognition precedes personhood. Solórzano and Yosso name the standard he reads by: white, male, middle-class, straight. Snyder-Young extends the move. The well-intentioned action is the cover that lets the verdict feel like mercy. Rose lives because the soldier reads the same logic onto her that kills the macaque.
-
----
-
-## ch1-close
-type: quote-transition
-
-### quote
-the first soldier steps back. The second one moves the wooden divider, waves the woman forward
-
-### citation
-Vuong 45
-
-### prose
-The barrier does not lift. It gives. The reading is finished and the body is allowed through. The crosscut exposes what civility hides. The next chapter takes that exposure and asks what visibility itself is.
