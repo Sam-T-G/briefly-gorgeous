@@ -132,9 +132,9 @@ function attachVerdictCut(id: string): void {
 
   gsap.to(underline, {
     width: () => target.getBoundingClientRect().width,
-    duration: 1.0,
-    ease: "power1.out",
-    delay: 0.45,
+    duration: 0.55,
+    ease: "expo.out",
+    delay: 0.2,
     scrollTrigger: {
       trigger: slot,
       start: "top 55%",

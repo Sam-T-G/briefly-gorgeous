@@ -275,10 +275,9 @@
   position: absolute;
   left: 0;
   bottom: -3px;
-  height: 1px;
+  height: 1.5px;
   width: 0;
-  background: var(--hunted-rust);
-  opacity: 0.85;
+  background: var(--verdict);
   pointer-events: none;
 }
 

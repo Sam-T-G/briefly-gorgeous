@@ -38,25 +38,13 @@ let activeTween: gsap.core.Tween | null = null;
 
 type Entry = { id: string; y: number };
 
-const SUB_STOPS: Record<string, number[]> = {
-  "ch1-recognition": [1.7]
-};
-
 function collectEntries(): Entry[] {
   const entries: Entry[] = [];
   for (const id of CHECKPOINT_IDS) {
     const el = document.getElementById(id);
     if (!el) continue;
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    entries.push({ id, y: top });
-    const subs = SUB_STOPS[id];
-    if (subs) {
-      for (const frac of subs) {
-        entries.push({ id, y: top + frac * window.innerHeight });
-      }
-    }
+    entries.push({ id, y: el.getBoundingClientRect().top + window.scrollY });
   }
-  entries.sort((a, b) => a.y - b.y);
   return entries;
 }
 
