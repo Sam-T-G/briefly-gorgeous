@@ -9,6 +9,7 @@ import { installReadingModeToggle } from "./a11y/reading-mode.js";
 
 import { installKeyboardNav } from "./nav/keyboard.js";
 import { installHelpOverlay } from "./nav/help-overlay.js";
+import { installAutoAdvance } from "./nav/auto-advance.js";
 
 import { refreshOnFontsReady } from "./util/refresh-on-fonts.js";
 
@@ -41,6 +42,10 @@ if (prefersReducedMotion()) {
   animateChapter2();
   animateChapter3();
   animateClosing();
+  installAutoAdvance({
+    triggerSlotIds: ["ch1-open", "ch2-open", "ch3-open", "ch3-close"],
+    delayMs: 4000
+  });
 }
 
 refreshOnFontsReady();

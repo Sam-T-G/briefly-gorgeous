@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "parse-content": "tsx src/build/parse-content.ts",
-    "build:pptx": "tsx scripts/build-pptx.ts"
+    "build:pptx": "tsx scripts/build-pptx.ts",
+    "build:playbook": "tsx scripts/build-playbook.ts"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

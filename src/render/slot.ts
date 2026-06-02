@@ -1,8 +1,24 @@
-import { content, type Slot } from "../content/index.generated.js";
+import { content, type Slot, type Landing } from "../content/index.generated.js";
 
 type SpanTarget = { className: string; text: string };
 
 const INLINE_ITALIC = /\*([^*\n]+)\*/g;
+
+function applyLanding(el: HTMLElement, landing: Landing | undefined): void {
+  if (!landing) return;
+  el.dataset["landingWeight"] = landing.weight;
+  if (landing.splitAt) el.dataset["landingSplit"] = "true";
+}
+
+function splitQuoteHalves(raw: string, splitAt: string): [string, string] | null {
+  const idx = raw.indexOf(splitAt);
+  if (idx === -1) return null;
+  const cut = idx + splitAt.length;
+  const first = raw.slice(0, cut).trim();
+  const second = raw.slice(cut).trim();
+  if (!first || !second) return null;
+  return [first, second];
+}
 
 function appendInline(parent: Node, text: string): void {
   let lastIndex = 0;
@@ -137,7 +153,24 @@ function renderQuote(
   }
   const quote = document.createElement("blockquote");
   quote.className = "quote";
-  quote.appendChild(buildQuoteText(slot.id, slot.quote));
+  applyLanding(quote, slot.landing);
+
+  const splitPair = slot.landing?.splitAt
+    ? splitQuoteHalves(slot.quote, slot.landing.splitAt)
+    : null;
+  if (splitPair) {
+    const [firstRaw, secondRaw] = splitPair;
+    const firstHalf = document.createElement("span");
+    firstHalf.className = "quote-half quote-half-first";
+    firstHalf.appendChild(buildQuoteText(slot.id, firstRaw, { openOnly: true }));
+    const secondHalf = document.createElement("span");
+    secondHalf.className = "quote-half quote-half-second";
+    secondHalf.appendChild(buildQuoteText(slot.id, secondRaw, { closeOnly: true }));
+    quote.appendChild(firstHalf);
+    quote.appendChild(secondHalf);
+  } else {
+    quote.appendChild(buildQuoteText(slot.id, slot.quote));
+  }
   inner.appendChild(quote);
 
   const cite = document.createElement("cite");
@@ -156,6 +189,7 @@ function renderQuote(
     const pullText = document.createElement("blockquote");
     pullText.className = "quote pull-quote-text";
     pullText.textContent = `"${slot.pullQuote.text}"`;
+    applyLanding(pullText, slot.pullQuote.landing);
     const pullCite = document.createElement("cite");
     pullCite.className = "chrome-citation";
     pullCite.textContent = slot.pullQuote.citation;
@@ -254,19 +288,25 @@ function buildVergeQuoteText(raw: string): DocumentFragment {
   return frag;
 }
 
-function buildQuoteText(slotId: string, raw: string): DocumentFragment {
+function buildQuoteText(
+  slotId: string,
+  raw: string,
+  opts: { openOnly?: boolean; closeOnly?: boolean } = {}
+): DocumentFragment {
+  const open = opts.closeOnly ? "" : `"`;
+  const close = opts.openOnly ? "" : `"`;
   const target = quoteAccent(slotId, raw);
   const frag = document.createDocumentFragment();
   if (!target) {
-    frag.appendChild(document.createTextNode(`"${raw}"`));
+    frag.appendChild(document.createTextNode(`${open}${raw}${close}`));
     return frag;
   }
   const idx = raw.indexOf(target.text);
   if (idx === -1) {
-    frag.appendChild(document.createTextNode(`"${raw}"`));
+    frag.appendChild(document.createTextNode(`${open}${raw}${close}`));
     return frag;
   }
-  frag.appendChild(document.createTextNode(`"${raw.slice(0, idx)}`));
+  frag.appendChild(document.createTextNode(`${open}${raw.slice(0, idx)}`));
   const span = document.createElement("span");
   span.className = target.className;
   const text = document.createElement("span");
@@ -279,7 +319,7 @@ function buildQuoteText(slotId: string, raw: string): DocumentFragment {
   span.appendChild(text);
   span.appendChild(underline);
   frag.appendChild(span);
-  frag.appendChild(document.createTextNode(`${raw.slice(idx + target.text.length)}"`));
+  frag.appendChild(document.createTextNode(`${raw.slice(idx + target.text.length)}${close}`));
   return frag;
 }
 
@@ -447,6 +487,7 @@ function renderQuoteTransition(
   }
   const quote = document.createElement("blockquote");
   quote.className = "quote quote-transition-quote";
+  applyLanding(quote, slot.landing);
   quote.textContent = `"${slot.quote}"`;
   inner.appendChild(quote);
   const cite = document.createElement("cite");

@@ -673,3 +673,44 @@
 :root[data-motion="reduced"] .vuong-portrait {
   opacity: 0.55;
 }
+
+.quote[data-landing-weight="high"],
+.quote[data-landing-weight="cinematic"] {
+  color: var(--display);
+  font-weight: 500;
+}
+.quote[data-landing-weight="cinematic"] {
+  font-size: clamp(1.85rem, 2.7vw, 2.45rem);
+  line-height: 1.32;
+}
+.quote[data-landing-weight="quiet"] {
+  color: var(--chrome);
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  opacity: 0.85;
+}
+.pull-quote-text[data-landing-weight="high"],
+.pull-quote-text[data-landing-weight="cinematic"] {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.quote[data-landing-split="true"] {
+  display: block;
+  text-indent: 0;
+}
+.quote-half {
+  display: block;
+}
+.quote-half-second {
+  margin-top: 1.25em;
+  color: var(--accent);
+  font-weight: 500;
+}
+.quote[data-landing-weight="cinematic"] .quote-half-second {
+  font-size: 1.06em;
+}
+
+:root[data-motion="reduced"] .quote-half-second {
+  margin-top: 1em;
+}

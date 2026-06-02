@@ -51,12 +51,12 @@ export function collectCheckpointPositions(): number[] {
   return collectEntries().map((e) => e.y);
 }
 
-export function goToNext(): void {
+export function goToNext(options?: { duration?: number }): void {
   const entries = collectEntries();
   const y = window.scrollY;
   for (const entry of entries) {
     if (entry.y > y + TOLERANCE) {
-      scrollToEntry(entry);
+      scrollToEntry(entry, options?.duration);
       return;
     }
   }
@@ -85,10 +85,10 @@ export function goToLast(): void {
   if (last) scrollToEntry(last);
 }
 
-function scrollToEntry(entry: Entry): void {
+function scrollToEntry(entry: Entry, duration = 0.65): void {
   if (activeTween) activeTween.kill();
   activeTween = gsap.to(window, {
-    duration: 0.65,
+    duration,
     ease: "editorial",
     scrollTo: { y: entry.y, autoKill: false },
     onComplete: () => {
