@@ -23,28 +23,30 @@ type UnderlineVariant = {
 
 // Variant pools per motif key. Cycled in order on each occurrence,
 // so repeated motif words land with different hand-drawn underlines.
+// Confident, casual underlines — balanced endpoints, small flaws in the middle.
+// Start and end y-values stay within ~0.4 of each other so nothing slopes overall.
 const UNDERLINE_VARIANTS: Record<string, UnderlineVariant[]> = {
-  // seen — visibility as something steady but uneven; gentle waves
+  // seen — gentle waves, steady horizontal trajectory
   seen: [
-    { viewBox: "0 0 100 6", d: "M0,3 C15,1 30,5 50,3 C70,1 85,5 100,3", strokeWidth: 1.3, shape: "wavery" },
-    { viewBox: "0 0 100 6", d: "M0,4 C12,0.6 26,5 42,3 C58,1 74,4.6 90,2.6 C96,1.9 98,3 100,2.5", strokeWidth: 1.2, shape: "wavery" },
-    { viewBox: "0 0 100 6", d: "M0,4.5 C20,2.6 40,4 60,2.6 C80,1.2 90,2.6 100,1.6", strokeWidth: 1.3, shape: "wavery" }
+    { viewBox: "0 0 100 6", d: "M0,3 C18,2.4 32,3.6 50,3 C68,2.4 84,3.6 100,3", strokeWidth: 1.3, shape: "wavery" },
+    { viewBox: "0 0 100 6", d: "M0,3.1 C14,2.5 28,3.6 44,3 C60,2.4 76,3.6 92,3 C96,2.9 99,3.1 100,3", strokeWidth: 1.2, shape: "wavery" },
+    { viewBox: "0 0 100 6", d: "M0,3 C20,3.7 38,2.5 56,3.2 C72,3.8 88,2.6 100,3", strokeWidth: 1.3, shape: "wavery" }
   ],
-  // hunted — decisive, energetic; swooshes with flick tails
+  // hunted — casual energetic flicks, still horizontal overall
   hunted: [
-    { viewBox: "0 0 100 8", d: "M0,5 C20,3.2 42,5 64,3 C80,1.7 92,2.4 100,1", strokeWidth: 1.7, shape: "swoosh" },
-    { viewBox: "0 0 100 8", d: "M0,6 C22,4 44,2.8 64,2.4 C80,2.1 92,1.4 100,0.6", strokeWidth: 1.8, shape: "swoosh" },
-    { viewBox: "0 0 100 8", d: "M0,4 C14,5.6 32,3 52,4 C70,5 86,2 100,3", strokeWidth: 1.8, shape: "swoosh" }
+    { viewBox: "0 0 100 8", d: "M0,4 C20,3 42,5 64,3.6 C80,2.8 92,4.4 100,4", strokeWidth: 1.7, shape: "swoosh" },
+    { viewBox: "0 0 100 8", d: "M0,4 C22,5.2 44,3 64,4.4 C80,5 92,3.4 100,4", strokeWidth: 1.8, shape: "swoosh" },
+    { viewBox: "0 0 100 8", d: "M0,4 C14,5.4 32,3 52,4 C70,5 86,2.8 100,3.8", strokeWidth: 1.8, shape: "swoosh" }
   ],
-  // deemed — verdict, decree; near-straight with a tiny judicial flick
+  // deemed — near-straight, tiny human wobble
   deemed: [
-    { viewBox: "0 0 100 4", d: "M0,2 L100,2", strokeWidth: 1.6, shape: "straight" },
-    { viewBox: "0 0 100 4", d: "M0,2.2 L42,2 C50,1.6 58,2.4 64,2 L100,2", strokeWidth: 1.6, shape: "straight" }
+    { viewBox: "0 0 100 4", d: "M0,2 C25,1.85 50,2.15 75,1.9 L100,2", strokeWidth: 1.6, shape: "straight" },
+    { viewBox: "0 0 100 4", d: "M0,2 L42,1.95 C50,1.8 58,2.1 64,1.95 L100,2", strokeWidth: 1.6, shape: "straight" }
   ],
-  // read / reads / reading — interpretation as fluid; lyrical s-curves
+  // read / reads / reading — lyrical s-curves, balanced ends
   read: [
-    { viewBox: "0 0 100 6", d: "M0,3 C25,0.6 48,5 70,2 C85,0.9 92,3 100,2.5", strokeWidth: 1.4, shape: "lyrical" },
-    { viewBox: "0 0 100 6", d: "M0,3 C18,1 34,5 52,3 C70,1 84,5 100,3", strokeWidth: 1.3, shape: "lyrical" }
+    { viewBox: "0 0 100 6", d: "M0,3 C25,1.8 48,4.2 70,2.6 C85,1.8 92,3.2 100,3", strokeWidth: 1.4, shape: "lyrical" },
+    { viewBox: "0 0 100 6", d: "M0,3 C18,1.6 34,4.4 52,3 C70,1.6 84,4.4 100,3", strokeWidth: 1.3, shape: "lyrical" }
   ]
 };
 
