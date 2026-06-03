@@ -111,37 +111,39 @@ const PARATAXIS_LINE_2: ScriptWord = {
   duration: 2.0
 };
 
-// Ten margin annotations scattered across ch3-close. Each snippet is a
-// recurring Little-Dog motif (salutation, names, places, verbs, recurrences)
-// written one at a time on a momentum curve: slow start, fast middle, slow
-// finish, so the slot reads as a notebook page filling up before the thesis.
+// Twenty-four margin annotations scattered across ch3-close, written one at a
+// time on a momentum curve (slow open, dense fast middle, decelerating final
+// beats) so the slot reads as a notebook page filling up before the thesis.
+// Sizes tier by gravitas: HEAVY motifs (Dear Ma, Lan, deemed/beloved binary,
+// tenderness) are largest; small background notes (place names, objects) sit
+// in lower weight so the eye reads hierarchy as it fills.
 const CLOSE_DEAR_MA: ScriptWord = {
   text: "Dear Ma,",
   fontFamily: HAND_STACK,
   fontWeight: 600,
-  viewBox: "0 0 260 90",
-  fontSize: 64,
-  yBaseline: 64,
+  viewBox: "0 0 300 100",
+  fontSize: 72,
+  yBaseline: 72,
   xStart: 8,
-  duration: 0.75
+  duration: 0.55
 };
 const CLOSE_LITTLE_DOG: ScriptWord = {
   text: "Little Dog",
   fontFamily: HAND_STACK,
   fontWeight: 600,
-  viewBox: "0 0 280 80",
-  fontSize: 54,
-  yBaseline: 58,
+  viewBox: "0 0 300 90",
+  fontSize: 60,
+  yBaseline: 64,
   xStart: 6,
-  duration: 0.65
+  duration: 0.42
 };
 const CLOSE_LAN: ScriptWord = {
   text: "Lan",
   fontFamily: HAND_STACK,
   fontWeight: 700,
-  viewBox: "0 0 130 90",
-  fontSize: 64,
-  yBaseline: 66,
+  viewBox: "0 0 160 110",
+  fontSize: 84,
+  yBaseline: 86,
   xStart: 8,
   duration: 0.4
 };
@@ -151,9 +153,9 @@ const CLOSE_MONARCHS: ScriptWord = {
   fontWeight: 500,
   viewBox: "0 0 260 80",
   fontSize: 52,
-  yBaseline: 56,
+  yBaseline: 58,
   xStart: 6,
-  duration: 0.55
+  duration: 0.34
 };
 const CLOSE_HARTFORD: ScriptWord = {
   text: "Hartford",
@@ -163,7 +165,7 @@ const CLOSE_HARTFORD: ScriptWord = {
   fontSize: 50,
   yBaseline: 56,
   xStart: 6,
-  duration: 0.55
+  duration: 0.32
 };
 const CLOSE_I_MISS_YOU: ScriptWord = {
   text: "I miss you",
@@ -171,19 +173,19 @@ const CLOSE_I_MISS_YOU: ScriptWord = {
   fontWeight: 500,
   viewBox: "0 0 280 80",
   fontSize: 52,
-  yBaseline: 56,
+  yBaseline: 58,
   xStart: 6,
-  duration: 0.6
+  duration: 0.36
 };
 const CLOSE_US: ScriptWord = {
   text: "us",
   fontFamily: HAND_STACK,
   fontWeight: 700,
-  viewBox: "0 0 110 80",
-  fontSize: 56,
-  yBaseline: 58,
-  xStart: 8,
-  duration: 0.3
+  viewBox: "0 0 100 70",
+  fontSize: 46,
+  yBaseline: 52,
+  xStart: 6,
+  duration: 0.22
 };
 const CLOSE_REMEMBER: ScriptWord = {
   text: "remember",
@@ -191,9 +193,9 @@ const CLOSE_REMEMBER: ScriptWord = {
   fontWeight: 500,
   viewBox: "0 0 280 80",
   fontSize: 52,
-  yBaseline: 56,
+  yBaseline: 58,
   xStart: 6,
-  duration: 0.55
+  duration: 0.34
 };
 const CLOSE_STILL_HERE: ScriptWord = {
   text: "still here",
@@ -201,19 +203,159 @@ const CLOSE_STILL_HERE: ScriptWord = {
   fontWeight: 500,
   viewBox: "0 0 260 80",
   fontSize: 52,
-  yBaseline: 56,
+  yBaseline: 58,
   xStart: 6,
-  duration: 0.55
+  duration: 0.36
 };
 const CLOSE_AGAIN: ScriptWord = {
   text: "again",
   fontFamily: HAND_STACK,
   fontWeight: 600,
-  viewBox: "0 0 180 80",
-  fontSize: 56,
-  yBaseline: 58,
+  viewBox: "0 0 200 90",
+  fontSize: 64,
+  yBaseline: 66,
+  xStart: 8,
+  duration: 0.42
+};
+const CLOSE_DEEMED: ScriptWord = {
+  text: "deemed",
+  fontFamily: HAND_STACK,
+  fontWeight: 700,
+  viewBox: "0 0 260 100",
+  fontSize: 78,
+  yBaseline: 76,
+  xStart: 8,
+  duration: 0.48
+};
+const CLOSE_BELOVED: ScriptWord = {
+  text: "beloved",
+  fontFamily: HAND_STACK,
+  fontWeight: 700,
+  viewBox: "0 0 280 100",
+  fontSize: 78,
+  yBaseline: 76,
   xStart: 8,
   duration: 0.5
+};
+const CLOSE_TENDERNESS: ScriptWord = {
+  text: "tenderness",
+  fontFamily: HAND_STACK,
+  fontWeight: 600,
+  viewBox: "0 0 360 90",
+  fontSize: 70,
+  yBaseline: 68,
+  xStart: 8,
+  duration: 0.55
+};
+const CLOSE_BEING_HUNTED: ScriptWord = {
+  text: "being hunted",
+  fontFamily: HAND_STACK,
+  fontWeight: 600,
+  viewBox: "0 0 340 80",
+  fontSize: 58,
+  yBaseline: 60,
+  xStart: 6,
+  duration: 0.46
+};
+const CLOSE_YEAR_MONKEY: ScriptWord = {
+  text: "Year of the Monkey",
+  fontFamily: HAND_STACK,
+  fontWeight: 600,
+  viewBox: "0 0 480 80",
+  fontSize: 54,
+  yBaseline: 58,
+  xStart: 6,
+  duration: 0.55
+};
+const CLOSE_VERGE: ScriptWord = {
+  text: "the verge",
+  fontFamily: HAND_STACK,
+  fontWeight: 600,
+  viewBox: "0 0 280 90",
+  fontSize: 62,
+  yBaseline: 64,
+  xStart: 6,
+  duration: 0.4
+};
+const CLOSE_MEMORY: ScriptWord = {
+  text: "memory",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 240 80",
+  fontSize: 54,
+  yBaseline: 58,
+  xStart: 6,
+  duration: 0.32
+};
+const CLOSE_BESIDE: ScriptWord = {
+  text: "beside",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 200 80",
+  fontSize: 54,
+  yBaseline: 58,
+  xStart: 6,
+  duration: 0.3
+};
+const CLOSE_INHERIT: ScriptWord = {
+  text: "inherit",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 200 80",
+  fontSize: 52,
+  yBaseline: 58,
+  xStart: 6,
+  duration: 0.3
+};
+const CLOSE_BROKEN_EN: ScriptWord = {
+  text: "broken English",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 360 80",
+  fontSize: 50,
+  yBaseline: 58,
+  xStart: 6,
+  duration: 0.4
+};
+const CLOSE_GREEN_APPLE: ScriptWord = {
+  text: "Green Apple",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 280 70",
+  fontSize: 42,
+  yBaseline: 50,
+  xStart: 6,
+  duration: 0.3
+};
+const CLOSE_BLUE_SHAWL: ScriptWord = {
+  text: "blue shawl",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 260 70",
+  fontSize: 42,
+  yBaseline: 50,
+  xStart: 6,
+  duration: 0.28
+};
+const CLOSE_SHIPWRECK: ScriptWord = {
+  text: "shipwreck",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 260 70",
+  fontSize: 44,
+  yBaseline: 52,
+  xStart: 6,
+  duration: 0.3
+};
+const CLOSE_SAIGON: ScriptWord = {
+  text: "Saigon",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 200 70",
+  fontSize: 42,
+  yBaseline: 50,
+  xStart: 6,
+  duration: 0.26
 };
 
 type HandwritingTarget = {
@@ -232,7 +374,7 @@ type HandwritingTarget = {
 //  - for Trevor —             (ch2-verge)            silent second addressee
 //  - parataxis definition     (ch3-open)             two-line margin gloss under the chapter title
 //  - ours                     (ch3-fragment-stream)  speaker claiming kinship in bilingual line
-//  - ch3-close cascade        (ch3-close)            ten motifs filling the page on a momentum curve
+//  - ch3-close cascade        (ch3-close)            24 motifs filling the page on a momentum curve
 //  - nhớ                      (closing-thesis)       reclaimed word as proof of thesis
 //
 // Delay values on ch3-close are tuned so each snippet starts ~when the
@@ -247,16 +389,30 @@ const TARGETS: HandwritingTarget[] = [
   { slotId: "ch3-open", className: "handwriting-parataxis-1", word: PARATAXIS_LINE_1, delay: 0.9 },
   { slotId: "ch3-open", className: "handwriting-parataxis-2", word: PARATAXIS_LINE_2, delay: 3.3 },
   { slotId: "ch3-fragment-stream", className: "handwriting-ours", word: OURS, delay: 1.8 },
-  { slotId: "ch3-close", className: "handwriting-close-dear-ma", word: CLOSE_DEAR_MA, delay: 0.5 },
-  { slotId: "ch3-close", className: "handwriting-close-little-dog", word: CLOSE_LITTLE_DOG, delay: 1.65 },
-  { slotId: "ch3-close", className: "handwriting-close-lan", word: CLOSE_LAN, delay: 2.55 },
-  { slotId: "ch3-close", className: "handwriting-close-monarchs", word: CLOSE_MONARCHS, delay: 3.05 },
-  { slotId: "ch3-close", className: "handwriting-close-hartford", word: CLOSE_HARTFORD, delay: 3.65 },
-  { slotId: "ch3-close", className: "handwriting-close-miss", word: CLOSE_I_MISS_YOU, delay: 4.2 },
-  { slotId: "ch3-close", className: "handwriting-close-us", word: CLOSE_US, delay: 4.8 },
-  { slotId: "ch3-close", className: "handwriting-close-remember", word: CLOSE_REMEMBER, delay: 5.15 },
-  { slotId: "ch3-close", className: "handwriting-close-still", word: CLOSE_STILL_HERE, delay: 5.9 },
-  { slotId: "ch3-close", className: "handwriting-close-again", word: CLOSE_AGAIN, delay: 6.95 },
+  { slotId: "ch3-close", className: "handwriting-close-dear-ma", word: CLOSE_DEAR_MA, delay: 0.4 },
+  { slotId: "ch3-close", className: "handwriting-close-little-dog", word: CLOSE_LITTLE_DOG, delay: 0.95 },
+  { slotId: "ch3-close", className: "handwriting-close-lan", word: CLOSE_LAN, delay: 1.4 },
+  { slotId: "ch3-close", className: "handwriting-close-memory", word: CLOSE_MEMORY, delay: 1.78 },
+  { slotId: "ch3-close", className: "handwriting-close-monarchs", word: CLOSE_MONARCHS, delay: 2.05 },
+  { slotId: "ch3-close", className: "handwriting-close-hartford", word: CLOSE_HARTFORD, delay: 2.28 },
+  { slotId: "ch3-close", className: "handwriting-close-beside", word: CLOSE_BESIDE, delay: 2.48 },
+  { slotId: "ch3-close", className: "handwriting-close-verge", word: CLOSE_VERGE, delay: 2.66 },
+  { slotId: "ch3-close", className: "handwriting-close-miss", word: CLOSE_I_MISS_YOU, delay: 2.85 },
+  { slotId: "ch3-close", className: "handwriting-close-blue-shawl", word: CLOSE_BLUE_SHAWL, delay: 3.02 },
+  { slotId: "ch3-close", className: "handwriting-close-inherit", word: CLOSE_INHERIT, delay: 3.18 },
+  { slotId: "ch3-close", className: "handwriting-close-broken-en", word: CLOSE_BROKEN_EN, delay: 3.34 },
+  { slotId: "ch3-close", className: "handwriting-close-us", word: CLOSE_US, delay: 3.5 },
+  { slotId: "ch3-close", className: "handwriting-close-remember", word: CLOSE_REMEMBER, delay: 3.66 },
+  { slotId: "ch3-close", className: "handwriting-close-saigon", word: CLOSE_SAIGON, delay: 3.84 },
+  { slotId: "ch3-close", className: "handwriting-close-being-hunted", word: CLOSE_BEING_HUNTED, delay: 4.03 },
+  { slotId: "ch3-close", className: "handwriting-close-year-monkey", word: CLOSE_YEAR_MONKEY, delay: 4.24 },
+  { slotId: "ch3-close", className: "handwriting-close-shipwreck", word: CLOSE_SHIPWRECK, delay: 4.48 },
+  { slotId: "ch3-close", className: "handwriting-close-green-apple", word: CLOSE_GREEN_APPLE, delay: 4.7 },
+  { slotId: "ch3-close", className: "handwriting-close-deemed", word: CLOSE_DEEMED, delay: 4.95 },
+  { slotId: "ch3-close", className: "handwriting-close-beloved", word: CLOSE_BELOVED, delay: 5.28 },
+  { slotId: "ch3-close", className: "handwriting-close-still", word: CLOSE_STILL_HERE, delay: 5.65 },
+  { slotId: "ch3-close", className: "handwriting-close-tenderness", word: CLOSE_TENDERNESS, delay: 6.05 },
+  { slotId: "ch3-close", className: "handwriting-close-again", word: CLOSE_AGAIN, delay: 6.55 },
   {
     slotId: "closing-thesis",
     className: "handwriting-nho",

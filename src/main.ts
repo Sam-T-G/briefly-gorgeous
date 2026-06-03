@@ -58,7 +58,7 @@ if (prefersReducedMotion()) {
   installAutoAdvance({
     triggerSlotIds: ["ch1-open", "ch3-open", "ch3-close"],
     delayMs: 2500,
-    delayOverridesMs: { "ch3-close": 9000 }
+    delayOverridesMs: { "ch3-close": 7800 }
   });
 }
 

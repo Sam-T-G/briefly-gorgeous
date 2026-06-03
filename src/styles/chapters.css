@@ -1459,90 +1459,213 @@
   opacity: 0.84;
 }
 
-/* ch3-close cascade — ten motifs scattered around the closing prose,
-   written one at a time on a momentum curve. Top zone sits above 42vh
-   and bottom zone below 20vh-from-bottom, leaving a clear band for the
-   center sentence "The letter ends where it began." */
+/* ch3-close cascade — 24 motifs scattered around the closing prose,
+   written one at a time on a momentum curve. Top zone (top: 2-38vh) and
+   bottom zone (bottom: 2-38vh) flank a clear center band (~40-58vh) where
+   the prose "The letter ends where it began" reads. Sizes tier by gravitas:
+   HEAVY (Dear Ma, Lan, deemed/beloved, tenderness) read first; medium
+   motifs anchor the middle; small notes sit as background detail. */
+
+/* HEAVY tier */
 .handwriting-close-dear-ma {
-  top: clamp(2rem, 11vh, 6rem);
-  left: clamp(1rem, 8vw, 5rem);
-  width: clamp(160px, 18vw, 240px);
-  height: clamp(50px, 6vw, 80px);
+  top: clamp(2rem, 4vh, 3.5rem);
+  left: clamp(1rem, 7vw, 4.5rem);
+  width: clamp(190px, 24vw, 320px);
+  height: clamp(56px, 7vw, 90px);
   transform: rotate(-3deg);
   transform-origin: center;
 }
-.handwriting-close-little-dog {
-  top: clamp(3rem, 16vh, 8rem);
-  right: clamp(1rem, 10vw, 6rem);
-  width: clamp(180px, 21vw, 270px);
-  height: clamp(40px, 5vw, 60px);
-  transform: rotate(2deg);
-  transform-origin: center;
-}
 .handwriting-close-lan {
-  top: clamp(7rem, 24vh, 12rem);
-  right: clamp(15%, 32vw, 38%);
-  width: clamp(70px, 8vw, 110px);
-  height: clamp(50px, 6vw, 80px);
+  top: clamp(7rem, 13vh, 9.5rem);
+  right: clamp(22%, 30vw, 36%);
+  width: clamp(100px, 12vw, 170px);
+  height: clamp(58px, 7vw, 92px);
   transform: rotate(-5deg);
   transform-origin: center;
 }
-.handwriting-close-monarchs {
-  top: clamp(10rem, 34vh, 18rem);
-  left: clamp(1rem, 10vw, 6rem);
+.handwriting-close-deemed {
+  bottom: clamp(15rem, 27vh, 18rem);
+  right: clamp(24%, 32vw, 38%);
+  width: clamp(180px, 22vw, 300px);
+  height: clamp(56px, 6.6vw, 88px);
+  transform: rotate(3deg);
+  transform-origin: center;
+}
+.handwriting-close-beloved {
+  bottom: clamp(11rem, 19vh, 13.5rem);
+  left: clamp(1rem, 7vw, 4.5rem);
+  width: clamp(190px, 23vw, 320px);
+  height: clamp(56px, 6.6vw, 88px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+.handwriting-close-tenderness {
+  bottom: clamp(3rem, 5vh, 4rem);
+  left: clamp(30%, 38vw, 42%);
+  width: clamp(220px, 26vw, 360px);
+  height: clamp(50px, 6.2vw, 80px);
+  transform: rotate(1deg);
+  transform-origin: center;
+}
+
+/* MEDIUM-HEAVY tier */
+.handwriting-close-little-dog {
+  top: clamp(3rem, 5.5vh, 4.5rem);
+  right: clamp(1rem, 7vw, 5rem);
+  width: clamp(180px, 21vw, 280px);
+  height: clamp(44px, 5.4vw, 68px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-verge {
+  top: clamp(20rem, 30vh, 22rem);
+  right: clamp(28%, 36vw, 40%);
   width: clamp(160px, 19vw, 240px);
+  height: clamp(46px, 5.6vw, 70px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-close-being-hunted {
+  bottom: clamp(22rem, 34vh, 24rem);
+  right: clamp(1rem, 7vw, 4.5rem);
+  width: clamp(200px, 24vw, 320px);
+  height: clamp(42px, 5.2vw, 66px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-year-monkey {
+  bottom: clamp(17rem, 25vh, 19rem);
+  right: clamp(1rem, 6vw, 4rem);
+  width: clamp(260px, 30vw, 420px);
+  height: clamp(42px, 5.2vw, 66px);
+  transform: rotate(-1deg);
+  transform-origin: center;
+}
+.handwriting-close-again {
+  bottom: clamp(3rem, 5vh, 4rem);
+  right: clamp(14%, 22vw, 26%);
+  width: clamp(130px, 15vw, 200px);
+  height: clamp(46px, 5.6vw, 70px);
+  transform: rotate(-5deg);
+  transform-origin: center;
+}
+
+/* MEDIUM tier */
+.handwriting-close-memory {
+  top: clamp(8rem, 14vh, 10rem);
+  left: clamp(28%, 35vw, 40%);
+  width: clamp(150px, 17vw, 220px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+.handwriting-close-monarchs {
+  top: clamp(13rem, 22vh, 15rem);
+  left: clamp(1rem, 7vw, 4.5rem);
+  width: clamp(150px, 17vw, 230px);
   height: clamp(38px, 4.6vw, 56px);
   transform: rotate(-2deg);
   transform-origin: center;
 }
 .handwriting-close-hartford {
-  top: clamp(9rem, 30vh, 16rem);
-  left: clamp(30%, 38vw, 44%);
-  width: clamp(140px, 17vw, 220px);
+  top: clamp(20rem, 30vh, 22rem);
+  left: clamp(2rem, 10vw, 7rem);
+  width: clamp(140px, 16vw, 210px);
   height: clamp(36px, 4.5vw, 54px);
   transform: rotate(3deg);
   transform-origin: center;
 }
+.handwriting-close-beside {
+  top: clamp(24rem, 36vh, 26rem);
+  left: clamp(30%, 38vw, 44%);
+  width: clamp(120px, 14vw, 180px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(1deg);
+  transform-origin: center;
+}
 .handwriting-close-miss {
-  top: clamp(11rem, 36vh, 19rem);
-  right: clamp(1rem, 11vw, 7rem);
+  top: clamp(16rem, 26vh, 18rem);
+  right: clamp(1rem, 7vw, 5rem);
   width: clamp(170px, 20vw, 250px);
   height: clamp(38px, 4.6vw, 56px);
   transform: rotate(2deg);
   transform-origin: center;
 }
-.handwriting-close-us {
-  bottom: clamp(12rem, 38vh, 20rem);
-  right: clamp(32%, 40vw, 46%);
-  width: clamp(54px, 6vw, 90px);
-  height: clamp(40px, 5vw, 64px);
-  transform: rotate(-4deg);
+.handwriting-close-inherit {
+  top: clamp(25rem, 37vh, 27rem);
+  right: clamp(1rem, 6vw, 4rem);
+  width: clamp(120px, 14vw, 180px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+.handwriting-close-broken-en {
+  bottom: clamp(28rem, 38vh, 30rem);
+  left: clamp(2rem, 10vw, 7rem);
+  width: clamp(200px, 24vw, 320px);
+  height: clamp(36px, 4.4vw, 54px);
+  transform: rotate(2deg);
   transform-origin: center;
 }
 .handwriting-close-remember {
-  bottom: clamp(9rem, 28vh, 15rem);
-  right: clamp(1rem, 11vw, 7rem);
+  bottom: clamp(20rem, 30vh, 22rem);
+  right: clamp(28%, 36vw, 42%);
   width: clamp(170px, 20vw, 250px);
   height: clamp(38px, 4.6vw, 56px);
   transform: rotate(-1deg);
   transform-origin: center;
 }
 .handwriting-close-still {
-  bottom: clamp(6rem, 21vh, 11rem);
-  left: clamp(2rem, 15vw, 9rem);
+  bottom: clamp(9rem, 14vh, 10.5rem);
+  left: clamp(2rem, 14vw, 8rem);
   width: clamp(160px, 19vw, 230px);
   height: clamp(36px, 4.5vw, 54px);
+  transform: rotate(3deg);
+  transform-origin: center;
+}
+
+/* SMALL tier (background notes) */
+.handwriting-close-us {
+  bottom: clamp(14rem, 22vh, 16rem);
+  right: clamp(30%, 38vw, 44%);
+  width: clamp(50px, 6vw, 90px);
+  height: clamp(34px, 4vw, 50px);
+  transform: rotate(-4deg);
+  transform-origin: center;
+}
+.handwriting-close-blue-shawl {
+  top: clamp(27rem, 38vh, 29rem);
+  left: clamp(2rem, 14vw, 8rem);
+  width: clamp(130px, 15vw, 200px);
+  height: clamp(32px, 3.9vw, 48px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-close-saigon {
+  top: clamp(4.5rem, 9vh, 6rem);
+  right: clamp(26%, 36vw, 42%);
+  width: clamp(90px, 11vw, 150px);
+  height: clamp(32px, 3.9vw, 48px);
   transform: rotate(2deg);
   transform-origin: center;
 }
-.handwriting-close-again {
-  bottom: clamp(3rem, 13vh, 7rem);
-  right: clamp(20%, 30vw, 36%);
-  width: clamp(100px, 12vw, 160px);
-  height: clamp(38px, 4.6vw, 58px);
-  transform: rotate(-6deg);
+.handwriting-close-shipwreck {
+  bottom: clamp(13rem, 20vh, 14.5rem);
+  left: clamp(30%, 38vw, 42%);
+  width: clamp(130px, 15vw, 200px);
+  height: clamp(34px, 4vw, 50px);
+  transform: rotate(-2deg);
   transform-origin: center;
 }
+.handwriting-close-green-apple {
+  top: clamp(31rem, 42vh, 33rem);
+  right: clamp(14%, 24vw, 28%);
+  width: clamp(140px, 16vw, 210px);
+  height: clamp(32px, 3.9vw, 48px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+
 .handwriting-close-dear-ma .handwriting-text,
 .handwriting-close-little-dog .handwriting-text,
 .handwriting-close-lan .handwriting-text,
@@ -1552,8 +1675,24 @@
 .handwriting-close-us .handwriting-text,
 .handwriting-close-remember .handwriting-text,
 .handwriting-close-still .handwriting-text,
-.handwriting-close-again .handwriting-text {
-  opacity: 0.86;
+.handwriting-close-again .handwriting-text,
+.handwriting-close-deemed .handwriting-text,
+.handwriting-close-beloved .handwriting-text,
+.handwriting-close-tenderness .handwriting-text,
+.handwriting-close-being-hunted .handwriting-text,
+.handwriting-close-year-monkey .handwriting-text,
+.handwriting-close-verge .handwriting-text,
+.handwriting-close-memory .handwriting-text,
+.handwriting-close-beside .handwriting-text,
+.handwriting-close-inherit .handwriting-text,
+.handwriting-close-broken-en .handwriting-text {
+  opacity: 0.88;
+}
+.handwriting-close-green-apple .handwriting-text,
+.handwriting-close-blue-shawl .handwriting-text,
+.handwriting-close-shipwreck .handwriting-text,
+.handwriting-close-saigon .handwriting-text {
+  opacity: 0.72;
 }
 
 /* nhớ — signature flourish on the CHALLENGE clause */
@@ -1617,25 +1756,25 @@
   .handwriting-parataxis-2 {
     bottom: clamp(4rem, 10vh, 5rem);
   }
-  /* ch3-close cascade: pack tighter and clip a few of the marginal ones
-     so the mobile slot doesn't get visually overloaded. */
+  /* ch3-close cascade on mobile: keep the highest-gravitas snippets,
+     drop the small background notes so the slot doesn't visually overload. */
   .handwriting-close-dear-ma {
-    top: 2rem;
+    top: 1.5rem;
     left: 0.75rem;
-    width: 130px;
-    height: 44px;
+    width: 150px;
+    height: 50px;
   }
   .handwriting-close-little-dog {
-    top: 4rem;
+    top: 3.5rem;
     right: 0.75rem;
     width: 140px;
     height: 36px;
   }
   .handwriting-close-lan {
-    top: 8rem;
-    right: 38%;
-    width: 56px;
-    height: 44px;
+    top: 7rem;
+    right: 36%;
+    width: 70px;
+    height: 50px;
   }
   .handwriting-close-monarchs {
     top: 11rem;
@@ -1649,29 +1788,76 @@
     width: 120px;
     height: 32px;
   }
-  .handwriting-close-miss {
-    display: none;
+  .handwriting-close-memory {
+    top: 17rem;
+    left: 38%;
+    width: 110px;
+    height: 32px;
   }
-  .handwriting-close-us {
-    display: none;
+  .handwriting-close-verge {
+    top: 20rem;
+    right: 0.75rem;
+    width: 130px;
+    height: 36px;
+  }
+  .handwriting-close-deemed {
+    bottom: 18rem;
+    right: 0.75rem;
+    width: 150px;
+    height: 50px;
+  }
+  .handwriting-close-beloved {
+    bottom: 14rem;
+    left: 0.75rem;
+    width: 150px;
+    height: 50px;
+  }
+  .handwriting-close-being-hunted {
+    bottom: 22rem;
+    left: 0.75rem;
+    width: 160px;
+    height: 36px;
+  }
+  .handwriting-close-year-monkey {
+    bottom: 11rem;
+    right: 0.5rem;
+    width: 200px;
+    height: 36px;
   }
   .handwriting-close-remember {
-    bottom: 9rem;
-    right: 0.75rem;
+    bottom: 8rem;
+    left: 0.75rem;
     width: 130px;
     height: 32px;
   }
   .handwriting-close-still {
-    bottom: 5.5rem;
-    left: 0.75rem;
+    bottom: 5rem;
+    right: 0.75rem;
     width: 120px;
     height: 32px;
   }
+  .handwriting-close-tenderness {
+    bottom: 2rem;
+    left: 0.75rem;
+    width: 170px;
+    height: 40px;
+  }
   .handwriting-close-again {
     bottom: 2rem;
-    right: 28%;
-    width: 80px;
-    height: 32px;
+    right: 0.75rem;
+    width: 90px;
+    height: 36px;
+  }
+  .handwriting-close-miss,
+  .handwriting-close-beside,
+  .handwriting-close-inherit,
+  .handwriting-close-broken-en,
+  .handwriting-close-us,
+  .handwriting-close-blue-shawl,
+  .handwriting-close-saigon,
+  .handwriting-close-shipwreck,
+  .handwriting-close-green-apple {
+    display: none;
   }
 }
 
