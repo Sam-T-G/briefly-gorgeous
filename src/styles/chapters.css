@@ -1093,21 +1093,32 @@
 .motif-thread-underline-path {
   fill: none;
   stroke: var(--gorgeous-ember, #b47148);
-  stroke-width: 1.4;
   stroke-linecap: round;
+  stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-  opacity: 0.78;
+  opacity: 0.8;
 }
-.motif-thread[data-motif="seen"] .motif-thread-underline-path,
-.motif-thread[data-motif="reads"] .motif-thread-underline-path,
-.motif-thread[data-motif="read"] .motif-thread-underline-path,
-.motif-thread[data-motif="reading"] .motif-thread-underline-path {
+.motif-thread[data-shape="swoosh"] .motif-thread-underline {
+  height: 0.45em;
+  bottom: -0.06em;
+}
+.motif-thread[data-shape="swoosh"] .motif-thread-underline-path {
+  opacity: 0.92;
+}
+.motif-thread[data-shape="straight"] .motif-thread-underline {
+  height: 0.22em;
+}
+.motif-thread[data-shape="straight"] .motif-thread-underline-path {
+  opacity: 0.95;
+}
+.motif-thread[data-shape="lyrical"] .motif-thread-underline {
+  height: 0.38em;
+}
+.motif-thread[data-shape="lyrical"] .motif-thread-underline-path {
   opacity: 0.82;
 }
-.motif-thread[data-motif="hunted"] .motif-thread-underline-path,
-.motif-thread[data-motif="deemed"] .motif-thread-underline-path {
-  opacity: 0.9;
-  stroke-width: 1.6;
+.motif-thread[data-shape="wavery"] .motif-thread-underline-path {
+  opacity: 0.78;
 }
 
 :root[data-motion="reduced"] .letter-spine-path,
