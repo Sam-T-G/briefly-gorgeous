@@ -338,31 +338,32 @@ function installLensPanel(master: gsap.core.Tween): void {
   const lensItems = Array.from(panel.querySelectorAll(".lens-item")) as HTMLElement[];
   const analysis = panel.querySelector(".analysis") as HTMLElement | null;
 
+  const cards: HTMLElement[] = [...lensItems];
+  if (analysis) cards.push(analysis);
+
   if (setup) gsap.set(setup, { opacity: 0, y: 18 });
-  gsap.set(lensItems, { opacity: 0, y: 36, x: 28 });
-  if (analysis) gsap.set(analysis, { opacity: 0, y: 18 });
+  gsap.set(cards, { opacity: 0, y: 36, x: 28 });
 
   const tl = panelTimeline(panel, master);
 
-  // ENTER (0 → 0.55)
+  // ENTER (0 → 0.55): three cards stagger in across the row so scroll reveals them together
   if (setup) tl.to(setup, { opacity: 0.78, y: 0, duration: 0.12, ease: "power2.out" }, 0.05);
-  tl.to(lensItems, {
-    opacity: 0.92, y: 0, x: 0,
-    stagger: 0.14, duration: 0.22, ease: "power2.out"
-  }, 0.15);
-  if (analysis) tl.to(analysis, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, 0.5);
+  tl.to(cards, {
+    opacity: 1, y: 0, x: 0,
+    stagger: 0.11, duration: 0.24, ease: "power2.out"
+  }, 0.12);
 
-  // FOCAL (0.55 → 0.72): asymmetric drift on the two cards — quiet motion that reads as comparison
+  // FOCAL (0.58 → 0.72): asymmetric drift — outer cards lean out, center holds
   if (lensItems.length >= 2) {
     const first = lensItems[0]!;
     const second = lensItems[1]!;
-    tl.to(first, { x: -10, duration: 0.18, ease: "none" }, 0.55);
-    tl.to(second, { x: 10, duration: 0.18, ease: "none" }, 0.55);
+    tl.to(first, { x: -8, duration: 0.16, ease: "none" }, 0.58);
+    if (analysis) tl.to(analysis, { x: 8, duration: 0.16, ease: "none" }, 0.58);
+    tl.to(second, { y: -3, duration: 0.18, ease: "power2.inOut" }, 0.58);
   }
 
   // EXIT (0.78 → 1)
-  const exitTargets = [setup, ...lensItems, analysis]
-    .filter((el): el is HTMLElement => el !== null);
+  const exitTargets = [setup, ...cards].filter((el): el is HTMLElement => el !== null);
   tl.to(exitTargets, {
     x: () => -panel.clientWidth * 0.05,
     opacity: 0.2, duration: 0.25, ease: "power2.in"
