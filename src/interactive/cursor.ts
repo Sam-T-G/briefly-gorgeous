@@ -6,7 +6,11 @@ const ACCENT_TARGETS: AccentSpec[] = [
   { selector: ".deemed-target", cssVar: "--majoritarian-graphite", scale: 3.2 },
   { selector: ".gorgeous-target", cssVar: "--gorgeous-ember", scale: 3.6 },
   { selector: ".allows-target", cssVar: "--hunted-rust", scale: 3.2 },
-  { selector: ".verge-seen-h", cssVar: "--gorgeous-ember", scale: 3.4 }
+  { selector: ".verge-seen-h", cssVar: "--gorgeous-ember", scale: 3.4 },
+  { selector: ".cinnamon-target", cssVar: "--errant-cinnamon", scale: 3.2 },
+  { selector: ".cinnamon-fragment", cssVar: "--errant-cinnamon", scale: 2.8 },
+  { selector: ".blond-fragment", cssVar: "--late-tobacco", scale: 2.8 },
+  { selector: ".verdict-target", cssVar: "--verdict", scale: 3.6 }
 ];
 
 export function installCursor(): void {

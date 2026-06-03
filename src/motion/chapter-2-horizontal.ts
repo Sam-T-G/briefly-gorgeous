@@ -84,14 +84,14 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
   section.insertBefore(sun, track);
 
   gsap.set(section, {
-    "--ch2-sky-top": "#8B6F5F",
-    "--ch2-sky-mid": "#C49371",
-    "--ch2-sky-bottom": "#E2B080",
-    "--ch2-sun-core": "#FFD080",
-    "--ch2-afterglow": "rgba(255, 200, 130, 0.25)"
+    "--ch2-sky-top": "#C7D0D6",
+    "--ch2-sky-mid": "#F0E5D0",
+    "--ch2-sky-bottom": "#F6F2EA",
+    "--ch2-sun-core": "#F2DCAD",
+    "--ch2-afterglow": "rgba(248, 215, 168, 0)"
   });
-  gsap.set(sun, { y: "-18vh", scale: 0.85, opacity: 0.55 });
-  gsap.set(afterglow, { opacity: 0.25 });
+  gsap.set(sun, { y: "-18vh", scale: 0.85, opacity: 0.35 });
+  gsap.set(afterglow, { opacity: 0 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -104,59 +104,58 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
   });
 
   tl.to(section, {
-    "--ch2-sky-top": "#6F4A48",
-    "--ch2-sky-mid": "#C26D44",
-    "--ch2-sky-bottom": "#E89858",
-    "--ch2-sun-core": "#FFB050",
-    "--ch2-afterglow": "rgba(255, 168, 90, 0.55)",
+    "--ch2-sky-top": "#D4B89C",
+    "--ch2-sky-mid": "#EBD4A8",
+    "--ch2-sky-bottom": "#F4E8D0",
+    "--ch2-sun-core": "#FBC97A",
     duration: 1, ease: "power1.inOut"
   }, 0);
-  tl.to(sun, { y: "-8vh", scale: 0.95, opacity: 0.75, duration: 1, ease: "power1.inOut" }, 0);
-  tl.to(afterglow, { opacity: 0.5, duration: 1, ease: "power1.inOut" }, 0);
+  tl.to(sun, { y: "-8vh", scale: 0.95, opacity: 0.6, duration: 1, ease: "power1.inOut" }, 0);
+  tl.to(afterglow, { opacity: 0.15, duration: 1, ease: "power1.inOut" }, 0);
 
   tl.to(section, {
-    "--ch2-sky-top": "#4A2B3E",
-    "--ch2-sky-mid": "#B04E2A",
-    "--ch2-sky-bottom": "#E27C3A",
-    "--ch2-sun-core": "#FF7A28",
-    "--ch2-afterglow": "rgba(245, 110, 50, 0.75)",
+    "--ch2-sky-top": "#C6907A",
+    "--ch2-sky-mid": "#EBB283",
+    "--ch2-sky-bottom": "#F4D2A8",
+    "--ch2-sun-core": "#FBA86A",
+    "--ch2-afterglow": "rgba(248, 168, 110, 0.45)",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "8vh", scale: 1.1, opacity: 0.95, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.75, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { y: "4vh", scale: 1.05, opacity: 0.8, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.4, duration: 1, ease: "power1.inOut" }, "<");
 
   tl.to(section, {
-    "--ch2-sky-top": "#2E2236",
-    "--ch2-sky-mid": "#8A3622",
-    "--ch2-sky-bottom": "#C25530",
-    "--ch2-sun-core": "#E04F1A",
-    "--ch2-afterglow": "rgba(220, 80, 30, 0.8)",
+    "--ch2-sky-top": "#A86F5C",
+    "--ch2-sky-mid": "#E69E70",
+    "--ch2-sky-bottom": "#F0C28E",
+    "--ch2-sun-core": "#F88B45",
+    "--ch2-afterglow": "rgba(248, 130, 70, 0.7)",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "22vh", scale: 1.18, opacity: 0.85, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.85, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { y: "16vh", scale: 1.15, opacity: 0.95, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.65, duration: 1, ease: "power1.inOut" }, "<");
 
   tl.to(section, {
-    "--ch2-sky-top": "#1F1A28",
-    "--ch2-sky-mid": "#5C2A24",
-    "--ch2-sky-bottom": "#963C26",
-    "--ch2-sun-core": "#B83A18",
-    "--ch2-afterglow": "rgba(180, 60, 30, 0.7)",
+    "--ch2-sky-top": "#B5836B",
+    "--ch2-sky-mid": "#E8B583",
+    "--ch2-sky-bottom": "#EBCEA8",
+    "--ch2-sun-core": "#DB6F2A",
+    "--ch2-afterglow": "rgba(220, 110, 60, 0.55)",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "34vh", scale: 1.05, opacity: 0.55, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.6, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { y: "28vh", scale: 1.05, opacity: 0.6, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.55, duration: 1, ease: "power1.inOut" }, "<");
 
   tl.to(section, {
-    "--ch2-sky-top": "#14121C",
-    "--ch2-sky-mid": "#3A2226",
-    "--ch2-sky-bottom": "#5E2C24",
-    "--ch2-sun-core": "#7A2418",
-    "--ch2-afterglow": "rgba(120, 40, 20, 0.4)",
+    "--ch2-sky-top": "#D4C0AA",
+    "--ch2-sky-mid": "#EDE0C8",
+    "--ch2-sky-bottom": "#F6F1E6",
+    "--ch2-sun-core": "#C25C28",
+    "--ch2-afterglow": "rgba(220, 130, 80, 0.2)",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "48vh", scale: 0.92, opacity: 0, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.3, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { y: "42vh", scale: 0.95, opacity: 0, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.15, duration: 1, ease: "power1.inOut" }, "<");
 }
 
 function decorateOpenPanel(): void {
