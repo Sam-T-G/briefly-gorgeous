@@ -128,7 +128,6 @@ function installVerbEchoReveal(): void {
         }
         if (recall) {
           tl.to(recall, { opacity: 1, y: 0, duration: 0.55, ease: "editorial" }, "-=0.3");
-          tl.to(recall, { opacity: 0, duration: 0.55, ease: "editorial" }, "+=0.95");
         }
       });
       const verbs = slot.querySelectorAll<HTMLElement>(".verb-echo-verb");

@@ -87,6 +87,30 @@ const NHO: ScriptWord = {
   duration: 1.6
 };
 
+// Two-line definition that appears below the Chapter 3 / Parataxis title,
+// written like a margin gloss the speaker adds in the moment.
+const PARATAXIS_LINE_1: ScriptWord = {
+  text: "clauses set side by side,",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 560 80",
+  fontSize: 52,
+  yBaseline: 56,
+  xStart: 6,
+  duration: 2.1
+};
+
+const PARATAXIS_LINE_2: ScriptWord = {
+  text: "no clause ruling another",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 560 80",
+  fontSize: 52,
+  yBaseline: 56,
+  xStart: 6,
+  duration: 2.0
+};
+
 type HandwritingTarget = {
   slotId: string;
   className: string;
@@ -96,18 +120,21 @@ type HandwritingTarget = {
   hostSelector?: string;
 };
 
-// Six-moment arc across the talk:
-//  - lets begin again  (opening-landing)    Vuong's own letter-restart phrase
-//  - Dear Ma           (opening-frame)      establishes the letter form
-//  - Má                (ch1-verdict)        mother named at the verdict
-//  - for Trevor —      (ch2-verge)          silent second addressee
-//  - ours              (ch3-fragment-stream) speaker claiming kinship in bilingual line
-//  - nhớ               (closing-thesis)     reclaimed word as proof of thesis
+// Arc across the talk:
+//  - lets begin again         (opening-landing)      letter-restart phrase
+//  - Dear Ma                  (opening-frame)        establishes the letter form
+//  - Má                       (ch1-verdict)          mother named at the verdict
+//  - for Trevor —             (ch2-verge)            silent second addressee
+//  - parataxis definition     (ch3-open)             two-line margin gloss under the chapter title
+//  - ours                     (ch3-fragment-stream)  speaker claiming kinship in bilingual line
+//  - nhớ                      (closing-thesis)       reclaimed word as proof of thesis
 const TARGETS: HandwritingTarget[] = [
   { slotId: "opening-landing", className: "handwriting-begin", word: LETS_BEGIN_AGAIN, delay: 0.4 },
   { slotId: "opening-frame", className: "handwriting-dearma", word: DEAR_MA, delay: 0.9 },
   { slotId: "ch1-verdict", className: "handwriting-ma", word: MA, delay: 2.4 },
   { slotId: "ch2-verge", className: "handwriting-trevor", word: FOR_TREVOR, delay: 1.1 },
+  { slotId: "ch3-open", className: "handwriting-parataxis-1", word: PARATAXIS_LINE_1, delay: 0.9 },
+  { slotId: "ch3-open", className: "handwriting-parataxis-2", word: PARATAXIS_LINE_2, delay: 3.3 },
   { slotId: "ch3-fragment-stream", className: "handwriting-ours", word: OURS, delay: 1.8 },
   {
     slotId: "closing-thesis",

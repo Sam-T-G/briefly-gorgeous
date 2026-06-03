@@ -1169,9 +1169,31 @@
   will-change: transform, opacity;
 }
 @media (max-width: 720px) {
+  .slot[data-type="verb-echo"] .slot-inner:has(.verb-echo-cinematic) {
+    text-align: center;
+  }
   .verb-echo-cinematic {
     grid-template-columns: 1fr;
-    gap: clamp(1.5rem, 6vw, 2.25rem);
+    gap: clamp(1.9rem, 6vw, 2.4rem);
+  }
+  .verb-echo-cinematic .verb-echo-item {
+    gap: 0.45rem;
+  }
+  .verb-echo-verb {
+    font-size: clamp(1.55rem, 7vw, 2.15rem);
+    letter-spacing: 0.04em;
+  }
+  .verb-echo-recall {
+    min-height: 0;
+    max-width: 30ch;
+    margin-inline: auto;
+  }
+  .verb-echo-recall-quote {
+    font-size: clamp(0.95rem, 3.3vw, 1.05rem);
+    line-height: 1.4;
+  }
+  .verb-echo-recall-cite {
+    font-size: 0.7rem;
   }
 }
 
@@ -1267,14 +1289,27 @@
   will-change: transform, opacity;
 }
 @media (max-width: 640px) {
+  .slot#closing-thesis .slot-inner:has(.thesis-trio) {
+    max-width: 100%;
+  }
+  .thesis-trio {
+    gap: clamp(1.6rem, 5vw, 2.1rem);
+  }
   .thesis-clause-block {
     padding-inline-start: 0;
-    padding-top: 1.4rem;
+    padding-top: 0;
+    border-left: 2px solid rgba(180, 113, 72, 0.35);
+    padding-left: 0.9rem;
   }
   .thesis-verb-label {
     position: static;
     display: block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.45rem;
+    font-size: 0.72rem;
+  }
+  .thesis-trio .thesis-clause {
+    font-size: clamp(1rem, 3.8vw, 1.15rem);
+    line-height: 1.55;
   }
 }
 
@@ -1316,6 +1351,7 @@
 .slot#opening-frame,
 .slot#ch1-verdict,
 .slot#ch2-verge,
+.slot#ch3-open,
 .slot#ch3-fragment-stream {
   position: relative;
 }
@@ -1397,6 +1433,27 @@
   opacity: 0.82;
 }
 
+/* parataxis definition — two-line margin gloss below the Chapter 3 title */
+.handwriting-parataxis-1,
+.handwriting-parataxis-2 {
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  transform-origin: center;
+  width: clamp(280px, 38vw, 460px);
+  height: clamp(36px, 4.6vw, 56px);
+}
+.handwriting-parataxis-1 {
+  bottom: clamp(7rem, 18vh, 11rem);
+}
+.handwriting-parataxis-2 {
+  bottom: clamp(3rem, 11vh, 7rem);
+  transform: translateX(-50%) rotate(1deg);
+}
+.handwriting-parataxis-1 .handwriting-text,
+.handwriting-parataxis-2 .handwriting-text {
+  opacity: 0.84;
+}
+
 /* nhớ — signature flourish on the CHALLENGE clause */
 .handwriting-nho {
   right: clamp(0.5rem, 2vw, 1.5rem);
@@ -1446,6 +1503,17 @@
     bottom: -3rem;
     width: 130px;
     height: 75px;
+  }
+  .handwriting-parataxis-1,
+  .handwriting-parataxis-2 {
+    width: clamp(220px, 76vw, 320px);
+    height: clamp(32px, 8vw, 44px);
+  }
+  .handwriting-parataxis-1 {
+    bottom: clamp(6rem, 16vh, 8rem);
+  }
+  .handwriting-parataxis-2 {
+    bottom: clamp(2.5rem, 8vh, 4.5rem);
   }
 }
 
