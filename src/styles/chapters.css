@@ -1459,12 +1459,26 @@
   opacity: 0.84;
 }
 
+/* ch3-close: slim framed box around the closing prose. The box has an
+   opaque porcelain background that visually masks any handwriting that
+   passes behind it, so the closing sentence stays cleanly readable even
+   as the surrounding cascade fills the slot. z-index sits above the
+   .handwriting layer (z-index: 3). */
+.slot#ch3-close .slot-inner {
+  position: relative;
+  z-index: 4;
+  max-width: min(30rem, 86vw);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem) clamp(2rem, 4.5vw, 3rem);
+  background: var(--bg);
+  border: 1px solid rgba(58, 44, 34, 0.22);
+}
+
 /* ch3-close cascade — 24 motifs scattered around the closing prose,
    written one at a time on a momentum curve. Top zone (top: 2-38vh) and
    bottom zone (bottom: 2-38vh) flank a clear center band (~40-58vh) where
-   the prose "The letter ends where it began" reads. Sizes tier by gravitas:
-   HEAVY (Dear Ma, Lan, deemed/beloved, tenderness) read first; medium
-   motifs anchor the middle; small notes sit as background detail. */
+   the framed prose "The letter ends where it began" reads. Sizes tier by
+   gravitas: HEAVY (Dear Ma, Lan, deemed/beloved, tenderness) read first;
+   medium motifs anchor the middle; small notes sit as background detail. */
 
 /* HEAVY tier */
 .handwriting-close-dear-ma {
@@ -1484,8 +1498,8 @@
   transform-origin: center;
 }
 .handwriting-close-deemed {
-  bottom: clamp(15rem, 27vh, 18rem);
-  right: clamp(24%, 32vw, 38%);
+  bottom: clamp(18rem, 30vh, 20rem);
+  right: clamp(20%, 28vw, 32%);
   width: clamp(180px, 22vw, 300px);
   height: clamp(56px, 6.6vw, 88px);
   transform: rotate(3deg);
@@ -1518,8 +1532,8 @@
   transform-origin: center;
 }
 .handwriting-close-verge {
-  top: clamp(20rem, 30vh, 22rem);
-  right: clamp(28%, 36vw, 40%);
+  top: clamp(16rem, 24vh, 18rem);
+  right: clamp(12%, 22vw, 26%);
   width: clamp(160px, 19vw, 240px);
   height: clamp(46px, 5.6vw, 70px);
   transform: rotate(-3deg);
@@ -1576,8 +1590,8 @@
   transform-origin: center;
 }
 .handwriting-close-beside {
-  top: clamp(24rem, 36vh, 26rem);
-  left: clamp(30%, 38vw, 44%);
+  top: clamp(15rem, 23vh, 17rem);
+  left: clamp(14%, 22vw, 26%);
   width: clamp(120px, 14vw, 180px);
   height: clamp(38px, 4.6vw, 56px);
   transform: rotate(1deg);
@@ -1608,8 +1622,8 @@
   transform-origin: center;
 }
 .handwriting-close-remember {
-  bottom: clamp(20rem, 30vh, 22rem);
-  right: clamp(28%, 36vw, 42%);
+  bottom: clamp(24rem, 34vh, 26rem);
+  right: clamp(16%, 24vw, 28%);
   width: clamp(170px, 20vw, 250px);
   height: clamp(38px, 4.6vw, 56px);
   transform: rotate(-1deg);
@@ -1626,8 +1640,8 @@
 
 /* SMALL tier (background notes) */
 .handwriting-close-us {
-  bottom: clamp(14rem, 22vh, 16rem);
-  right: clamp(30%, 38vw, 44%);
+  bottom: clamp(20rem, 28vh, 22rem);
+  right: clamp(14%, 22vw, 26%);
   width: clamp(50px, 6vw, 90px);
   height: clamp(34px, 4vw, 50px);
   transform: rotate(-4deg);
@@ -1650,8 +1664,8 @@
   transform-origin: center;
 }
 .handwriting-close-shipwreck {
-  bottom: clamp(13rem, 20vh, 14.5rem);
-  left: clamp(30%, 38vw, 42%);
+  bottom: clamp(16rem, 24vh, 17.5rem);
+  left: clamp(14%, 22vw, 26%);
   width: clamp(130px, 15vw, 200px);
   height: clamp(34px, 4vw, 50px);
   transform: rotate(-2deg);
