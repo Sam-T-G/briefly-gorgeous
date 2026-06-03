@@ -114,6 +114,20 @@ function decorateFrame(): void {
   const inner = slot.querySelector<HTMLElement>(".slot-inner");
   if (!inner) return;
   inner.classList.add("intro-frame-prose");
+  if (slot.querySelector(".intro-frame-margin")) return;
+
+  const margin = document.createElement("div");
+  margin.className = "intro-frame-margin";
+  margin.setAttribute("aria-hidden", "true");
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("viewBox", "0 0 2 100");
+  svg.setAttribute("preserveAspectRatio", "none");
+  const path = document.createElementNS(SVG_NS, "path");
+  path.setAttribute("d", "M1,0 L1,100");
+  path.setAttribute("class", "intro-frame-margin-path");
+  svg.appendChild(path);
+  margin.appendChild(svg);
+  inner.insertBefore(margin, inner.firstChild);
 }
 
 function decorateMotif(): void {
@@ -364,27 +378,31 @@ function installFrameReveal(): void {
   if (!slot) return;
   const paragraphs = slot.querySelectorAll<HTMLElement>(".transition-paragraph");
   if (paragraphs.length === 0) return;
+  const marginPath = slot.querySelector(".intro-frame-margin-path");
 
   const allWords: Element[] = [];
   paragraphs.forEach((p) => {
-    const split = new SplitText(p, { type: "words,lines", wordsClass: "intro-frame-word" });
+    const split = new SplitText(p, { type: "words", wordsClass: "intro-frame-word" });
     allWords.push(...split.words);
   });
-  gsap.set(allWords, { opacity: 0, y: 10 });
+  gsap.set(allWords, { opacity: 0, y: 8 });
   gsap.set(paragraphs, { opacity: 1 });
+  if (marginPath) gsap.set(marginPath, { drawSVG: "0% 0%" });
 
   ScrollTrigger.create({
     trigger: slot,
     start: "top 72%",
     once: true,
     onEnter: () => {
-      gsap.to(allWords, {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: "editorial",
-        stagger: 0.025
-      });
+      const tl = gsap.timeline();
+      if (marginPath) {
+        tl.to(marginPath, { drawSVG: "0% 100%", duration: 1.4, ease: "power2.inOut" });
+      }
+      tl.to(
+        allWords,
+        { opacity: 1, y: 0, duration: 0.7, ease: "editorial", stagger: 0.025 },
+        "-=1.2"
+      );
     }
   });
 }

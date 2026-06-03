@@ -910,13 +910,42 @@
   position: relative;
 }
 
-/* opening-frame — single paragraph wash */
-.intro-frame-prose {
+/* opening-frame — single paragraph wash, letter-passage layout */
+.slot#opening-frame .slot-inner.intro-frame-prose {
+  text-align: left;
+  font-style: normal;
+  max-width: min(40rem, 86vw);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.65;
+  padding-inline-start: clamp(1.25rem, 3vw, 2rem);
   position: relative;
 }
+.slot#opening-frame .transition-paragraph {
+  margin: 0;
+}
+.intro-frame-margin {
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  bottom: 0.25em;
+  width: 2px;
+  pointer-events: none;
+}
+.intro-frame-margin svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.intro-frame-margin-path {
+  fill: none;
+  stroke: var(--gorgeous-ember, #b47148);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.7;
+}
 .intro-frame-word {
-  display: inline-block;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 /* opening-motif — predator/prey arc traced by a dot */
