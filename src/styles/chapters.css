@@ -1312,6 +1312,14 @@
 
 /* ===== Handwriting overlays — real cursive font, mask-revealed left-to-right ===== */
 
+.slot#opening-landing,
+.slot#opening-frame,
+.slot#ch1-verdict,
+.slot#ch2-verge,
+.slot#ch3-fragment-stream {
+  position: relative;
+}
+
 .handwriting {
   position: absolute;
   pointer-events: none;
@@ -1330,6 +1338,65 @@
   paint-order: fill;
 }
 
+/* lets begin again — Vuong's restart phrase, top-left of the title slot */
+.handwriting-begin {
+  top: clamp(3rem, 8vh, 6rem);
+  left: clamp(1rem, 6vw, 4rem);
+  width: clamp(220px, 28vw, 360px);
+  height: clamp(40px, 5vw, 64px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+.handwriting-begin .handwriting-text {
+  opacity: 0.82;
+}
+
+/* Dear Ma — letter-form salutation on opening-frame */
+.handwriting-dearma {
+  top: clamp(2.5rem, 7vh, 5rem);
+  left: clamp(1rem, 5vw, 3.5rem);
+  width: clamp(170px, 21vw, 260px);
+  height: clamp(58px, 7vw, 88px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+
+/* Má — Vietnamese mother, beside the verdict line */
+.handwriting-ma {
+  right: clamp(1rem, 5vw, 4rem);
+  bottom: clamp(3rem, 8vh, 6rem);
+  width: clamp(80px, 10vw, 130px);
+  height: clamp(64px, 8vw, 100px);
+  transform: rotate(-4deg);
+  transform-origin: center;
+}
+
+/* for Trevor — marginal dedication on ch2-verge */
+.handwriting-trevor {
+  right: clamp(1rem, 4vw, 3.5rem);
+  bottom: clamp(2rem, 5vh, 4rem);
+  width: clamp(180px, 22vw, 270px);
+  height: clamp(46px, 5.6vw, 70px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-trevor .handwriting-text {
+  opacity: 0.86;
+}
+
+/* ours — speaker claiming kinship beside bilingual fragments */
+.handwriting-ours {
+  right: clamp(1rem, 4vw, 3rem);
+  bottom: clamp(2.5rem, 6vh, 4.5rem);
+  width: clamp(90px, 11vw, 140px);
+  height: clamp(36px, 4.5vw, 56px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-ours .handwriting-text {
+  opacity: 0.82;
+}
+
 /* nhớ — signature flourish on the CHALLENGE clause */
 .handwriting-nho {
   right: clamp(0.5rem, 2vw, 1.5rem);
@@ -1343,34 +1410,42 @@
   overflow: visible;
 }
 
-/* for Trevor — marginal dedication on ch2-verge */
-.slot#ch2-verge {
-  position: relative;
-}
-.handwriting-trevor {
-  right: clamp(1rem, 4vw, 3.5rem);
-  bottom: clamp(1.5rem, 4vh, 3rem);
-  width: clamp(180px, 22vw, 270px);
-  height: clamp(46px, 5.6vw, 70px);
-  transform: rotate(-3deg);
-  transform-origin: center;
-}
-.handwriting-trevor .handwriting-text {
-  opacity: 0.86;
-}
-
 @media (max-width: 720px) {
-  .handwriting-nho {
-    right: 0.25rem;
-    bottom: -3rem;
-    width: 130px;
-    height: 75px;
+  .handwriting-begin {
+    top: 2rem;
+    left: 0.75rem;
+    width: 180px;
+    height: 36px;
+  }
+  .handwriting-dearma {
+    top: 1.5rem;
+    left: 0.75rem;
+    width: 140px;
+    height: 50px;
+  }
+  .handwriting-ma {
+    right: 0.75rem;
+    bottom: 2rem;
+    width: 70px;
+    height: 60px;
   }
   .handwriting-trevor {
     right: 0.5rem;
     bottom: 1rem;
     width: 160px;
     height: 44px;
+  }
+  .handwriting-ours {
+    right: 0.5rem;
+    bottom: 1.5rem;
+    width: 80px;
+    height: 32px;
+  }
+  .handwriting-nho {
+    right: 0.25rem;
+    bottom: -3rem;
+    width: 130px;
+    height: 75px;
   }
 }
 
