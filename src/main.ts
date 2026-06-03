@@ -14,13 +14,13 @@ import { installHud } from "./nav/hud.js";
 
 import { refreshOnFontsReady } from "./util/refresh-on-fonts.js";
 
-import { animateOpening } from "./animation/opening.js";
 import { animateChapter3 } from "./animation/chapter-3.js";
 import { animateClosing } from "./animation/closing.js";
 import { animateBackground } from "./animation/background.js";
 
 import { initSmoother } from "./motion/smoother.js";
 import { installCursor } from "./interactive/cursor.js";
+import { installIntroImmersive } from "./motion/intro.js";
 import { installChapter1Immersive } from "./motion/chapter-1.js";
 import { installChapter2Horizontal } from "./motion/chapter-2-horizontal.js";
 
@@ -44,7 +44,7 @@ if (prefersReducedMotion()) {
   installHud();
   installCursor();
   animateBackground();
-  animateOpening();
+  installIntroImmersive();
   installChapter1Immersive();
   installChapter2Horizontal();
   animateChapter3();
