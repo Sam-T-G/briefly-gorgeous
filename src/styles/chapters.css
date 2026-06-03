@@ -1433,21 +1433,25 @@
   opacity: 0.82;
 }
 
-/* parataxis definition — two-line margin gloss below the Chapter 3 title */
+/* parataxis definition — two-line gloss centered below the Chapter 3 title.
+   Centered with margin:auto rather than translateX(-50%) so the GSAP opacity
+   tween on the host can't overwrite a transform-based centering. */
 .handwriting-parataxis-1,
 .handwriting-parataxis-2 {
-  left: 50%;
-  transform: translateX(-50%) rotate(-1.5deg);
-  transform-origin: center;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
   width: clamp(280px, 38vw, 460px);
   height: clamp(36px, 4.6vw, 56px);
+  transform-origin: center;
 }
 .handwriting-parataxis-1 {
-  bottom: clamp(7rem, 18vh, 11rem);
+  bottom: clamp(13rem, 30vh, 20rem);
+  transform: rotate(-1.5deg);
 }
 .handwriting-parataxis-2 {
-  bottom: clamp(3rem, 11vh, 7rem);
-  transform: translateX(-50%) rotate(1deg);
+  bottom: clamp(5rem, 14vh, 9rem);
+  transform: rotate(1deg);
 }
 .handwriting-parataxis-1 .handwriting-text,
 .handwriting-parataxis-2 .handwriting-text {
@@ -1510,10 +1514,10 @@
     height: clamp(32px, 8vw, 44px);
   }
   .handwriting-parataxis-1 {
-    bottom: clamp(6rem, 16vh, 8rem);
+    bottom: clamp(8rem, 22vh, 11rem);
   }
   .handwriting-parataxis-2 {
-    bottom: clamp(2.5rem, 8vh, 4.5rem);
+    bottom: clamp(3rem, 11vh, 5.5rem);
   }
 }
 
