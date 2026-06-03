@@ -1,6 +1,6 @@
 .hud {
   position: fixed;
-  inset: 0;
+  inset: 0 0 auto 0;
   z-index: 800;
   pointer-events: none;
   font-family: var(--display-stack);
@@ -40,13 +40,14 @@
 }
 
 .hud-dots {
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 1.25rem;
   transform: translateY(-50%);
   display: grid;
   gap: 0.875rem;
   pointer-events: auto;
+  z-index: 800;
 }
 .hud-dot {
   width: 8px;
