@@ -58,7 +58,13 @@ function show(state: HintState): void {
   const onScroll = (): void => {
     if (window.scrollY > SCROLL_DISMISS_PX) fade();
   };
-  const timer = window.setTimeout(fade, FADE_AFTER_MS);
+  // The F prompt stays put while the audience is still on the landing slot —
+  // they may linger there. Scrolling past the landing dismisses it.
+  // The ESC prompt is a brief in-fullscreen reminder, so it auto-fades.
+  const timer =
+    state === "exit-fullscreen"
+      ? window.setTimeout(fade, FADE_AFTER_MS)
+      : null;
 
   window.addEventListener("keydown", onKey, { capture: true });
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -66,7 +72,7 @@ function show(state: HintState): void {
   cleanup = (): void => {
     window.removeEventListener("keydown", onKey, { capture: true });
     window.removeEventListener("scroll", onScroll);
-    window.clearTimeout(timer);
+    if (timer !== null) window.clearTimeout(timer);
   };
 }
 
