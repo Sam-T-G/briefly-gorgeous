@@ -1,10 +1,8 @@
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import "../animation/ease.js";
 
 void DrawSVGPlugin;
-void ScrollTrigger;
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const MOTIF_PATTERN = /\b(seen|hunted|deemed|reads?|reading)\b/gi;
@@ -59,39 +57,7 @@ function getMotifKey(word: string): string {
 }
 
 export function installContinuityThreads(): void {
-  installLetterSpine();
   installMotifThreads();
-}
-
-function installLetterSpine(): void {
-  if (document.querySelector(".letter-spine")) return;
-
-  const spine = document.createElement("div");
-  spine.className = "letter-spine";
-  spine.setAttribute("aria-hidden", "true");
-
-  const svg = document.createElementNS(SVG_NS, "svg");
-  svg.setAttribute("viewBox", "0 0 2 1000");
-  svg.setAttribute("preserveAspectRatio", "none");
-
-  const path = document.createElementNS(SVG_NS, "path");
-  path.setAttribute("d", "M1,0 L1,1000");
-  path.setAttribute("class", "letter-spine-path");
-  svg.appendChild(path);
-  spine.appendChild(svg);
-  document.body.appendChild(spine);
-
-  gsap.set(path, { drawSVG: "0% 0%" });
-  gsap.to(path, {
-    drawSVG: "0% 100%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: document.documentElement,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 0.6
-    }
-  });
 }
 
 function installMotifThreads(): void {

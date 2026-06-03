@@ -1039,37 +1039,7 @@
   opacity: 0.6;
 }
 
-/* Continuity threads — letter spine + motif underlines */
-.letter-spine {
-  position: fixed;
-  left: clamp(0.75rem, 2.2vw, 1.75rem);
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.7;
-}
-.letter-spine svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-.letter-spine-path {
-  fill: none;
-  stroke: var(--gorgeous-ember, #b47148);
-  stroke-width: 1.1;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  opacity: 0.55;
-}
-@media (max-width: 640px) {
-  .letter-spine {
-    left: 0.5rem;
-    opacity: 0.5;
-  }
-}
-
+/* Continuity threads — motif underlines */
 .motif-thread {
   position: relative;
   display: inline-block;
@@ -1121,7 +1091,6 @@
   opacity: 0.78;
 }
 
-:root[data-motion="reduced"] .letter-spine-path,
 :root[data-motion="reduced"] .motif-thread-underline-path {
   stroke-dasharray: none !important;
   stroke-dashoffset: 0 !important;
@@ -1159,12 +1128,18 @@
 .verb-echo-verb {
   display: inline-block;
   font-family: var(--display-stack);
-  font-size: clamp(2.1rem, 4.6vw, 4rem);
+  font-size: clamp(1.35rem, 2.8vw, 2.9rem);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--display);
-  line-height: 1;
+  line-height: 1.05;
+  white-space: nowrap;
   will-change: transform, opacity;
+}
+@media (min-width: 1400px) {
+  .verb-echo-verb {
+    font-size: 3.2rem;
+  }
 }
 .verb-echo-recall {
   display: flex;
