@@ -88,7 +88,9 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-sky-mid": "#F0E5D0",
     "--ch2-sky-bottom": "#F6F2EA",
     "--ch2-sun-core": "#F2DCAD",
-    "--ch2-afterglow": "rgba(248, 215, 168, 0)"
+    "--ch2-afterglow": "rgba(248, 215, 168, 0)",
+    "--ch2-ink": "#3A3025",
+    "--ch2-ink-soft": "#5A4A3A"
   });
   gsap.set(sun, { y: "-18vh", scale: 0.85, opacity: 0.35 });
   gsap.set(afterglow, { opacity: 0 });
@@ -108,6 +110,8 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-sky-mid": "#EBD4A8",
     "--ch2-sky-bottom": "#F4E8D0",
     "--ch2-sun-core": "#FBC97A",
+    "--ch2-ink": "#2E2A30",
+    "--ch2-ink-soft": "#4A4248",
     duration: 1, ease: "power1.inOut"
   }, 0);
   tl.to(sun, { y: "-8vh", scale: 0.95, opacity: 0.6, duration: 1, ease: "power1.inOut" }, 0);
@@ -119,6 +123,8 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-sky-bottom": "#F4D2A8",
     "--ch2-sun-core": "#FBA86A",
     "--ch2-afterglow": "rgba(248, 168, 110, 0.45)",
+    "--ch2-ink": "#252836",
+    "--ch2-ink-soft": "#414652",
     duration: 1, ease: "power1.inOut"
   });
   tl.to(sun, { y: "4vh", scale: 1.05, opacity: 0.8, duration: 1, ease: "power1.inOut" }, "<");
@@ -130,6 +136,8 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-sky-bottom": "#F0C28E",
     "--ch2-sun-core": "#F88B45",
     "--ch2-afterglow": "rgba(248, 130, 70, 0.7)",
+    "--ch2-ink": "#1E2433",
+    "--ch2-ink-soft": "#3B4252",
     duration: 1, ease: "power1.inOut"
   });
   tl.to(sun, { y: "16vh", scale: 1.15, opacity: 0.95, duration: 1, ease: "power1.inOut" }, "<");
@@ -141,6 +149,8 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-sky-bottom": "#EBCEA8",
     "--ch2-sun-core": "#DB6F2A",
     "--ch2-afterglow": "rgba(220, 110, 60, 0.55)",
+    "--ch2-ink": "#27313F",
+    "--ch2-ink-soft": "#42495A",
     duration: 1, ease: "power1.inOut"
   });
   tl.to(sun, { y: "28vh", scale: 1.05, opacity: 0.6, duration: 1, ease: "power1.inOut" }, "<");
@@ -152,6 +162,8 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-sky-bottom": "#F6F1E6",
     "--ch2-sun-core": "#C25C28",
     "--ch2-afterglow": "rgba(220, 130, 80, 0.2)",
+    "--ch2-ink": "#3A3025",
+    "--ch2-ink-soft": "#5A4A3A",
     duration: 1, ease: "power1.inOut"
   });
   tl.to(sun, { y: "42vh", scale: 0.95, opacity: 0, duration: 1, ease: "power1.inOut" }, "<");
@@ -254,7 +266,7 @@ function installDeemedPanel(master: gsap.core.Tween): void {
   const tl = panelTimeline(panel, master);
 
   // ENTER (0 → 0.5): setup, half 1, beat, half 2 — verdict arrives
-  if (setup) tl.to(setup, { opacity: 0.78, y: 0, duration: 0.1, ease: "power2.out" }, 0.04);
+  if (setup) tl.to(setup, { opacity: 0.92, y: 0, duration: 0.1, ease: "power2.out" }, 0.04);
   tl.to(splitFirst.words, {
     opacity: 1, y: 0, x: 0,
     stagger: 0.012, duration: 0.16, ease: "power2.out"
@@ -263,7 +275,7 @@ function installDeemedPanel(master: gsap.core.Tween): void {
     opacity: 1, y: 0, x: 0,
     stagger: 0.014, duration: 0.18, ease: "power2.out"
   }, 0.32);
-  if (cite) tl.to(cite, { opacity: 0.7, y: 0, duration: 0.1, ease: "power2.out" }, 0.46);
+  if (cite) tl.to(cite, { opacity: 0.88, y: 0, duration: 0.1, ease: "power2.out" }, 0.46);
   if (analysis) tl.to(analysis, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 0.5);
 
   // EXIT (0.7 → 1): drift left, fade
@@ -306,7 +318,7 @@ function installVergePanel(master: gsap.core.Tween): void {
   });
 
   // ENTER (0 → 0.55): setup, half 1, horizon, beat, half 2 — the chapter thesis lands
-  if (setup) tl.to(setup, { opacity: 0.78, y: 0, duration: 0.08, ease: "power2.out" }, 0.04);
+  if (setup) tl.to(setup, { opacity: 0.92, y: 0, duration: 0.08, ease: "power2.out" }, 0.04);
   tl.to(splitFirst.words, {
     opacity: 1, y: 0, x: 0,
     stagger: 0.012, duration: 0.16, ease: "power2.out"
@@ -316,7 +328,7 @@ function installVergePanel(master: gsap.core.Tween): void {
     opacity: 1, y: 0, x: 0,
     stagger: 0.014, duration: 0.2, ease: "power2.out"
   }, 0.32);
-  if (cite) tl.to(cite, { opacity: 0.7, y: 0, duration: 0.1, ease: "power2.out" }, 0.5);
+  if (cite) tl.to(cite, { opacity: 0.88, y: 0, duration: 0.1, ease: "power2.out" }, 0.5);
   if (analysis) tl.to(analysis, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 0.52);
 
   // FOCAL (0.55 → 0.7): horizon parallax drift — sun sliding along the verge
