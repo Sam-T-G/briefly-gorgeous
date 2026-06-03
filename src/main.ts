@@ -57,7 +57,8 @@ if (prefersReducedMotion()) {
   installHandwriting();
   installAutoAdvance({
     triggerSlotIds: ["ch1-open", "ch3-open", "ch3-close"],
-    delayMs: 2500
+    delayMs: 2500,
+    delayOverridesMs: { "ch3-close": 9000 }
   });
 }
 

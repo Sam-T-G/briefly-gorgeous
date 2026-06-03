@@ -111,6 +111,111 @@ const PARATAXIS_LINE_2: ScriptWord = {
   duration: 2.0
 };
 
+// Ten margin annotations scattered across ch3-close. Each snippet is a
+// recurring Little-Dog motif (salutation, names, places, verbs, recurrences)
+// written one at a time on a momentum curve: slow start, fast middle, slow
+// finish, so the slot reads as a notebook page filling up before the thesis.
+const CLOSE_DEAR_MA: ScriptWord = {
+  text: "Dear Ma,",
+  fontFamily: HAND_STACK,
+  fontWeight: 600,
+  viewBox: "0 0 260 90",
+  fontSize: 64,
+  yBaseline: 64,
+  xStart: 8,
+  duration: 0.75
+};
+const CLOSE_LITTLE_DOG: ScriptWord = {
+  text: "Little Dog",
+  fontFamily: HAND_STACK,
+  fontWeight: 600,
+  viewBox: "0 0 280 80",
+  fontSize: 54,
+  yBaseline: 58,
+  xStart: 6,
+  duration: 0.65
+};
+const CLOSE_LAN: ScriptWord = {
+  text: "Lan",
+  fontFamily: HAND_STACK,
+  fontWeight: 700,
+  viewBox: "0 0 130 90",
+  fontSize: 64,
+  yBaseline: 66,
+  xStart: 8,
+  duration: 0.4
+};
+const CLOSE_MONARCHS: ScriptWord = {
+  text: "monarchs",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 260 80",
+  fontSize: 52,
+  yBaseline: 56,
+  xStart: 6,
+  duration: 0.55
+};
+const CLOSE_HARTFORD: ScriptWord = {
+  text: "Hartford",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 240 80",
+  fontSize: 50,
+  yBaseline: 56,
+  xStart: 6,
+  duration: 0.55
+};
+const CLOSE_I_MISS_YOU: ScriptWord = {
+  text: "I miss you",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 280 80",
+  fontSize: 52,
+  yBaseline: 56,
+  xStart: 6,
+  duration: 0.6
+};
+const CLOSE_US: ScriptWord = {
+  text: "us",
+  fontFamily: HAND_STACK,
+  fontWeight: 700,
+  viewBox: "0 0 110 80",
+  fontSize: 56,
+  yBaseline: 58,
+  xStart: 8,
+  duration: 0.3
+};
+const CLOSE_REMEMBER: ScriptWord = {
+  text: "remember",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 280 80",
+  fontSize: 52,
+  yBaseline: 56,
+  xStart: 6,
+  duration: 0.55
+};
+const CLOSE_STILL_HERE: ScriptWord = {
+  text: "still here",
+  fontFamily: HAND_STACK,
+  fontWeight: 500,
+  viewBox: "0 0 260 80",
+  fontSize: 52,
+  yBaseline: 56,
+  xStart: 6,
+  duration: 0.55
+};
+const CLOSE_AGAIN: ScriptWord = {
+  text: "again",
+  fontFamily: HAND_STACK,
+  fontWeight: 600,
+  viewBox: "0 0 180 80",
+  fontSize: 56,
+  yBaseline: 58,
+  xStart: 8,
+  duration: 0.5
+};
+
 type HandwritingTarget = {
   slotId: string;
   className: string;
@@ -127,7 +232,13 @@ type HandwritingTarget = {
 //  - for Trevor —             (ch2-verge)            silent second addressee
 //  - parataxis definition     (ch3-open)             two-line margin gloss under the chapter title
 //  - ours                     (ch3-fragment-stream)  speaker claiming kinship in bilingual line
+//  - ch3-close cascade        (ch3-close)            ten motifs filling the page on a momentum curve
 //  - nhớ                      (closing-thesis)       reclaimed word as proof of thesis
+//
+// Delay values on ch3-close are tuned so each snippet starts ~when the
+// previous one finishes (slow at the start, tight through the middle,
+// decelerating at the end). Adjust the duration field on the word, not
+// these delays, if you retime a single snippet.
 const TARGETS: HandwritingTarget[] = [
   { slotId: "opening-landing", className: "handwriting-begin", word: LETS_BEGIN_AGAIN, delay: 0.4 },
   { slotId: "opening-frame", className: "handwriting-dearma", word: DEAR_MA, delay: 0.9 },
@@ -136,6 +247,16 @@ const TARGETS: HandwritingTarget[] = [
   { slotId: "ch3-open", className: "handwriting-parataxis-1", word: PARATAXIS_LINE_1, delay: 0.9 },
   { slotId: "ch3-open", className: "handwriting-parataxis-2", word: PARATAXIS_LINE_2, delay: 3.3 },
   { slotId: "ch3-fragment-stream", className: "handwriting-ours", word: OURS, delay: 1.8 },
+  { slotId: "ch3-close", className: "handwriting-close-dear-ma", word: CLOSE_DEAR_MA, delay: 0.5 },
+  { slotId: "ch3-close", className: "handwriting-close-little-dog", word: CLOSE_LITTLE_DOG, delay: 1.65 },
+  { slotId: "ch3-close", className: "handwriting-close-lan", word: CLOSE_LAN, delay: 2.55 },
+  { slotId: "ch3-close", className: "handwriting-close-monarchs", word: CLOSE_MONARCHS, delay: 3.05 },
+  { slotId: "ch3-close", className: "handwriting-close-hartford", word: CLOSE_HARTFORD, delay: 3.65 },
+  { slotId: "ch3-close", className: "handwriting-close-miss", word: CLOSE_I_MISS_YOU, delay: 4.2 },
+  { slotId: "ch3-close", className: "handwriting-close-us", word: CLOSE_US, delay: 4.8 },
+  { slotId: "ch3-close", className: "handwriting-close-remember", word: CLOSE_REMEMBER, delay: 5.15 },
+  { slotId: "ch3-close", className: "handwriting-close-still", word: CLOSE_STILL_HERE, delay: 5.9 },
+  { slotId: "ch3-close", className: "handwriting-close-again", word: CLOSE_AGAIN, delay: 6.95 },
   {
     slotId: "closing-thesis",
     className: "handwriting-nho",

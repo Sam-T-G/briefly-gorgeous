@@ -1352,7 +1352,8 @@
 .slot#ch1-verdict,
 .slot#ch2-verge,
 .slot#ch3-open,
-.slot#ch3-fragment-stream {
+.slot#ch3-fragment-stream,
+.slot#ch3-close {
   position: relative;
 }
 
@@ -1458,6 +1459,103 @@
   opacity: 0.84;
 }
 
+/* ch3-close cascade — ten motifs scattered around the closing prose,
+   written one at a time on a momentum curve. Top zone sits above 42vh
+   and bottom zone below 20vh-from-bottom, leaving a clear band for the
+   center sentence "The letter ends where it began." */
+.handwriting-close-dear-ma {
+  top: clamp(2rem, 11vh, 6rem);
+  left: clamp(1rem, 8vw, 5rem);
+  width: clamp(160px, 18vw, 240px);
+  height: clamp(50px, 6vw, 80px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-close-little-dog {
+  top: clamp(3rem, 16vh, 8rem);
+  right: clamp(1rem, 10vw, 6rem);
+  width: clamp(180px, 21vw, 270px);
+  height: clamp(40px, 5vw, 60px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-lan {
+  top: clamp(7rem, 24vh, 12rem);
+  right: clamp(15%, 32vw, 38%);
+  width: clamp(70px, 8vw, 110px);
+  height: clamp(50px, 6vw, 80px);
+  transform: rotate(-5deg);
+  transform-origin: center;
+}
+.handwriting-close-monarchs {
+  top: clamp(10rem, 34vh, 18rem);
+  left: clamp(1rem, 10vw, 6rem);
+  width: clamp(160px, 19vw, 240px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+.handwriting-close-hartford {
+  top: clamp(9rem, 30vh, 16rem);
+  left: clamp(30%, 38vw, 44%);
+  width: clamp(140px, 17vw, 220px);
+  height: clamp(36px, 4.5vw, 54px);
+  transform: rotate(3deg);
+  transform-origin: center;
+}
+.handwriting-close-miss {
+  top: clamp(11rem, 36vh, 19rem);
+  right: clamp(1rem, 11vw, 7rem);
+  width: clamp(170px, 20vw, 250px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-us {
+  bottom: clamp(12rem, 38vh, 20rem);
+  right: clamp(32%, 40vw, 46%);
+  width: clamp(54px, 6vw, 90px);
+  height: clamp(40px, 5vw, 64px);
+  transform: rotate(-4deg);
+  transform-origin: center;
+}
+.handwriting-close-remember {
+  bottom: clamp(9rem, 28vh, 15rem);
+  right: clamp(1rem, 11vw, 7rem);
+  width: clamp(170px, 20vw, 250px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(-1deg);
+  transform-origin: center;
+}
+.handwriting-close-still {
+  bottom: clamp(6rem, 21vh, 11rem);
+  left: clamp(2rem, 15vw, 9rem);
+  width: clamp(160px, 19vw, 230px);
+  height: clamp(36px, 4.5vw, 54px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-again {
+  bottom: clamp(3rem, 13vh, 7rem);
+  right: clamp(20%, 30vw, 36%);
+  width: clamp(100px, 12vw, 160px);
+  height: clamp(38px, 4.6vw, 58px);
+  transform: rotate(-6deg);
+  transform-origin: center;
+}
+.handwriting-close-dear-ma .handwriting-text,
+.handwriting-close-little-dog .handwriting-text,
+.handwriting-close-lan .handwriting-text,
+.handwriting-close-monarchs .handwriting-text,
+.handwriting-close-hartford .handwriting-text,
+.handwriting-close-miss .handwriting-text,
+.handwriting-close-us .handwriting-text,
+.handwriting-close-remember .handwriting-text,
+.handwriting-close-still .handwriting-text,
+.handwriting-close-again .handwriting-text {
+  opacity: 0.86;
+}
+
 /* nhớ — signature flourish on the CHALLENGE clause */
 .handwriting-nho {
   right: clamp(0.5rem, 2vw, 1.5rem);
@@ -1518,6 +1616,62 @@
   }
   .handwriting-parataxis-2 {
     bottom: clamp(4rem, 10vh, 5rem);
+  }
+  /* ch3-close cascade: pack tighter and clip a few of the marginal ones
+     so the mobile slot doesn't get visually overloaded. */
+  .handwriting-close-dear-ma {
+    top: 2rem;
+    left: 0.75rem;
+    width: 130px;
+    height: 44px;
+  }
+  .handwriting-close-little-dog {
+    top: 4rem;
+    right: 0.75rem;
+    width: 140px;
+    height: 36px;
+  }
+  .handwriting-close-lan {
+    top: 8rem;
+    right: 38%;
+    width: 56px;
+    height: 44px;
+  }
+  .handwriting-close-monarchs {
+    top: 11rem;
+    left: 0.75rem;
+    width: 130px;
+    height: 32px;
+  }
+  .handwriting-close-hartford {
+    top: 14rem;
+    right: 0.75rem;
+    width: 120px;
+    height: 32px;
+  }
+  .handwriting-close-miss {
+    display: none;
+  }
+  .handwriting-close-us {
+    display: none;
+  }
+  .handwriting-close-remember {
+    bottom: 9rem;
+    right: 0.75rem;
+    width: 130px;
+    height: 32px;
+  }
+  .handwriting-close-still {
+    bottom: 5.5rem;
+    left: 0.75rem;
+    width: 120px;
+    height: 32px;
+  }
+  .handwriting-close-again {
+    bottom: 2rem;
+    right: 28%;
+    width: 80px;
+    height: 32px;
   }
 }
 
