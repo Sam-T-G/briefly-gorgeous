@@ -426,24 +426,16 @@
   transform: scaleX(1);
 }
 
-/* ── ch2-lens ── Three cards side by side: methodology, lens, analysis. */
-.ch2-track > #ch2-lens .slot-inner {
-  max-width: min(94rem, 94vw);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: clamp(1.25rem, 2.4vw, 2.25rem);
-  row-gap: clamp(1.5rem, 3vh, 2.25rem);
-  align-items: start;
+/* ── ch2-lens-* ── Each card gets its own horizontal panel so the quote breathes. */
+.ch2-track > .ch2-lens-panel .slot-inner {
+  max-width: min(46rem, 86vw);
+  margin-inline: auto;
 }
-.ch2-track > #ch2-lens .setup {
-  grid-column: 1 / -1;
-  max-width: 52ch;
-}
-.ch2-track > #ch2-lens .lens-item {
+.ch2-track > .ch2-lens-panel .lens-item {
   opacity: 1;
   position: relative;
   border-inline-start: 2px solid color-mix(in oklch, var(--gorgeous-ember) 88%, transparent);
-  padding: 1.35rem 1.65rem 1.5rem;
+  padding: clamp(1.5rem, 3vh, 2.25rem) clamp(1.75rem, 3vw, 2.5rem) clamp(1.6rem, 3vh, 2.4rem);
   background: linear-gradient(
     180deg,
     rgba(253, 248, 236, 0.94) 0%,
@@ -456,23 +448,26 @@
               0 0 0 1px rgba(180, 113, 72, 0.14),
               0 14px 36px rgba(70, 40, 20, 0.14);
 }
-.ch2-track > #ch2-lens .lens-item .lens-label {
+.ch2-track > .ch2-lens-panel .lens-item .lens-label {
   opacity: 1;
   color: var(--hunted-rust);
   font-weight: 600;
   letter-spacing: 0.22em;
+  font-size: clamp(0.7rem, 0.85vw, 0.85rem);
+  margin-bottom: 0.85rem;
 }
-.ch2-track > #ch2-lens .lens-item .quote {
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
-  line-height: 1.5;
+.ch2-track > .ch2-lens-panel .lens-item .quote {
+  font-size: clamp(1.15rem, 1.55vw, 1.5rem);
+  line-height: 1.46;
   color: var(--majoritarian-graphite);
+  margin: 0 0 1rem;
 }
-.ch2-track > #ch2-lens .lens-item .chrome-citation {
+.ch2-track > .ch2-lens-panel .lens-item .chrome-citation {
   color: color-mix(in oklch, var(--majoritarian-graphite) 78%, transparent);
   font-weight: 600;
+  font-size: clamp(0.7rem, 0.85vw, 0.85rem);
 }
-.ch2-track > #ch2-lens .setup,
-.ch2-track > #ch2-lens .analysis {
+.ch2-track > .ch2-lens-panel .analysis {
   background: linear-gradient(
     180deg,
     rgba(253, 249, 238, 0.92) 0%,
@@ -480,18 +475,16 @@
   );
   backdrop-filter: blur(14px) saturate(116%);
   -webkit-backdrop-filter: blur(14px) saturate(116%);
-  padding: 1.15rem 1.5rem 1.25rem;
+  padding: clamp(1.5rem, 3vh, 2.25rem) clamp(1.75rem, 3vw, 2.5rem);
   border-radius: 3px;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset,
               0 0 0 1px rgba(180, 113, 72, 0.12),
               0 12px 30px rgba(70, 40, 20, 0.12);
   color: var(--majoritarian-graphite);
-}
-.ch2-track > #ch2-lens .analysis {
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+  line-height: 1.6;
   max-width: none;
   margin-inline: 0;
-  font-size: clamp(0.95rem, 1.1vw, 1.08rem);
-  line-height: 1.56;
 }
 
 /* ── ch2-close ── A breath before Ch3. */

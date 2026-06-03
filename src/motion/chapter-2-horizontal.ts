@@ -35,6 +35,7 @@ export function installChapter2Horizontal(): void {
 
   decorateOpenPanel();
   decorateVergePanel();
+  splitLensIntoPanels(track);
 
   const distance = () => Math.max(0, track.scrollWidth - section.clientWidth);
 
@@ -184,6 +185,44 @@ function decorateVergePanel(): void {
   const secondHalf = panel.querySelector(".quote-half-second");
   if (secondHalf) wrapTextOccurrences(secondHalf, ["To be", "first be seen", "to be seen"], "verge-seen-h");
   panel.appendChild(buildHorizon("ch2-verge-horizon"));
+}
+
+function splitLensIntoPanels(track: HTMLElement): void {
+  const original = document.getElementById("ch2-lens");
+  if (!original) return;
+  const inner = original.querySelector(".slot-inner") as HTMLElement | null;
+  if (!inner) return;
+
+  const methodology = inner.querySelector(".lens-item:nth-of-type(1)") as HTMLElement | null;
+  const lens = inner.querySelector(".lens-item:nth-of-type(2)") as HTMLElement | null;
+  const analysis = inner.querySelector(".analysis") as HTMLElement | null;
+  if (!methodology || !lens || !analysis) return;
+
+  const cls = original.className;
+  const dataType = original.getAttribute("data-type");
+
+  const buildPanel = (id: string, card: HTMLElement, variant: string): HTMLElement => {
+    const panel = document.createElement("section");
+    panel.id = id;
+    panel.className = cls;
+    panel.classList.add("ch2-lens-panel");
+    panel.dataset.lensVariant = variant;
+    if (dataType) panel.setAttribute("data-type", dataType);
+    const slotInner = document.createElement("div");
+    slotInner.className = "slot-inner";
+    slotInner.appendChild(card);
+    panel.appendChild(slotInner);
+    return panel;
+  };
+
+  const a = buildPanel("ch2-lens-methodology", methodology, "methodology");
+  const b = buildPanel("ch2-lens-lens", lens, "lens");
+  const c = buildPanel("ch2-lens-analysis", analysis, "analysis");
+
+  track.insertBefore(a, original);
+  track.insertBefore(b, original);
+  track.insertBefore(c, original);
+  original.remove();
 }
 
 type PanelTimelineOpts = { firstPanel?: boolean };
@@ -348,42 +387,37 @@ function installVergePanel(master: gsap.core.Tween): void {
 }
 
 function installLensPanel(master: gsap.core.Tween): void {
-  const panel = document.getElementById("ch2-lens");
-  if (!panel) return;
-  const setup = panel.querySelector(".setup") as HTMLElement | null;
-  const lensItems = Array.from(panel.querySelectorAll(".lens-item")) as HTMLElement[];
-  const analysis = panel.querySelector(".analysis") as HTMLElement | null;
+  const panels = [
+    document.getElementById("ch2-lens-methodology"),
+    document.getElementById("ch2-lens-lens"),
+    document.getElementById("ch2-lens-analysis")
+  ].filter((el): el is HTMLElement => el !== null);
 
-  const cards: HTMLElement[] = [...lensItems];
-  if (analysis) cards.push(analysis);
+  for (const panel of panels) {
+    const card = panel.querySelector(".lens-item, .analysis") as HTMLElement | null;
+    if (!card) continue;
 
-  if (setup) gsap.set(setup, { opacity: 0, y: 18 });
-  gsap.set(cards, { opacity: 0, y: 36, x: 28 });
+    gsap.set(card, { opacity: 0, y: 40, x: 32, scale: 0.985 });
 
-  const tl = panelTimeline(panel, master);
+    const tl = panelTimeline(panel, master);
 
-  // ENTER (0 → 0.55): three cards stagger in across the row so scroll reveals them together
-  if (setup) tl.to(setup, { opacity: 0.78, y: 0, duration: 0.12, ease: "power2.out" }, 0.05);
-  tl.to(cards, {
-    opacity: 1, y: 0, x: 0,
-    stagger: 0.11, duration: 0.24, ease: "power2.out"
-  }, 0.12);
+    // ENTER (0 → 0.4): card arrives, settles
+    tl.to(card, {
+      opacity: 1, y: 0, x: 0, scale: 1,
+      duration: 0.32, ease: "power2.out"
+    }, 0.06);
 
-  // FOCAL (0.58 → 0.72): asymmetric drift — outer cards lean out, center holds
-  if (lensItems.length >= 2) {
-    const first = lensItems[0]!;
-    const second = lensItems[1]!;
-    tl.to(first, { x: -8, duration: 0.16, ease: "none" }, 0.58);
-    if (analysis) tl.to(analysis, { x: 8, duration: 0.16, ease: "none" }, 0.58);
-    tl.to(second, { y: -3, duration: 0.18, ease: "power2.inOut" }, 0.58);
+    // FOCAL (0.4 → 0.7): quiet breath — barely-there lift
+    tl.to(card, { y: -4, duration: 0.3, ease: "power2.inOut" }, 0.42);
+
+    // EXIT (0.72 → 1): drift left and dim
+    tl.to(card, {
+      x: () => -panel.clientWidth * 0.05,
+      opacity: 0.2,
+      duration: 0.26,
+      ease: "power2.in"
+    }, 0.74);
   }
-
-  // EXIT (0.78 → 1)
-  const exitTargets = [setup, ...cards].filter((el): el is HTMLElement => el !== null);
-  tl.to(exitTargets, {
-    x: () => -panel.clientWidth * 0.05,
-    opacity: 0.2, duration: 0.25, ease: "power2.in"
-  }, 0.78);
 }
 
 function installClosePanel(master: gsap.core.Tween): void {
