@@ -617,3 +617,92 @@
 :root[data-mode="reading"] .h-progress {
   display: none;
 }
+
+/* ===== Fullscreen hint — subtle pulsing prompt at bottom-right ===== */
+
+.fullscreen-hint {
+  position: fixed;
+  bottom: clamp(1rem, 2.6vh, 1.75rem);
+  right: clamp(1rem, 2.6vw, 1.75rem);
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.45rem;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--bg, white) 78%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in oklch, var(--body, #444) 14%, transparent);
+  color: color-mix(in oklch, var(--body, #444) 78%, transparent);
+  font-family: var(--display-stack);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(6px);
+  animation:
+    fullscreen-hint-enter 0.7s ease-out 0.3s forwards,
+    fullscreen-hint-pulse 2.8s ease-in-out 1s infinite;
+}
+
+.fullscreen-hint-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.55rem;
+  height: 1.55rem;
+  padding: 0 0.42rem;
+  border-radius: 7px;
+  background: var(--gorgeous-ember, #b47148);
+  color: #fff;
+  font-family: var(--display-stack);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fullscreen-hint-label {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fullscreen-hint.is-dismissed {
+  animation: none;
+  opacity: 0 !important;
+  transform: translateY(8px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+
+@keyframes fullscreen-hint-enter {
+  to {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fullscreen-hint-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.95; }
+}
+
+@media (max-width: 640px) {
+  .fullscreen-hint {
+    font-size: 0.65rem;
+    padding: 0.32rem 0.7rem 0.32rem 0.4rem;
+  }
+  .fullscreen-hint-key {
+    min-width: 1.35rem;
+    height: 1.35rem;
+    font-size: 0.62rem;
+  }
+}
+
+:root[data-motion="reduced"] .fullscreen-hint {
+  animation: none;
+  opacity: 0.85;
+  transform: none;
+}

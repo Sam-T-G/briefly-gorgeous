@@ -11,6 +11,7 @@ import { installKeyboardNav } from "./nav/keyboard.js";
 import { installHelpOverlay } from "./nav/help-overlay.js";
 import { installAutoAdvance } from "./nav/auto-advance.js";
 import { installHud } from "./nav/hud.js";
+import { installFullscreenHint } from "./nav/fullscreen-hint.js";
 
 import { refreshOnFontsReady } from "./util/refresh-on-fonts.js";
 
@@ -38,6 +39,7 @@ main.appendChild(fragment);
 installReadingModeToggle();
 installKeyboardNav();
 installHelpOverlay();
+installFullscreenHint();
 
 if (prefersReducedMotion()) {
   applyStaticReflow();
