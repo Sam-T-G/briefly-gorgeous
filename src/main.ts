@@ -24,6 +24,7 @@ import { installChapter1Immersive } from "./motion/chapter-1.js";
 import { installChapter2Horizontal } from "./motion/chapter-2-horizontal.js";
 import { installClosingCinematic } from "./motion/closing-cinematic.js";
 import { installContinuityThreads } from "./motion/continuity.js";
+import { installHandwriting } from "./motion/handwriting.js";
 
 const main = document.getElementById("main");
 if (!main) throw new Error("missing #main");
@@ -51,6 +52,7 @@ if (prefersReducedMotion()) {
   animateChapter3();
   installClosingCinematic();
   installContinuityThreads();
+  installHandwriting();
   installAutoAdvance({
     triggerSlotIds: ["ch1-open", "ch3-open", "ch3-close"],
     delayMs: 2500
