@@ -418,32 +418,59 @@
   max-width: 52ch;
 }
 .ch2-track > #ch2-lens .lens-item {
-  border-inline-start-color: color-mix(in oklch, var(--gorgeous-ember) 70%, transparent);
-  padding-inline-start: 1.4rem;
-  background: rgba(248, 243, 232, 0.72);
-  backdrop-filter: blur(10px) saturate(112%);
-  -webkit-backdrop-filter: blur(10px) saturate(112%);
-  padding: 1.25rem 1.5rem 1.4rem;
-  border-radius: 2px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.55) inset,
-              0 8px 24px rgba(70, 40, 20, 0.08);
+  opacity: 1;
+  position: relative;
+  border-inline-start: 2px solid color-mix(in oklch, var(--gorgeous-ember) 88%, transparent);
+  padding: 1.35rem 1.65rem 1.5rem;
+  background: linear-gradient(
+    180deg,
+    rgba(253, 248, 236, 0.94) 0%,
+    rgba(249, 242, 226, 0.92) 100%
+  );
+  backdrop-filter: blur(14px) saturate(118%);
+  -webkit-backdrop-filter: blur(14px) saturate(118%);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset,
+              0 0 0 1px rgba(180, 113, 72, 0.14),
+              0 14px 36px rgba(70, 40, 20, 0.14);
 }
-.ch2-track > #ch2-lens .setup,
-.ch2-track > #ch2-lens .analysis {
-  background: rgba(248, 243, 232, 0.6);
-  backdrop-filter: blur(8px) saturate(108%);
-  -webkit-backdrop-filter: blur(8px) saturate(108%);
-  padding: 0.9rem 1.25rem;
-  border-radius: 2px;
+.ch2-track > #ch2-lens .lens-item .lens-label {
+  opacity: 1;
+  color: var(--hunted-rust);
+  font-weight: 600;
+  letter-spacing: 0.22em;
 }
 .ch2-track > #ch2-lens .lens-item .quote {
   font-size: clamp(1rem, 1.2vw, 1.15rem);
-  line-height: 1.45;
+  line-height: 1.5;
+  color: var(--majoritarian-graphite);
+}
+.ch2-track > #ch2-lens .lens-item .chrome-citation {
+  color: color-mix(in oklch, var(--majoritarian-graphite) 78%, transparent);
+  font-weight: 600;
+}
+.ch2-track > #ch2-lens .setup,
+.ch2-track > #ch2-lens .analysis {
+  background: linear-gradient(
+    180deg,
+    rgba(253, 249, 238, 0.92) 0%,
+    rgba(248, 241, 224, 0.9) 100%
+  );
+  backdrop-filter: blur(14px) saturate(116%);
+  -webkit-backdrop-filter: blur(14px) saturate(116%);
+  padding: 1.15rem 1.5rem 1.25rem;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset,
+              0 0 0 1px rgba(180, 113, 72, 0.12),
+              0 12px 30px rgba(70, 40, 20, 0.12);
+  color: var(--majoritarian-graphite);
 }
 .ch2-track > #ch2-lens .analysis {
   grid-column: 1 / -1;
   max-width: 56ch;
   margin-inline: 0;
+  font-size: clamp(1.02rem, 1.22vw, 1.18rem);
+  line-height: 1.62;
 }
 
 /* ── ch2-close ── A breath before Ch3. */
