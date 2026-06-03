@@ -1126,3 +1126,211 @@
   stroke-dasharray: none !important;
   stroke-dashoffset: 0 !important;
 }
+
+/* ===== Closing cinematic — verbs, trajectories, thesis, signature ===== */
+
+/* verb-echo: cinematic triptych with proof flashes */
+.slot[data-type="verb-echo"] .slot-inner:has(.verb-echo-cinematic) {
+  max-width: min(72rem, 92vw);
+  text-align: left;
+}
+.verb-echo-cinematic {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-items: start;
+  counter-reset: none;
+}
+.verb-echo-cinematic .verb-echo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  position: relative;
+  padding: 0;
+}
+.verb-echo-cinematic .verb-echo-item::before {
+  content: none;
+}
+.verb-echo-verb {
+  display: inline-block;
+  font-family: var(--display-stack);
+  font-size: clamp(2.1rem, 4.6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--display);
+  line-height: 1;
+  will-change: transform, opacity;
+}
+.verb-echo-recall {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  min-height: 2.4rem;
+  will-change: opacity, transform;
+}
+.verb-echo-recall-quote {
+  font-family: var(--body-stack);
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.05vw, 1rem);
+  color: var(--gorgeous-ember, #b47148);
+  line-height: 1.3;
+}
+.verb-echo-recall-cite {
+  font-family: var(--display-stack);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--chrome, var(--body));
+  opacity: 0.6;
+}
+.verb-echo-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+@media (max-width: 720px) {
+  .verb-echo-cinematic {
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 6vw, 2.25rem);
+  }
+}
+
+/* trajectories: diptych with shared drawn ember thread */
+.slot.trajectory-immersive {
+  position: relative;
+}
+.trajectory-thread {
+  position: absolute;
+  left: clamp(0.65rem, 2.4vw, 1.5rem);
+  top: clamp(1.5rem, 4vw, 2.5rem);
+  bottom: clamp(1.5rem, 4vw, 2.5rem);
+  width: 2px;
+  pointer-events: none;
+  z-index: 1;
+}
+.trajectory-thread svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.trajectory-thread-path {
+  fill: none;
+  stroke: var(--gorgeous-ember, #b47148);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.78;
+}
+.slot.trajectory-immersive .slot-inner {
+  position: relative;
+  z-index: 2;
+  padding-inline-start: clamp(1.5rem, 4vw, 2.5rem);
+}
+.trajectory-continuation {
+  position: absolute;
+  left: calc(clamp(0.65rem, 2.4vw, 1.5rem) - 28px);
+  bottom: clamp(0.5rem, 2vw, 1.25rem);
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 1;
+}
+.trajectory-continuation svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.trajectory-continuation-path {
+  fill: none;
+  stroke: var(--gorgeous-ember, #b47148);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.7;
+}
+
+/* thesis: three verb-clauses */
+.slot#closing-thesis .slot-inner:has(.thesis-trio) {
+  max-width: min(52rem, 92vw);
+  text-align: left;
+}
+.thesis-trio {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+.thesis-clause-block {
+  position: relative;
+  padding-inline-start: clamp(5.5rem, 11vw, 8rem);
+}
+.thesis-verb-label {
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  font-family: var(--display-stack);
+  font-size: clamp(0.7rem, 0.95vw, 0.82rem);
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--gorgeous-ember, #b47148);
+  text-transform: uppercase;
+  will-change: opacity, transform;
+}
+.thesis-trio .thesis-clause {
+  margin: 0;
+  font-family: var(--body-stack);
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--display);
+}
+.thesis-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+@media (max-width: 640px) {
+  .thesis-clause-block {
+    padding-inline-start: 0;
+    padding-top: 1.4rem;
+  }
+  .thesis-verb-label {
+    position: static;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+}
+
+/* works-cited: signature flourish closes the letter */
+.works-cited-signature {
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  width: clamp(150px, 22vw, 240px);
+  height: clamp(45px, 7vw, 72px);
+  pointer-events: none;
+}
+.works-cited-signature svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.works-cited-signature-path {
+  fill: none;
+  stroke: var(--gorgeous-ember, #b47148);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.78;
+}
+
+:root[data-motion="reduced"] .trajectory-thread-path,
+:root[data-motion="reduced"] .trajectory-continuation-path,
+:root[data-motion="reduced"] .works-cited-signature-path {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+}
+:root[data-motion="reduced"] .verb-echo-recall {
+  opacity: 0.4 !important;
+}
