@@ -1459,18 +1459,20 @@
   opacity: 0.84;
 }
 
-/* ch3-close: slim framed box around the closing prose. The box has an
-   opaque porcelain background that visually masks any handwriting that
-   passes behind it, so the closing sentence stays cleanly readable even
-   as the surrounding cascade fills the slot. z-index sits above the
-   .handwriting layer (z-index: 3). */
+/* ch3-close: invisible collision-mask box around the closing prose. The
+   box has an opaque porcelain background matching --bg exactly, so it
+   reads as page rather than container; its only job is to mask any
+   handwriting that passes behind the closing sentence. z-index sits
+   above the .handwriting layer (z-index: 3). Padding stays minimal so
+   the box hugs the text. */
 .slot#ch3-close .slot-inner {
   position: relative;
   z-index: 4;
-  max-width: min(30rem, 86vw);
-  padding: clamp(1.75rem, 3.5vw, 2.5rem) clamp(2rem, 4.5vw, 3rem);
+  max-width: max-content;
+  margin-inline: auto;
+  padding: clamp(0.35rem, 0.8vw, 0.55rem) clamp(0.6rem, 1.3vw, 0.9rem);
   background: var(--bg);
-  border: 1px solid rgba(58, 44, 34, 0.22);
+  border: none;
 }
 
 /* ch3-close cascade — 24 motifs scattered around the closing prose,
@@ -1680,6 +1682,120 @@
   transform-origin: center;
 }
 
+/* New motifs from vault — book-specific images and recurrences */
+.handwriting-close-begin-again {
+  top: clamp(6rem, 10vh, 7.5rem);
+  left: clamp(26%, 34vw, 38%);
+  width: clamp(170px, 20vw, 270px);
+  height: clamp(44px, 5.4vw, 68px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+.handwriting-close-powder-blue {
+  top: clamp(17rem, 26vh, 19rem);
+  left: clamp(1rem, 4vw, 3rem);
+  width: clamp(200px, 24vw, 320px);
+  height: clamp(52px, 6.4vw, 84px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-boys-like-us {
+  bottom: clamp(22rem, 32vh, 24rem);
+  left: clamp(26%, 34vw, 40%);
+  width: clamp(180px, 22vw, 280px);
+  height: clamp(42px, 5.2vw, 66px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+.handwriting-close-the-body {
+  top: clamp(33rem, 44vh, 35rem);
+  left: clamp(1rem, 5vw, 3.5rem);
+  width: clamp(150px, 18vw, 230px);
+  height: clamp(46px, 5.6vw, 70px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-close-i-am-writing {
+  bottom: clamp(32rem, 42vh, 34rem);
+  left: clamp(22%, 30vw, 36%);
+  width: clamp(180px, 22vw, 280px);
+  height: clamp(42px, 5.2vw, 66px);
+  transform: rotate(1deg);
+  transform-origin: center;
+}
+.handwriting-close-milk-teeth {
+  bottom: clamp(8rem, 12vh, 9rem);
+  left: clamp(28%, 36vw, 42%);
+  width: clamp(150px, 18vw, 230px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-the-war {
+  bottom: clamp(11rem, 17vh, 12.5rem);
+  right: clamp(2rem, 5vw, 3.5rem);
+  width: clamp(120px, 14vw, 190px);
+  height: clamp(38px, 4.6vw, 56px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-close-mother-tongue {
+  top: clamp(28rem, 39vh, 30rem);
+  right: clamp(20%, 28vw, 32%);
+  width: clamp(180px, 22vw, 280px);
+  height: clamp(36px, 4.4vw, 54px);
+  transform: rotate(1deg);
+  transform-origin: center;
+}
+.handwriting-close-white-house {
+  bottom: clamp(22rem, 30vh, 24rem);
+  left: clamp(18%, 26vw, 30%);
+  width: clamp(200px, 24vw, 320px);
+  height: clamp(36px, 4.4vw, 54px);
+  transform: rotate(-1deg);
+  transform-origin: center;
+}
+.handwriting-close-bleed-through {
+  top: clamp(20rem, 30vh, 22rem);
+  left: clamp(20%, 28vw, 32%);
+  width: clamp(170px, 21vw, 260px);
+  height: clamp(36px, 4.4vw, 54px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-rifle {
+  top: clamp(4rem, 7vh, 5rem);
+  right: clamp(22%, 32vw, 38%);
+  width: clamp(70px, 9vw, 130px);
+  height: clamp(32px, 3.9vw, 48px);
+  transform: rotate(3deg);
+  transform-origin: center;
+}
+.handwriting-close-buffalo {
+  top: clamp(10rem, 15vh, 11.5rem);
+  left: clamp(14%, 22vw, 26%);
+  width: clamp(100px, 12vw, 170px);
+  height: clamp(32px, 3.9vw, 48px);
+  transform: rotate(-3deg);
+  transform-origin: center;
+}
+.handwriting-close-snow {
+  bottom: clamp(16rem, 24vh, 17.5rem);
+  right: clamp(22%, 30vw, 36%);
+  width: clamp(70px, 9vw, 130px);
+  height: clamp(32px, 3.9vw, 48px);
+  transform: rotate(2deg);
+  transform-origin: center;
+}
+.handwriting-close-horizon {
+  bottom: clamp(7rem, 11vh, 8.5rem);
+  right: clamp(28%, 36vw, 42%);
+  width: clamp(110px, 13vw, 180px);
+  height: clamp(32px, 3.9vw, 48px);
+  transform: rotate(-2deg);
+  transform-origin: center;
+}
+
 .handwriting-close-dear-ma .handwriting-text,
 .handwriting-close-little-dog .handwriting-text,
 .handwriting-close-lan .handwriting-text,
@@ -1699,13 +1815,27 @@
 .handwriting-close-memory .handwriting-text,
 .handwriting-close-beside .handwriting-text,
 .handwriting-close-inherit .handwriting-text,
-.handwriting-close-broken-en .handwriting-text {
+.handwriting-close-broken-en .handwriting-text,
+.handwriting-close-begin-again .handwriting-text,
+.handwriting-close-powder-blue .handwriting-text,
+.handwriting-close-boys-like-us .handwriting-text,
+.handwriting-close-the-body .handwriting-text,
+.handwriting-close-i-am-writing .handwriting-text,
+.handwriting-close-milk-teeth .handwriting-text,
+.handwriting-close-the-war .handwriting-text,
+.handwriting-close-mother-tongue .handwriting-text,
+.handwriting-close-white-house .handwriting-text,
+.handwriting-close-bleed-through .handwriting-text {
   opacity: 0.88;
 }
 .handwriting-close-green-apple .handwriting-text,
 .handwriting-close-blue-shawl .handwriting-text,
 .handwriting-close-shipwreck .handwriting-text,
-.handwriting-close-saigon .handwriting-text {
+.handwriting-close-saigon .handwriting-text,
+.handwriting-close-rifle .handwriting-text,
+.handwriting-close-buffalo .handwriting-text,
+.handwriting-close-snow .handwriting-text,
+.handwriting-close-horizon .handwriting-text {
   opacity: 0.72;
 }
 
@@ -1870,7 +2000,21 @@
   .handwriting-close-blue-shawl,
   .handwriting-close-saigon,
   .handwriting-close-shipwreck,
-  .handwriting-close-green-apple {
+  .handwriting-close-green-apple,
+  .handwriting-close-powder-blue,
+  .handwriting-close-boys-like-us,
+  .handwriting-close-the-body,
+  .handwriting-close-i-am-writing,
+  .handwriting-close-milk-teeth,
+  .handwriting-close-the-war,
+  .handwriting-close-mother-tongue,
+  .handwriting-close-white-house,
+  .handwriting-close-bleed-through,
+  .handwriting-close-rifle,
+  .handwriting-close-buffalo,
+  .handwriting-close-snow,
+  .handwriting-close-horizon,
+  .handwriting-close-begin-again {
     display: none;
   }
 }
