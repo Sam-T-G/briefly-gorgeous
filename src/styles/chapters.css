@@ -1446,12 +1446,12 @@
   transform-origin: center;
 }
 .handwriting-parataxis-1 {
-  bottom: clamp(13rem, 30vh, 20rem);
-  transform: rotate(-1.5deg);
+  bottom: clamp(12rem, 24vh, 14rem);
+  transform: rotate(-0.5deg);
 }
 .handwriting-parataxis-2 {
-  bottom: clamp(5rem, 14vh, 9rem);
-  transform: rotate(1deg);
+  bottom: clamp(6rem, 14vh, 8rem);
+  transform: rotate(0.3deg);
 }
 .handwriting-parataxis-1 .handwriting-text,
 .handwriting-parataxis-2 .handwriting-text {
@@ -1514,10 +1514,10 @@
     height: clamp(32px, 8vw, 44px);
   }
   .handwriting-parataxis-1 {
-    bottom: clamp(8rem, 22vh, 11rem);
+    bottom: clamp(8rem, 17vh, 9.5rem);
   }
   .handwriting-parataxis-2 {
-    bottom: clamp(3rem, 11vh, 5.5rem);
+    bottom: clamp(4rem, 10vh, 5rem);
   }
 }
 
