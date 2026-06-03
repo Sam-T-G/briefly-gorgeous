@@ -23,6 +23,7 @@ import { installCursor } from "./interactive/cursor.js";
 import { installIntroImmersive } from "./motion/intro.js";
 import { installChapter1Immersive } from "./motion/chapter-1.js";
 import { installChapter2Horizontal } from "./motion/chapter-2-horizontal.js";
+import { installContinuityThreads } from "./motion/continuity.js";
 
 const main = document.getElementById("main");
 if (!main) throw new Error("missing #main");
@@ -49,6 +50,7 @@ if (prefersReducedMotion()) {
   installChapter2Horizontal();
   animateChapter3();
   animateClosing();
+  installContinuityThreads();
   installAutoAdvance({
     triggerSlotIds: ["ch1-open", "ch3-open", "ch3-close"],
     delayMs: 2500

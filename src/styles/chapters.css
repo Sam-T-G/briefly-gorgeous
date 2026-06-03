@@ -1038,3 +1038,80 @@
 :root[data-motion="reduced"] .intro-motif-arc-dot {
   opacity: 0.6;
 }
+
+/* Continuity threads — letter spine + motif underlines */
+.letter-spine {
+  position: fixed;
+  left: clamp(0.75rem, 2.2vw, 1.75rem);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.7;
+}
+.letter-spine svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.letter-spine-path {
+  fill: none;
+  stroke: var(--gorgeous-ember, #b47148);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.55;
+}
+@media (max-width: 640px) {
+  .letter-spine {
+    left: 0.5rem;
+    opacity: 0.5;
+  }
+}
+
+.motif-thread {
+  position: relative;
+  display: inline-block;
+  white-space: normal;
+  padding-bottom: 0.16em;
+}
+.motif-thread-word {
+  position: relative;
+  z-index: 1;
+}
+.motif-thread-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.3em;
+  overflow: visible;
+  pointer-events: none;
+}
+.motif-thread-underline-path {
+  fill: none;
+  stroke: var(--gorgeous-ember, #b47148);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.78;
+}
+.motif-thread[data-motif="seen"] .motif-thread-underline-path,
+.motif-thread[data-motif="reads"] .motif-thread-underline-path,
+.motif-thread[data-motif="read"] .motif-thread-underline-path,
+.motif-thread[data-motif="reading"] .motif-thread-underline-path {
+  opacity: 0.82;
+}
+.motif-thread[data-motif="hunted"] .motif-thread-underline-path,
+.motif-thread[data-motif="deemed"] .motif-thread-underline-path {
+  opacity: 0.9;
+  stroke-width: 1.6;
+}
+
+:root[data-motion="reduced"] .letter-spine-path,
+:root[data-motion="reduced"] .motif-thread-underline-path {
+  stroke-dasharray: none !important;
+  stroke-dashoffset: 0 !important;
+}
