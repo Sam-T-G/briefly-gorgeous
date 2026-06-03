@@ -221,11 +221,15 @@ function installOpenPanel(master: gsap.core.Tween): void {
     tl.to(horizon, { scaleX: 1, duration: 0.45, ease: "power2.inOut" }, 0.15);
   }
 
-  // EXIT (0.55 → 1): sun sets — horizon dims, word translates left and fades
+  // EXIT (0.55 → 1): sun sets — horizon dims, title settles in place and fades
   if (horizon) tl.to(horizon, { opacity: 0.25, duration: 0.3, ease: "power2.in" }, 0.65);
   tl.to([label, subtitle], {
-    x: () => -panel.clientWidth * 0.08,
-    opacity: 0.22, duration: 0.35, ease: "power2.in"
+    y: 14,
+    scale: 0.985,
+    opacity: 0.22,
+    duration: 0.38,
+    ease: "power2.in",
+    transformOrigin: "50% 50%"
   }, 0.62);
 }
 
