@@ -64,7 +64,7 @@ export function revealChapterTitle(
 
   let words: Element[] = [];
   if (label) {
-    const split = new SplitText(label, { type: "words" });
+    const split = new SplitText(label, { type: "words", wordsClass: "split-word" });
     words = split.words;
     gsap.set(words, { opacity: 0, y: 18 });
   }

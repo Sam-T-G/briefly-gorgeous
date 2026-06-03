@@ -67,6 +67,16 @@
   text-indent: 0;
 }
 
+.split-word,
+.quote .deemed-target,
+.quote .gorgeous-target,
+.quote .allows-target,
+.quote .hunted-target,
+.quote .verge-target,
+.quote .verge-seen-h {
+  text-indent: 0;
+}
+
 .setup {
   margin: 0 0 1.5rem;
   color: var(--body);
@@ -361,75 +371,6 @@
   will-change: color;
 }
 
-.divider-rule {
-  display: block;
-  width: 6rem;
-  height: 1px;
-  background: var(--wooden-divider);
-  margin: 2.5rem auto 0;
-  transform: translateX(0);
-}
-
-.slot.crosscut {
-  min-height: 100svh;
-  padding-block: 0;
-  display: block;
-}
-.crosscut-inner {
-  max-width: none;
-  margin-inline: 0;
-  grid-row: auto;
-}
-.crosscut-stage {
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  padding-inline: var(--gutter);
-  padding-block: clamp(3rem, 10vh, 6rem);
-  max-width: 76rem;
-  margin-inline: auto;
-}
-.crosscut-panel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 60vh;
-}
-.crosscut-panel-dinner {
-  will-change: opacity;
-}
-.crosscut-panel-checkpoint {
-  will-change: opacity;
-}
-.crosscut-note {
-  font-family: var(--display-stack);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--body);
-  opacity: 0.55;
-  margin: 0 0 1.25rem;
-}
-.crosscut-echo {
-  font-family: var(--body-stack);
-  font-style: italic;
-  font-size: clamp(1.4rem, 2vw, 1.8rem);
-  line-height: 1.4;
-  color: var(--body);
-  margin: 0;
-}
-.crosscut-divider {
-  display: block;
-  width: 1px;
-  background: var(--wooden-divider);
-  height: 60vh;
-  align-self: center;
-  transform: translateX(0);
-  will-change: transform;
-}
-
 .pull-quote {
   margin: 1.75rem 0 0;
   padding-inline-start: 1.25rem;
@@ -713,4 +654,180 @@
   opacity: 0.78;
   line-height: 1.35;
   text-align: center;
+}
+
+.cinnamon-fragment {
+  position: relative;
+  display: inline;
+}
+.cinnamon-fragment-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.18em;
+  height: 1px;
+  background: var(--errant-cinnamon);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.deemed-target {
+  display: inline-block;
+  color: var(--majoritarian-graphite);
+  will-change: color, letter-spacing;
+}
+
+@property --gorgeous-weight {
+  syntax: "<number>";
+  initial-value: 400;
+  inherits: false;
+}
+
+.gorgeous-target {
+  display: inline-block;
+  color: var(--gorgeous-ember);
+  font-variation-settings: "wght" var(--gorgeous-weight, 400);
+  font-weight: 500;
+  will-change: font-variation-settings;
+}
+
+.allows-target {
+  display: inline-block;
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.parataxis-hairline {
+  display: block;
+  width: 70%;
+  max-width: 22rem;
+  height: 1px;
+  background: var(--parataxis-ink, var(--body));
+  margin: 1.1em auto;
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.verge-horizon {
+  position: absolute;
+  inset-inline: clamp(8vw, 12vw, 18vw);
+  bottom: 38%;
+  height: 2px;
+  pointer-events: none;
+  will-change: opacity;
+}
+.verge-horizon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.verge-horizon-line {
+  stroke: var(--gorgeous-ember);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.nho-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: baseline;
+  position: relative;
+  line-height: 1.05;
+}
+.nho-fill {
+  display: inline-block;
+  will-change: transform;
+}
+.nho-o {
+  position: relative;
+  display: inline-block;
+}
+.nho-diacritic {
+  position: absolute;
+  left: 50%;
+  top: -0.42em;
+  width: 0.7em;
+  height: 0.42em;
+  transform: translateX(-50%);
+  overflow: visible;
+}
+.nho-diacritic-path {
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.slot#closing-thesis .slot-inner {
+  max-width: 60rem;
+}
+.thesis-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+  text-align: left;
+  position: relative;
+}
+.thesis-hairline {
+  position: absolute;
+  left: 50%;
+  top: 0.25em;
+  bottom: 0.25em;
+  width: 1px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  overflow: visible;
+}
+.thesis-hairline-line {
+  stroke: var(--body);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.45;
+}
+.thesis-clause {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.25vw, 1.25rem);
+  line-height: 1.55;
+  will-change: transform;
+}
+.thesis-clause-left {
+  padding-inline-end: clamp(1rem, 2vw, 1.75rem);
+}
+.thesis-clause-right {
+  padding-inline-start: clamp(1rem, 2vw, 1.75rem);
+}
+
+:root[data-motion="reduced"] .thesis-split {
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+:root[data-motion="reduced"] .thesis-clause-left {
+  padding-inline-end: 0;
+}
+:root[data-motion="reduced"] .thesis-clause-right {
+  padding-inline-start: 0;
+}
+:root[data-motion="reduced"] .thesis-hairline {
+  display: none;
+}
+:root[data-motion="reduced"] .nho-mask {
+  overflow: visible;
+}
+:root[data-motion="reduced"] .nho-fill {
+  transform: none !important;
+}
+:root[data-motion="reduced"] .nho-diacritic-path {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+:root[data-motion="reduced"] .parataxis-hairline {
+  transform: scaleX(1) !important;
+}
+:root[data-motion="reduced"] .cinnamon-fragment-underline {
+  transform: scaleX(1) !important;
+}
+:root[data-motion="reduced"] .verge-horizon {
+  display: none;
 }

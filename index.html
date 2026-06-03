@@ -10,10 +10,15 @@
     <link rel="stylesheet" href="/src/styles/base.css" />
     <link rel="stylesheet" href="/src/styles/chapters.css" />
     <link rel="stylesheet" href="/src/styles/reading-mode.css" />
+    <link rel="stylesheet" href="/src/styles/hud.css" />
   </head>
   <body>
     <a href="#main" class="skip">Skip to content</a>
-    <main id="main" data-mode="presentation"></main>
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <main id="main" data-mode="presentation"></main>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -1,7 +1,9 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import "./ease.js";
+
+void DrawSVGPlugin;
 
 export function animateClosing(): void {
   attachVerbEcho("closing-verb-echo");
@@ -67,43 +69,73 @@ function attachVerbEcho(id: string): void {
 function attachThesisReveal(id: string): void {
   const slot = document.getElementById(id);
   if (!slot) return;
-  const thesis = slot.querySelector(".thesis") as HTMLElement | null;
-  if (!thesis) {
-    const inner = slot.querySelector(".slot-inner");
-    if (!inner) return;
-    gsap.set(inner, { opacity: 0 });
+  const split = slot.querySelector(".thesis-split") as HTMLElement | null;
+  if (split) {
+    attachThesisColumnSplit(slot, split);
+    return;
+  }
+  const fallback = slot.querySelector(".thesis") as HTMLElement | null;
+  if (fallback) {
+    gsap.set(fallback, { opacity: 0 });
     ScrollTrigger.create({
       trigger: slot,
       start: "top 65%",
       once: true,
       onEnter: () =>
-        gsap.to(inner, { opacity: 1, duration: 1.4, ease: "editorial" })
+        gsap.to(fallback, { opacity: 1, duration: 1.4, ease: "editorial" })
     });
     return;
   }
+  const inner = slot.querySelector(".slot-inner");
+  if (!inner) return;
+  gsap.set(inner, { opacity: 0 });
+  ScrollTrigger.create({
+    trigger: slot,
+    start: "top 65%",
+    once: true,
+    onEnter: () =>
+      gsap.to(inner, { opacity: 1, duration: 1.4, ease: "editorial" })
+  });
+}
 
-  gsap.set(thesis, { opacity: 0 });
+function attachThesisColumnSplit(slot: HTMLElement, split: HTMLElement): void {
+  const left = split.querySelector(".thesis-clause-left") as HTMLElement | null;
+  const right = split.querySelector(".thesis-clause-right") as HTMLElement | null;
+  const hairline = split.querySelector(".thesis-hairline-line") as SVGElement | null;
+  if (!left || !right) return;
+
+  gsap.set(split, { opacity: 0 });
+  gsap.set(left, { xPercent: 50 });
+  gsap.set(right, { xPercent: -50 });
+  if (hairline) gsap.set(hairline, { drawSVG: "50% 50%" });
 
   ScrollTrigger.create({
     trigger: slot,
     start: "top 65%",
     once: true,
     onEnter: () => {
-      const split = new SplitText(thesis, { type: "lines" });
-      const lines = split.lines;
-      if (lines.length === 0) {
-        gsap.to(thesis, { opacity: 1, duration: 1.4, ease: "editorial" });
-        return;
+      const tl = gsap.timeline();
+      tl.to(
+        [left, right],
+        {
+          xPercent: 0,
+          duration: 1.4,
+          ease: "power3.out"
+        },
+        0
+      );
+      tl.to(
+        split,
+        { opacity: 1, duration: 0.9, ease: "editorial" },
+        0.2
+      );
+      if (hairline) {
+        tl.to(
+          hairline,
+          { drawSVG: "0% 100%", duration: 1.1, ease: "power2.inOut" },
+          0.55
+        );
       }
-      gsap.set(thesis, { opacity: 1 });
-      gsap.set(lines, { opacity: 0, y: 14 });
-      gsap.to(lines, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: "editorial",
-        stagger: 0.18
-      });
     }
   });
 }

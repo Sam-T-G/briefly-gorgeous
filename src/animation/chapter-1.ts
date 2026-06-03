@@ -1,18 +1,71 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import "./ease.js";
 import { revealChapterTitle } from "./opening.js";
 
 export function animateChapter1(): void {
   revealChapterTitle("ch1-open");
 
-  attachQuoteReveal("ch1-macaque");
+  attachPorcelainReveal("ch1-macaque");
   attachPairedFragment("ch1-soldier-reads");
+  attachCinnamonRecognition("ch1-soldier-reads");
   attachQuoteReveal("ch1-verdict");
 
   attachVerdictCut("ch1-verdict");
 
   attachLensBundle("ch1-lens");
+}
+
+function attachPorcelainReveal(id: string): void {
+  const slot = document.getElementById(id);
+  if (!slot) return;
+  const setup = slot.querySelector(".setup");
+  const quote = slot.querySelector(".quote") as HTMLElement | null;
+  const cite = slot.querySelector(".chrome-citation");
+  const analysis = slot.querySelector(".analysis");
+  const pullQuote = slot.querySelector(".pull-quote-text") as HTMLElement | null;
+  const pullCite = slot.querySelector(".pull-quote .chrome-citation");
+
+  if (setup) gsap.set(setup, { opacity: 0, y: 10 });
+  if (cite) gsap.set(cite, { opacity: 0, y: 6 });
+  if (analysis) gsap.set(analysis, { opacity: 0, y: 10 });
+  if (pullQuote) gsap.set(pullQuote, { opacity: 0, y: 14 });
+  if (pullCite) gsap.set(pullCite, { opacity: 0, y: 6 });
+
+  let words: Element[] = [];
+  if (quote) {
+    const split = new SplitText(quote, { type: "words", wordsClass: "split-word" });
+    words = split.words;
+    gsap.set(words, { opacity: 0, y: 6 });
+  }
+
+  ScrollTrigger.create({
+    trigger: slot,
+    start: "top 65%",
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.75, ease: "editorial" });
+      if (words.length > 0) {
+        tl.to(
+          words,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            ease: "power1.out",
+            stagger: 0.04
+          },
+          setup ? "-=0.25" : 0
+        );
+      }
+      if (cite) tl.to(cite, { opacity: 1, y: 0, duration: 0.55, ease: "editorial" }, "+=0.2");
+      if (analysis) tl.to(analysis, { opacity: 1, y: 0, duration: 0.8, ease: "editorial" }, "-=0.15");
+      if (pullQuote) tl.to(pullQuote, { opacity: 1, y: 0, duration: 0.85, ease: "editorial" }, "+=0.45");
+      if (pullCite) tl.to(pullCite, { opacity: 1, y: 0, duration: 0.5, ease: "editorial" }, "-=0.35");
+    }
+  });
 }
 
 function attachQuoteReveal(id: string): void {
@@ -64,6 +117,29 @@ function attachVerdictCut(id: string): void {
       toggleActions: "play none none reverse",
       invalidateOnRefresh: true
     }
+  });
+}
+
+function attachCinnamonRecognition(id: string): void {
+  const slot = document.getElementById(id);
+  if (!slot) return;
+  const wrap = slot.querySelector(".cinnamon-fragment") as HTMLElement | null;
+  const underline = slot.querySelector(".cinnamon-fragment-underline") as HTMLElement | null;
+  if (!wrap || !underline) return;
+
+  gsap.set(underline, { scaleX: 0, transformOrigin: "left center" });
+
+  ScrollTrigger.create({
+    trigger: slot,
+    start: "top 60%",
+    once: true,
+    onEnter: () =>
+      gsap.to(underline, {
+        scaleX: 1,
+        duration: 0.6,
+        ease: "power2.out",
+        delay: 0.35
+      })
   });
 }
 
@@ -126,7 +202,7 @@ function attachLensBundle(id: string): void {
       tl.to(
         items,
         {
-          opacity: 1,
+          opacity: 0.9,
           x: 0,
           duration: 0.9,
           ease: "editorial",

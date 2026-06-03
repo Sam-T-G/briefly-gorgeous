@@ -29,11 +29,15 @@ Three lanes interact on this project. The contract lives in `presentation-WEB-v1
 
 If you find yourself needing to change ownership, write a Cross-lane request in the pipeline doc and stop.
 
-## Stack (locked)
+## Stack
 
-Vite + vanilla TypeScript + GSAP. No frameworks. No React, Vue, Svelte, Astro. Plugins: `ScrollTrigger`, `ScrollToPlugin`, `SplitText`, `CustomEase`, `DrawSVGPlugin`. Default ease is CustomEase `"editorial"` defined in `src/animation/ease.ts`.
+Vite + vanilla TypeScript + GSAP. No frameworks. No React, Vue, Svelte, Astro.
 
-Rationale: `presentation-WEB-v1-research-gsap-dossier.md` §11.
+**Talk-delivered branch (`main`):** plugins are `ScrollTrigger`, `ScrollToPlugin`, `SplitText`, `CustomEase`, `DrawSVGPlugin`. Default ease is `"editorial"`.
+
+**Experimental branch (`experimental-immersive-overhaul`):** adds `ScrollSmoother`, `Flip`, `Physics2DPlugin`, `Draggable`, `InertiaPlugin`, `ScrambleTextPlugin`, `MotionPathPlugin`. Default eases are `"editorial"`, `"drift"`, `"settle"`, `"hush"` in `src/animation/ease.ts`. GSAP 3.13+ ships these MIT-licensed (post-Webflow), no Club key required.
+
+Rationale: `presentation-WEB-v1-research-gsap-dossier.md` §11 for the talk lane. The experimental lane is post-talk creative exploration — palette dossier governance does NOT bind here.
 
 ## Slot ID contract
 
@@ -65,13 +69,11 @@ Required:
 
 ## Motion discipline
 
-Permitted eases: CustomEase `"editorial"`, `power1.out`, `power1.inOut`, `power2.inOut`, `power3.out`, `expo.out`, `linear` (scrubs only).
+**Talk branch:** permitted eases are `"editorial"`, `power1.out`, `power1.inOut`, `power2.inOut`, `power3.out`, `expo.out`, `linear` (scrubs only). Forbidden eases: `bounce`, `elastic`, `back`, any spring, any custom ease with overshoot. One earned cinematic per chapter; everywhere else quiet. Move names match palette dossier.
 
-Forbidden eases: `bounce`, `elastic`, `back`, any spring, any custom ease with overshoot.
+**Experimental branch:** ease vocabulary is open. Physics-driven motion (`Physics2DPlugin`, `InertiaPlugin`) is permitted where it serves the reading. Spring/overshoot allowed if quiet and motivated. Each act may carry multiple coordinated moves. Palette-dossier-name matching is suspended; document new moves inline in source instead.
 
-Each chapter has exactly one earned cinematic moment (named in `presentation-WEB-v1-design-north-star.md` §4). Everywhere else is quiet.
-
-Move names in code must match move names in the chapter's palette dossier. Adding a new move requires updating the palette dossier first.
+Both branches: animate only `transform` and `opacity`. No layout properties.
 
 ## Performance rules
 
@@ -79,7 +81,7 @@ Move names in code must match move names in the chapter's palette dossier. Addin
 - `will-change: transform` applied per-tween, removed `onComplete`.
 - `ScrollTrigger.refresh()` called after `document.fonts.ready`.
 - `anticipatePin: 1` on every pinned section.
-- Total JS gzipped ≤ 80 KB.
+- Total JS gzipped ≤ 110 KB on `main` (talk branch). Experimental branch cap is 160 KB; cap is no longer aesthetic-bound now that the experimental lane is open. Aim to land under 130 KB.
 - Markers behind `import.meta.env.DEV`.
 
 ## Accessibility floor

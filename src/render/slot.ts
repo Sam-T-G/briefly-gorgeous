@@ -16,7 +16,9 @@ function applyLanding(el: HTMLElement, landing: Landing | undefined): void {
 function splitQuoteHalves(raw: string, splitAt: string): [string, string] | null {
   const idx = raw.indexOf(splitAt);
   if (idx === -1) return null;
-  const cut = idx + splitAt.length;
+  const punctPrefix = splitAt.match(/^[,.;:!?]+\s*/);
+  const skip = punctPrefix ? punctPrefix[0].length : 0;
+  const cut = idx + skip;
   const first = raw.slice(0, cut).trim();
   const second = raw.slice(cut).trim();
   if (!first || !second) return null;
@@ -165,11 +167,17 @@ function renderQuote(
     const [firstRaw, secondRaw] = splitPair;
     const firstHalf = document.createElement("span");
     firstHalf.className = "quote-half quote-half-first";
-    firstHalf.appendChild(buildQuoteText(slot.id, firstRaw, { openOnly: true }));
+    firstHalf.appendChild(buildHalfWithWords(slot.id, firstRaw, { openOnly: true }));
     const secondHalf = document.createElement("span");
     secondHalf.className = "quote-half quote-half-second";
-    secondHalf.appendChild(buildQuoteText(slot.id, secondRaw, { closeOnly: true }));
+    secondHalf.appendChild(buildHalfWithWords(slot.id, secondRaw, { closeOnly: true }));
     quote.appendChild(firstHalf);
+    if (slot.id === "ch3-parataxis") {
+      const hairline = document.createElement("span");
+      hairline.className = "parataxis-hairline";
+      hairline.setAttribute("aria-hidden", "true");
+      quote.appendChild(hairline);
+    }
     quote.appendChild(secondHalf);
   } else {
     quote.appendChild(buildQuoteText(slot.id, slot.quote));
@@ -217,6 +225,29 @@ function renderQuote(
       pivot.appendChild(
         buildVergePanel("verge", slot.quote, slot.citation, true)
       );
+
+      const horizonWrap = document.createElement("div");
+      horizonWrap.className = "verge-horizon";
+      horizonWrap.setAttribute("aria-hidden", "true");
+      const horizonSvg = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
+      horizonSvg.setAttribute("viewBox", "0 0 1000 2");
+      horizonSvg.setAttribute("preserveAspectRatio", "none");
+      horizonSvg.setAttribute("aria-hidden", "true");
+      const horizonLine = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "line"
+      );
+      horizonLine.setAttribute("class", "verge-horizon-line");
+      horizonLine.setAttribute("x1", "0");
+      horizonLine.setAttribute("y1", "1");
+      horizonLine.setAttribute("x2", "1000");
+      horizonLine.setAttribute("y2", "1");
+      horizonSvg.appendChild(horizonLine);
+      horizonWrap.appendChild(horizonSvg);
+      pivot.appendChild(horizonWrap);
 
       inner.parentElement?.appendChild(pivot);
     }
@@ -321,6 +352,95 @@ function quoteAccent(slotId: string, raw: string): SpanTarget | null {
   return null;
 }
 
+function wrapWord(
+  parent: Node,
+  text: string,
+  target: string,
+  className: string
+): void {
+  const idx = text.indexOf(target);
+  if (idx === -1) {
+    parent.appendChild(document.createTextNode(text));
+    return;
+  }
+  if (idx > 0) parent.appendChild(document.createTextNode(text.slice(0, idx)));
+  const span = document.createElement("span");
+  span.className = className;
+  span.textContent = target;
+  parent.appendChild(span);
+  const after = text.slice(idx + target.length);
+  if (after) parent.appendChild(document.createTextNode(after));
+}
+
+function appendVietnameseWithNho(parent: HTMLElement, text: string): void {
+  const target = "nhớ";
+  let lastIdx = 0;
+  let idx = text.indexOf(target);
+  if (idx === -1) {
+    parent.textContent = text;
+    return;
+  }
+  while (idx !== -1) {
+    if (idx > lastIdx) {
+      parent.appendChild(document.createTextNode(text.slice(lastIdx, idx)));
+    }
+    parent.appendChild(buildNhoMask());
+    lastIdx = idx + target.length;
+    idx = text.indexOf(target, lastIdx);
+  }
+  if (lastIdx < text.length) {
+    parent.appendChild(document.createTextNode(text.slice(lastIdx)));
+  }
+}
+
+function buildNhoMask(): HTMLElement {
+  const wrap = document.createElement("span");
+  wrap.className = "nho-mask";
+  wrap.setAttribute("aria-label", "nhớ");
+  const fill = document.createElement("span");
+  fill.className = "nho-fill";
+  fill.setAttribute("aria-hidden", "true");
+  fill.appendChild(document.createTextNode("nh"));
+  const oCarrier = document.createElement("span");
+  oCarrier.className = "nho-o";
+  oCarrier.textContent = "ơ";
+  const diacritic = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  diacritic.setAttribute("class", "nho-diacritic");
+  diacritic.setAttribute("viewBox", "0 0 10 6");
+  diacritic.setAttribute("aria-hidden", "true");
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("class", "nho-diacritic-path");
+  path.setAttribute("d", "M2 5 Q5 1 8 5");
+  path.setAttribute("fill", "none");
+  diacritic.appendChild(path);
+  oCarrier.appendChild(diacritic);
+  fill.appendChild(oCarrier);
+  wrap.appendChild(fill);
+  return wrap;
+}
+
+function buildHalfWithWords(
+  slotId: string,
+  raw: string,
+  opts: { openOnly?: boolean; closeOnly?: boolean } = {}
+): DocumentFragment {
+  const open = opts.closeOnly ? "" : `"`;
+  const close = opts.openOnly ? "" : `"`;
+  const frag = document.createDocumentFragment();
+  if (open) frag.appendChild(document.createTextNode(open));
+  if (slotId === "ch2-deemed" && raw.includes("deemed")) {
+    wrapWord(frag, raw, "deemed", "deemed-target");
+  } else if (slotId === "ch2-verge" && raw.includes("gorgeous")) {
+    wrapWord(frag, raw, "gorgeous", "gorgeous-target");
+  } else if (slotId === "ch2-verge" && raw.includes("allows")) {
+    wrapWord(frag, raw, "allows", "allows-target");
+  } else {
+    frag.appendChild(document.createTextNode(raw));
+  }
+  if (close) frag.appendChild(document.createTextNode(close));
+  return frag;
+}
+
 function renderBilingual(
   inner: HTMLElement,
   slot: Extract<Slot, { type: "bilingual-pair" }>
@@ -420,7 +540,7 @@ function renderBilingualStream(
     const vi = document.createElement("blockquote");
     vi.className = "quote quote-vi";
     vi.lang = "vi";
-    vi.textContent = pair.vi;
+    appendVietnameseWithNho(vi, pair.vi);
     const cite = document.createElement("cite");
     cite.className = "chrome-citation";
     cite.textContent = pair.citation;
@@ -450,7 +570,20 @@ function renderPairedFragment(
   pair.className = "paired-fragment";
   const left = document.createElement("blockquote");
   left.className = "quote paired-fragment-left";
-  left.textContent = `"${slot.left}"`;
+  if (slot.id === "ch1-soldier-reads") {
+    left.appendChild(document.createTextNode(`"`));
+    const wrap = document.createElement("span");
+    wrap.className = "cinnamon-fragment";
+    wrap.textContent = slot.left;
+    const underline = document.createElement("span");
+    underline.className = "cinnamon-fragment-underline";
+    underline.setAttribute("aria-hidden", "true");
+    wrap.appendChild(underline);
+    left.appendChild(wrap);
+    left.appendChild(document.createTextNode(`"`));
+  } else {
+    left.textContent = `"${slot.left}"`;
+  }
   const right = document.createElement("blockquote");
   right.className = "quote paired-fragment-right";
   right.textContent = `"${slot.right}"`;
@@ -514,10 +647,50 @@ function renderThesis(
   inner: HTMLElement,
   slot: Extract<Slot, { type: "thesis-reveal" }>
 ): void {
-  const p = document.createElement("p");
-  p.className = "thesis";
-  setInline(p, slot.thesis);
-  inner.appendChild(p);
+  const split = splitThesisIntoClauses(slot.thesis);
+  if (!split) {
+    const p = document.createElement("p");
+    p.className = "thesis";
+    setInline(p, slot.thesis);
+    inner.appendChild(p);
+    return;
+  }
+  const grid = document.createElement("div");
+  grid.className = "thesis-split";
+  const left = document.createElement("p");
+  left.className = "thesis thesis-clause thesis-clause-left";
+  setInline(left, split.left);
+  const right = document.createElement("p");
+  right.className = "thesis thesis-clause thesis-clause-right";
+  setInline(right, split.right);
+  grid.appendChild(left);
+  grid.appendChild(right);
+
+  const hairlineSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  hairlineSvg.setAttribute("class", "thesis-hairline");
+  hairlineSvg.setAttribute("viewBox", "0 0 1 100");
+  hairlineSvg.setAttribute("preserveAspectRatio", "none");
+  hairlineSvg.setAttribute("aria-hidden", "true");
+  const hairlineLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  hairlineLine.setAttribute("class", "thesis-hairline-line");
+  hairlineLine.setAttribute("x1", "0.5");
+  hairlineLine.setAttribute("y1", "0");
+  hairlineLine.setAttribute("x2", "0.5");
+  hairlineLine.setAttribute("y2", "100");
+  hairlineSvg.appendChild(hairlineLine);
+  grid.appendChild(hairlineSvg);
+
+  inner.appendChild(grid);
+}
+
+function splitThesisIntoClauses(thesis: string): { left: string; right: string } | null {
+  const marker = ". It challenges";
+  const idx = thesis.indexOf(marker);
+  if (idx === -1) return null;
+  const left = thesis.slice(0, idx + 1).trim();
+  const right = thesis.slice(idx + 2).trim();
+  if (!left || !right) return null;
+  return { left, right };
 }
 
 function renderResearchTrajectory(

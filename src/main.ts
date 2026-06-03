@@ -10,15 +10,19 @@ import { installReadingModeToggle } from "./a11y/reading-mode.js";
 import { installKeyboardNav } from "./nav/keyboard.js";
 import { installHelpOverlay } from "./nav/help-overlay.js";
 import { installAutoAdvance } from "./nav/auto-advance.js";
+import { installHud } from "./nav/hud.js";
 
 import { refreshOnFontsReady } from "./util/refresh-on-fonts.js";
 
 import { animateOpening } from "./animation/opening.js";
 import { animateChapter1 } from "./animation/chapter-1.js";
-import { animateChapter2 } from "./animation/chapter-2.js";
 import { animateChapter3 } from "./animation/chapter-3.js";
 import { animateClosing } from "./animation/closing.js";
 import { animateBackground } from "./animation/background.js";
+
+import { initSmoother } from "./motion/smoother.js";
+import { installCursor } from "./interactive/cursor.js";
+import { installChapter2Horizontal } from "./motion/chapter-2-horizontal.js";
 
 const main = document.getElementById("main");
 if (!main) throw new Error("missing #main");
@@ -36,18 +40,18 @@ installHelpOverlay();
 if (prefersReducedMotion()) {
   applyStaticReflow();
 } else {
+  initSmoother();
+  installHud();
+  installCursor();
   animateBackground();
   animateOpening();
   animateChapter1();
-  animateChapter2();
+  installChapter2Horizontal();
   animateChapter3();
   animateClosing();
   installAutoAdvance({
-    triggerSlotIds: ["ch1-open", "ch2-open", "ch2-deemed", "ch3-open", "ch3-close"],
-    delayMs: 2500,
-    delayOverridesMs: {
-      "ch2-deemed": 6500
-    }
+    triggerSlotIds: ["ch1-open", "ch3-open", "ch3-close"],
+    delayMs: 2500
   });
 }
 
