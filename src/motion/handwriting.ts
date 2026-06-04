@@ -73,7 +73,7 @@ const OURS: ScriptWord = {
   fontSize: 60,
   yBaseline: 60,
   xStart: 6,
-  duration: 1.0
+  duration: 0.55
 };
 
 const NHO: ScriptWord = {
@@ -97,7 +97,7 @@ const PARATAXIS_LINE_1: ScriptWord = {
   fontSize: 52,
   yBaseline: 56,
   xStart: 6,
-  duration: 2.1
+  duration: 1.0
 };
 
 const PARATAXIS_LINE_2: ScriptWord = {
@@ -108,7 +108,7 @@ const PARATAXIS_LINE_2: ScriptWord = {
   fontSize: 52,
   yBaseline: 56,
   xStart: 6,
-  duration: 2.0
+  duration: 1.0
 };
 
 // Twenty-four margin annotations scattered across ch3-close, written one at a

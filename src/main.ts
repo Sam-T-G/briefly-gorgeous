@@ -9,7 +9,6 @@ import { installReadingModeToggle } from "./a11y/reading-mode.js";
 
 import { installKeyboardNav } from "./nav/keyboard.js";
 import { installHelpOverlay } from "./nav/help-overlay.js";
-import { installAutoAdvance } from "./nav/auto-advance.js";
 import { installHud } from "./nav/hud.js";
 import { installFullscreenHint } from "./nav/fullscreen-hint.js";
 
@@ -55,11 +54,6 @@ if (prefersReducedMotion()) {
   installClosingCinematic();
   installContinuityThreads();
   installHandwriting();
-  installAutoAdvance({
-    triggerSlotIds: ["ch1-open", "ch3-open", "ch3-close"],
-    delayMs: 2500,
-    delayOverridesMs: { "ch3-close": 9000 }
-  });
 }
 
 refreshOnFontsReady();
