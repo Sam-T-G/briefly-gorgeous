@@ -209,7 +209,7 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
   };
   const trajectories: Trajectory[] = [
     {
-      // Large bird — high lazy arc, same direction as the sun.
+      // Large near bird — high lazy arc, same direction as the sun.
       pathD: "M -10,26 Q 30,16 60,22 Q 88,28 112,32",
       birdD: "M -1.8,0.7 Q -0.9,-1.2 0,0.7 Q 0.9,-1.2 1.8,0.7",
       ease: "power1.inOut",
@@ -218,24 +218,64 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
       opacity: 0.82,
       strokeWidth: 0.75
     },
+    // Mid flock — three birds at similar size, velocity, and altitude with
+    // light spatial and timing variance so the formation reads as living
+    // rather than locked.
     {
-      // Mid bird — dipping path that crosses the sun's altitude midway.
-      pathD: "M -6,58 Q 28,76 56,48 Q 80,28 110,40",
-      birdD: "M -1.0,0.45 Q -0.5,-0.7 0,0.45 Q 0.5,-0.7 1.0,0.45",
-      ease: "power2.in",
-      start: 0.14,
+      pathD: "M -6,54 Q 28,48 56,58 Q 84,62 110,54",
+      birdD: "M -0.95,0.42 Q -0.475,-0.66 0,0.42 Q 0.475,-0.66 0.95,0.42",
+      ease: "power1.in",
+      start: 0.16,
       duration: 0.78,
+      opacity: 0.72,
+      strokeWidth: 0.55
+    },
+    {
+      pathD: "M -8,58 Q 32,52 60,62 Q 86,66 112,58",
+      birdD: "M -1.0,0.44 Q -0.5,-0.68 0,0.44 Q 0.5,-0.68 1.0,0.44",
+      ease: "power1.in",
+      start: 0.19,
+      duration: 0.76,
       opacity: 0.7,
       strokeWidth: 0.55
     },
     {
-      // Small distant bird — quick shallow cross low in the frame.
-      pathD: "M -4,80 Q 26,90 58,76 Q 84,64 110,82",
+      pathD: "M -5,50 Q 26,46 58,54 Q 88,58 110,50",
+      birdD: "M -0.9,0.4 Q -0.45,-0.64 0,0.4 Q 0.45,-0.64 0.9,0.4",
+      ease: "power1.in",
+      start: 0.14,
+      duration: 0.8,
+      opacity: 0.74,
+      strokeWidth: 0.55
+    },
+    // Distant flock — three small birds drifting low in the frame, very
+    // close in size and pace, with small offsets so they feel like a real
+    // formation.
+    {
+      pathD: "M -4,80 Q 26,86 58,78 Q 84,72 110,82",
       birdD: "M -0.55,0.28 Q -0.275,-0.4 0,0.28 Q 0.275,-0.4 0.55,0.28",
       ease: "none",
       start: 0.22,
       duration: 0.66,
       opacity: 0.6,
+      strokeWidth: 0.4
+    },
+    {
+      pathD: "M -6,76 Q 28,82 58,74 Q 86,68 112,78",
+      birdD: "M -0.5,0.26 Q -0.25,-0.38 0,0.26 Q 0.25,-0.38 0.5,0.26",
+      ease: "none",
+      start: 0.25,
+      duration: 0.64,
+      opacity: 0.58,
+      strokeWidth: 0.4
+    },
+    {
+      pathD: "M -4,84 Q 30,90 60,82 Q 84,76 110,86",
+      birdD: "M -0.58,0.3 Q -0.29,-0.42 0,0.3 Q 0.29,-0.42 0.58,0.3",
+      ease: "none",
+      start: 0.2,
+      duration: 0.68,
+      opacity: 0.62,
       strokeWidth: 0.4
     },
     {
