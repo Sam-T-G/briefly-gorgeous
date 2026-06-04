@@ -195,36 +195,69 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
   sunPath.setAttribute("d", "M 6,30 Q 50,40 94,82");
   sunPath.setAttribute("class", "ch2-meridian-track");
   sunPath.setAttribute("id", "ch2-meridian-sun-path");
-
-  // Visible residue trail of the sun's transit.
-  const meridian = document.createElementNS(SVG_NS, "path");
-  meridian.setAttribute("d", "M 6,30 Q 50,40 94,82");
-  meridian.setAttribute("class", "ch2-meridian");
-
-  // Flock rides a parallel arc beneath the sun's path.
-  const flockPath = document.createElementNS(SVG_NS, "path");
-  flockPath.setAttribute("d", "M 4,46 Q 50,56 96,92");
-  flockPath.setAttribute("class", "ch2-meridian-track");
-  flockPath.setAttribute("id", "ch2-meridian-flock-path");
-
   svg.appendChild(sunPath);
-  svg.appendChild(meridian);
-  svg.appendChild(flockPath);
 
-  const flock: SVGPathElement[] = [];
-  for (let i = 0; i < 3; i++) {
+  // Foreground flock — each bird gets its own trajectory and size.
+  type Trajectory = {
+    pathD: string;
+    birdD: string;
+    ease: string;
+    start: number;
+    duration: number;
+    opacity: number;
+    strokeWidth: number;
+  };
+  const trajectories: Trajectory[] = [
+    {
+      // Large near bird — high lazy arc across the upper sky.
+      pathD: "M -10,26 Q 30,16 60,22 Q 88,28 112,32",
+      birdD: "M -1.8,0.7 Q -0.9,-1.2 0,0.7 Q 0.9,-1.2 1.8,0.7",
+      ease: "power1.inOut",
+      start: 0.02,
+      duration: 0.92,
+      opacity: 0.82,
+      strokeWidth: 0.75
+    },
+    {
+      // Mid bird — dipping path that crosses the sun's altitude midway.
+      pathD: "M -6,58 Q 28,76 56,48 Q 80,28 110,40",
+      birdD: "M -1.0,0.45 Q -0.5,-0.7 0,0.45 Q 0.5,-0.7 1.0,0.45",
+      ease: "power2.in",
+      start: 0.14,
+      duration: 0.78,
+      opacity: 0.7,
+      strokeWidth: 0.55
+    },
+    {
+      // Small distant bird — quick shallow cross low in the frame.
+      pathD: "M -4,80 Q 26,90 58,76 Q 84,64 110,82",
+      birdD: "M -0.55,0.28 Q -0.275,-0.4 0,0.28 Q 0.275,-0.4 0.55,0.28",
+      ease: "none",
+      start: 0.22,
+      duration: 0.66,
+      opacity: 0.6,
+      strokeWidth: 0.4
+    }
+  ];
+
+  const flock = trajectories.map((t, i) => {
+    const trail = document.createElementNS(SVG_NS, "path");
+    trail.setAttribute("d", t.pathD);
+    trail.setAttribute("class", "ch2-meridian-track");
+    trail.setAttribute("id", `ch2-flock-trail-${i}`);
+    svg.appendChild(trail);
     const bird = document.createElementNS(SVG_NS, "path");
-    bird.setAttribute("d", "M -0.9,0.4 Q -0.45,-0.6 0,0.4 Q 0.45,-0.6 0.9,0.4");
+    bird.setAttribute("d", t.birdD);
     bird.setAttribute("class", `ch2-flock-bird ch2-flock-bird-${i}`);
+    bird.setAttribute("stroke-width", String(t.strokeWidth));
     svg.appendChild(bird);
-    flock.push(bird);
-  }
+    return { bird, trail, traj: t };
+  });
 
   section.appendChild(svg);
 
   gsap.set(sun, { xPercent: -50, yPercent: -50 });
-  gsap.set(meridian, { drawSVG: "0% 0%" });
-  for (const b of flock) gsap.set(b, { opacity: 0 });
+  for (const { bird } of flock) gsap.set(bird, { opacity: 0 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -236,7 +269,6 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
     }
   });
 
-  // Sun traverses the arc across the whole sweep.
   tl.to(sun, {
     duration: 1,
     ease: "none",
@@ -248,48 +280,24 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
     }
   }, 0);
 
-  // Meridian residue draws in slightly ahead-of-pace, settling as the sun
-  // moves through it.
-  tl.to(meridian, { drawSVG: "0% 100%", duration: 0.95, ease: "power1.in" }, 0);
-
-  // Verge moment — the meridian thickens and warms as the sun touches horizon.
-  tl.to(meridian, {
-    attr: { "stroke-width": 1.4 },
-    opacity: 0.55,
-    duration: 0.12,
-    ease: "power2.inOut"
-  }, 0.46);
-  tl.to(meridian, {
-    attr: { "stroke-width": 1.0 },
-    opacity: 0.32,
-    duration: 0.24,
-    ease: "power2.inOut"
-  }, 0.6);
-
-  // Flock — three birds on the same flock path, eased so trailers lag through
-  // the middle and close the gap by sunset.
-  const eases = ["none", "power1.in", "power2.in"];
-  const opacities = [0.72, 0.6, 0.5];
-  const startTime = 0.05;
-  const duration = 0.86;
-  flock.forEach((bird, i) => {
-    tl.to(bird, { opacity: opacities[i] ?? 0.5, duration: 0.05, ease: "none" }, startTime + i * 0.03);
+  for (const { bird, trail, traj } of flock) {
+    tl.to(bird, { opacity: traj.opacity, duration: 0.06, ease: "none" }, traj.start);
     tl.to(
       bird,
       {
-        duration,
-        ease: eases[i] ?? "none",
+        duration: traj.duration,
+        ease: traj.ease,
         motionPath: {
-          path: flockPath,
-          align: flockPath,
+          path: trail,
+          align: trail,
           alignOrigin: [0.5, 0.5],
           autoRotate: false
         }
       },
-      startTime
+      traj.start
     );
-    tl.to(bird, { opacity: 0, duration: 0.06, ease: "none" }, startTime + duration - 0.04);
-  });
+    tl.to(bird, { opacity: 0, duration: 0.08, ease: "none" }, traj.start + traj.duration - 0.06);
+  }
 }
 
 function decorateOpenPanel(): void {

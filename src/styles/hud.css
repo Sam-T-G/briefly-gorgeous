@@ -263,7 +263,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
   overflow: visible;
 }
@@ -271,19 +271,9 @@
   fill: none;
   stroke: none;
 }
-.ch2-meridian {
-  fill: none;
-  stroke: var(--ch2-ink-soft, #5A4A3A);
-  stroke-width: 1;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  opacity: 0.32;
-  mix-blend-mode: multiply;
-}
 .ch2-flock-bird {
   fill: none;
   stroke: var(--ch2-ink, #3A3025);
-  stroke-width: 0.5;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
