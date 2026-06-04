@@ -243,8 +243,8 @@
 }
 .ch2-sun {
   position: absolute;
-  top: 50%;
-  left: 78%;
+  top: 0;
+  left: 0;
   width: clamp(160px, 22vw, 360px);
   height: clamp(160px, 22vw, 360px);
   z-index: 2;
@@ -256,8 +256,39 @@
     rgba(0, 0, 0, 0) 64%);
   mix-blend-mode: screen;
   filter: blur(6px);
-  transform: translate(-50%, -50%);
   will-change: transform, opacity;
+}
+.ch2-meridian-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+.ch2-meridian-track {
+  fill: none;
+  stroke: none;
+}
+.ch2-meridian {
+  fill: none;
+  stroke: var(--ch2-ink-soft, #5A4A3A);
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+}
+.ch2-flock-bird {
+  fill: none;
+  stroke: var(--ch2-ink, #3A3025);
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  mix-blend-mode: multiply;
 }
 .ch2-track {
   position: relative;
@@ -504,7 +535,9 @@
 :root[data-motion="reduced"] .ch2-sunset-horizon,
 :root[data-mode="reading"] .ch2-sunset-horizon,
 :root[data-motion="reduced"] .ch2-verge-horizon,
-:root[data-mode="reading"] .ch2-verge-horizon {
+:root[data-mode="reading"] .ch2-verge-horizon,
+:root[data-motion="reduced"] .ch2-meridian-svg,
+:root[data-mode="reading"] .ch2-meridian-svg {
   display: none;
 }
 :root[data-motion="reduced"] .verge-seen-h::after,

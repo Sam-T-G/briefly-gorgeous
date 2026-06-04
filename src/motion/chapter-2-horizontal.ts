@@ -1,7 +1,13 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
+void DrawSVGPlugin;
+void MotionPathPlugin;
+
+const SVG_NS = "http://www.w3.org/2000/svg";
 const CH2_SLOT_IDS = ["ch2-open", "ch2-deemed", "ch2-verge", "ch2-lens", "ch2-close"];
 
 export function installChapter2Horizontal(): void {
@@ -54,6 +60,7 @@ export function installChapter2Horizontal(): void {
   });
 
   installSunsetColorArc(section, masterTween);
+  installSunArcMeridian(section, masterTween);
   installOpenPanel(masterTween);
   installDeemedPanel(masterTween);
   installVergePanel(masterTween);
@@ -93,7 +100,7 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-ink": "#3A3025",
     "--ch2-ink-soft": "#5A4A3A"
   });
-  gsap.set(sun, { y: "-18vh", scale: 0.85, opacity: 0.35 });
+  gsap.set(sun, { scale: 0.85, opacity: 0.35 });
   gsap.set(afterglow, { opacity: 0 });
 
   const tl = gsap.timeline({
@@ -115,7 +122,7 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-ink-soft": "#4A4248",
     duration: 1, ease: "power1.inOut"
   }, 0);
-  tl.to(sun, { y: "-8vh", scale: 0.95, opacity: 0.6, duration: 1, ease: "power1.inOut" }, 0);
+  tl.to(sun, { scale: 0.95, opacity: 0.6, duration: 1, ease: "power1.inOut" }, 0);
   tl.to(afterglow, { opacity: 0.15, duration: 1, ease: "power1.inOut" }, 0);
 
   tl.to(section, {
@@ -128,7 +135,7 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-ink-soft": "#414652",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "4vh", scale: 1.05, opacity: 0.8, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 1.05, opacity: 0.8, duration: 1, ease: "power1.inOut" }, "<");
   tl.to(afterglow, { opacity: 0.4, duration: 1, ease: "power1.inOut" }, "<");
 
   tl.to(section, {
@@ -141,7 +148,7 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-ink-soft": "#3B4252",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "16vh", scale: 1.15, opacity: 0.95, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 1.15, opacity: 0.95, duration: 1, ease: "power1.inOut" }, "<");
   tl.to(afterglow, { opacity: 0.65, duration: 1, ease: "power1.inOut" }, "<");
 
   tl.to(section, {
@@ -154,7 +161,7 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-ink-soft": "#42495A",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "28vh", scale: 1.05, opacity: 0.6, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 1.05, opacity: 0.6, duration: 1, ease: "power1.inOut" }, "<");
   tl.to(afterglow, { opacity: 0.55, duration: 1, ease: "power1.inOut" }, "<");
 
   tl.to(section, {
@@ -167,8 +174,122 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     "--ch2-ink-soft": "#5A4A3A",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { y: "42vh", scale: 0.95, opacity: 0, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 0.95, opacity: 0, duration: 1, ease: "power1.inOut" }, "<");
   tl.to(afterglow, { opacity: 0.15, duration: 1, ease: "power1.inOut" }, "<");
+}
+
+function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): void {
+  if (!master.scrollTrigger) return;
+  const track = section.querySelector(".ch2-track") as HTMLElement | null;
+  const sun = section.querySelector(".ch2-sun") as HTMLElement | null;
+  if (!track || !sun) return;
+
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("class", "ch2-meridian-svg");
+  svg.setAttribute("viewBox", "0 0 100 100");
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.setAttribute("aria-hidden", "true");
+
+  // Sun rides this hidden arc from upper-left across to lower-right.
+  const sunPath = document.createElementNS(SVG_NS, "path");
+  sunPath.setAttribute("d", "M 6,30 Q 50,40 94,82");
+  sunPath.setAttribute("class", "ch2-meridian-track");
+  sunPath.setAttribute("id", "ch2-meridian-sun-path");
+
+  // Visible residue trail of the sun's transit.
+  const meridian = document.createElementNS(SVG_NS, "path");
+  meridian.setAttribute("d", "M 6,30 Q 50,40 94,82");
+  meridian.setAttribute("class", "ch2-meridian");
+
+  // Flock rides a parallel arc beneath the sun's path.
+  const flockPath = document.createElementNS(SVG_NS, "path");
+  flockPath.setAttribute("d", "M 4,46 Q 50,56 96,92");
+  flockPath.setAttribute("class", "ch2-meridian-track");
+  flockPath.setAttribute("id", "ch2-meridian-flock-path");
+
+  svg.appendChild(sunPath);
+  svg.appendChild(meridian);
+  svg.appendChild(flockPath);
+
+  const flock: SVGPathElement[] = [];
+  for (let i = 0; i < 3; i++) {
+    const bird = document.createElementNS(SVG_NS, "path");
+    bird.setAttribute("d", "M -0.9,0.4 Q -0.45,-0.6 0,0.4 Q 0.45,-0.6 0.9,0.4");
+    bird.setAttribute("class", `ch2-flock-bird ch2-flock-bird-${i}`);
+    svg.appendChild(bird);
+    flock.push(bird);
+  }
+
+  section.appendChild(svg);
+
+  gsap.set(sun, { xPercent: -50, yPercent: -50 });
+  gsap.set(meridian, { drawSVG: "0% 0%" });
+  for (const b of flock) gsap.set(b, { opacity: 0 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: "top top",
+      end: () => `+=${Math.max(0, track.scrollWidth - section.clientWidth)}`,
+      scrub: 1,
+      invalidateOnRefresh: true
+    }
+  });
+
+  // Sun traverses the arc across the whole sweep.
+  tl.to(sun, {
+    duration: 1,
+    ease: "none",
+    motionPath: {
+      path: sunPath,
+      align: sunPath,
+      alignOrigin: [0.5, 0.5],
+      autoRotate: false
+    }
+  }, 0);
+
+  // Meridian residue draws in slightly ahead-of-pace, settling as the sun
+  // moves through it.
+  tl.to(meridian, { drawSVG: "0% 100%", duration: 0.95, ease: "power1.in" }, 0);
+
+  // Verge moment — the meridian thickens and warms as the sun touches horizon.
+  tl.to(meridian, {
+    attr: { "stroke-width": 1.4 },
+    opacity: 0.55,
+    duration: 0.12,
+    ease: "power2.inOut"
+  }, 0.46);
+  tl.to(meridian, {
+    attr: { "stroke-width": 1.0 },
+    opacity: 0.32,
+    duration: 0.24,
+    ease: "power2.inOut"
+  }, 0.6);
+
+  // Flock — three birds on the same flock path, eased so trailers lag through
+  // the middle and close the gap by sunset.
+  const eases = ["none", "power1.in", "power2.in"];
+  const opacities = [0.72, 0.6, 0.5];
+  const startTime = 0.05;
+  const duration = 0.86;
+  flock.forEach((bird, i) => {
+    tl.to(bird, { opacity: opacities[i] ?? 0.5, duration: 0.05, ease: "none" }, startTime + i * 0.03);
+    tl.to(
+      bird,
+      {
+        duration,
+        ease: eases[i] ?? "none",
+        motionPath: {
+          path: flockPath,
+          align: flockPath,
+          alignOrigin: [0.5, 0.5],
+          autoRotate: false
+        }
+      },
+      startTime
+    );
+    tl.to(bird, { opacity: 0, duration: 0.06, ease: "none" }, startTime + duration - 0.04);
+  });
 }
 
 function decorateOpenPanel(): void {
