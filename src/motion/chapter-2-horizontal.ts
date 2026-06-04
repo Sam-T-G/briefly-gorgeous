@@ -375,55 +375,76 @@ function installTwilightAtmosphere(section: HTMLElement, master: gsap.core.Tween
   if (!track) return;
 
   // Water reflection band — mirrors the sky vars in reversed direction.
-  // Reads as a calm reflective surface across the bottom of the scene.
   const water = document.createElement("div");
   water.className = "ch2-water-reflection";
   water.setAttribute("aria-hidden", "true");
   section.insertBefore(water, track);
 
-  // Lantern layer — warm glows that flicker on through twilight into blue
-  // hour, each with a vertical reflection streak below.
+  // Firefly bokeh layer — circular warm glows with continuous drift and
+  // flicker that fade in as twilight arrives. Sized in three tiers so the
+  // depth reads as a layered field rather than a uniform string of dots.
   const layer = document.createElement("div");
-  layer.className = "ch2-lantern-layer";
+  layer.className = "ch2-firefly-layer";
   layer.setAttribute("aria-hidden", "true");
 
-  type LanternData = { x: number; y: number; scale: number; start: number; opacity: number };
-  const lanternData: LanternData[] = [
-    { x: 8,  y: 80, scale: 0.9,  start: 0.56, opacity: 0.78 },
-    { x: 21, y: 83, scale: 1.0,  start: 0.58, opacity: 0.86 },
-    { x: 35, y: 79, scale: 1.12, start: 0.61, opacity: 0.92 },
-    { x: 47, y: 82, scale: 0.85, start: 0.59, opacity: 0.72 },
-    { x: 58, y: 80, scale: 1.0,  start: 0.62, opacity: 0.82 },
-    { x: 71, y: 84, scale: 0.95, start: 0.64, opacity: 0.78 },
-    { x: 86, y: 81, scale: 1.05, start: 0.66, opacity: 0.88 }
+  type Size = "large" | "medium" | "small";
+  type FireflyData = {
+    x: number; y: number;
+    size: Size;
+    start: number;
+    baseOpacity: number;
+    flickerLow: number;
+    flickerDur: number;
+    driftX: number; driftY: number;
+    driftDurX: number; driftDurY: number;
+  };
+
+  const fireflyData: FireflyData[] = [
+    // Large foreground bokeh — soft, blurred, slower drift.
+    { x: 14, y: 50, size: "large", start: 0.50, baseOpacity: 0.42, flickerLow: 0.18, flickerDur: 2.6, driftX: 34, driftY: 22, driftDurX: 6.4, driftDurY: 7.8 },
+    { x: 64, y: 38, size: "large", start: 0.54, baseOpacity: 0.45, flickerLow: 0.20, flickerDur: 3.1, driftX: 28, driftY: 26, driftDurX: 7.2, driftDurY: 8.5 },
+    { x: 88, y: 62, size: "large", start: 0.58, baseOpacity: 0.40, flickerLow: 0.18, flickerDur: 2.3, driftX: 32, driftY: 20, driftDurX: 5.8, driftDurY: 6.6 },
+    // Mid bokeh.
+    { x: 25, y: 65, size: "medium", start: 0.52, baseOpacity: 0.55, flickerLow: 0.25, flickerDur: 1.9, driftX: 22, driftY: 18, driftDurX: 5.2, driftDurY: 6.3 },
+    { x: 38, y: 48, size: "medium", start: 0.56, baseOpacity: 0.50, flickerLow: 0.22, flickerDur: 2.5, driftX: 24, driftY: 16, driftDurX: 4.8, driftDurY: 5.6 },
+    { x: 52, y: 72, size: "medium", start: 0.59, baseOpacity: 0.52, flickerLow: 0.24, flickerDur: 1.6, driftX: 20, driftY: 22, driftDurX: 6.0, driftDurY: 5.2 },
+    { x: 76, y: 78, size: "medium", start: 0.60, baseOpacity: 0.48, flickerLow: 0.22, flickerDur: 2.1, driftX: 24, driftY: 14, driftDurX: 5.4, driftDurY: 6.7 },
+    { x: 92, y: 40, size: "medium", start: 0.62, baseOpacity: 0.50, flickerLow: 0.24, flickerDur: 2.7, driftX: 18, driftY: 18, driftDurX: 5.0, driftDurY: 4.8 },
+    // Small distant sparks — quicker flicker, smaller drift.
+    { x: 6,  y: 42, size: "small", start: 0.53, baseOpacity: 0.65, flickerLow: 0.30, flickerDur: 1.3, driftX: 14, driftY: 12, driftDurX: 4.2, driftDurY: 3.8 },
+    { x: 32, y: 78, size: "small", start: 0.59, baseOpacity: 0.62, flickerLow: 0.28, flickerDur: 1.7, driftX: 16, driftY: 10, driftDurX: 4.6, driftDurY: 4.2 },
+    { x: 46, y: 35, size: "small", start: 0.55, baseOpacity: 0.60, flickerLow: 0.30, flickerDur: 1.4, driftX: 12, driftY: 14, driftDurX: 4.0, driftDurY: 3.5 },
+    { x: 82, y: 56, size: "small", start: 0.63, baseOpacity: 0.66, flickerLow: 0.28, flickerDur: 1.8, driftX: 14, driftY: 12, driftDurX: 4.4, driftDurY: 5.1 }
   ];
 
-  const lanterns = lanternData.map((data) => {
-    const lantern = document.createElement("div");
-    lantern.className = "ch2-lantern";
-    lantern.style.left = `${data.x}%`;
-    lantern.style.top = `${data.y}%`;
-    const glow = document.createElement("div");
-    glow.className = "ch2-lantern-glow";
-    const core = document.createElement("div");
-    core.className = "ch2-lantern-core";
-    const reflection = document.createElement("div");
-    reflection.className = "ch2-lantern-reflection";
-    lantern.appendChild(glow);
-    lantern.appendChild(core);
-    lantern.appendChild(reflection);
-    layer.appendChild(lantern);
-    return { el: lantern, data };
+  const fireflies = fireflyData.map((data) => {
+    const wrap = document.createElement("div");
+    wrap.className = `ch2-firefly is-${data.size}`;
+    wrap.style.left = `${data.x}%`;
+    wrap.style.top = `${data.y}%`;
+    const body = document.createElement("div");
+    body.className = "ch2-firefly-body";
+    wrap.appendChild(body);
+    layer.appendChild(wrap);
+    return { wrap, body, data };
   });
 
   section.appendChild(layer);
 
   gsap.set(water, { opacity: 0 });
-  for (const { el, data } of lanterns) {
-    gsap.set(el, { xPercent: -50, yPercent: -50, scale: data.scale * 0.7, opacity: 0 });
+  for (const { wrap, body, data } of fireflies) {
+    gsap.set(wrap, {
+      xPercent: -50,
+      yPercent: -50,
+      opacity: 0,
+      x: -data.driftX / 2,
+      y: -data.driftY / 2
+    });
+    gsap.set(body, { opacity: data.flickerLow });
   }
 
-  const tl = gsap.timeline({
+  // Scroll-tied: water deepens, fireflies fade in through twilight.
+  const scrubTl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: "top top",
@@ -432,18 +453,50 @@ function installTwilightAtmosphere(section: HTMLElement, master: gsap.core.Tween
       invalidateOnRefresh: true
     }
   });
+  scrubTl.to(water, { opacity: 0.5, duration: 0.18, ease: "power1.in" }, 0.55);
+  scrubTl.to(water, { opacity: 0.72, duration: 0.18, ease: "power1.inOut" }, 0.8);
 
-  // Water reflection eases up as twilight begins and deepens into blue hour.
-  tl.to(water, { opacity: 0.5, duration: 0.18, ease: "power1.in" }, 0.55);
-  tl.to(water, { opacity: 0.72, duration: 0.18, ease: "power1.inOut" }, 0.8);
-
-  for (const { el, data } of lanterns) {
-    tl.to(
-      el,
-      { opacity: data.opacity, scale: data.scale, duration: 0.07, ease: "power2.out" },
+  for (const { wrap, data } of fireflies) {
+    scrubTl.to(
+      wrap,
+      { opacity: data.baseOpacity, duration: 0.08, ease: "power2.out" },
       data.start
     );
   }
+
+  // Independent time-based drift and flicker per firefly. X and Y use
+  // different durations so the motion never repeats as a straight line,
+  // and per-index delays keep the field out of sync.
+  fireflies.forEach(({ wrap, body, data }, i) => {
+    const phaseA = (i * 0.37) % 3;
+    const phaseB = (i * 0.71) % 3.2;
+    const phaseC = (i * 0.53) % 2.4;
+
+    gsap.to(wrap, {
+      x: data.driftX / 2,
+      duration: data.driftDurX,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      delay: phaseA
+    });
+    gsap.to(wrap, {
+      y: data.driftY / 2,
+      duration: data.driftDurY,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      delay: phaseB
+    });
+    gsap.to(body, {
+      opacity: 1,
+      duration: data.flickerDur,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+      delay: phaseC
+    });
+  });
 }
 
 function decorateOpenPanel(): void {
