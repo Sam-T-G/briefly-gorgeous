@@ -210,18 +210,11 @@ function installTrajectoryReveal(id: string, isFirst: boolean): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
-      if (threadPath) {
-        tl.to(threadPath, {
-          drawSVG: isFirst ? "0% 100%" : "0% 100%",
-          duration: 1.5,
-          ease: "power2.inOut"
-        });
-      }
       if (parts.length > 0) {
         tl.to(
           parts,
           { opacity: 1, y: 0, duration: 0.75, ease: "editorial", stagger: 0.16 },
-          "-=1.2"
+          0.3
         );
       }
       if (continuationPath) {
@@ -233,6 +226,20 @@ function installTrajectoryReveal(id: string, isFirst: boolean): void {
       }
     }
   });
+
+  if (threadPath) {
+    gsap.to(threadPath, {
+      drawSVG: "0% 100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: slot,
+        start: "top 75%",
+        end: "bottom 50%",
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+  }
 }
 
 // ---------- thesis: three clauses tied to verbs ----------

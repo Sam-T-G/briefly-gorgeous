@@ -341,24 +341,11 @@ function installPressuresReveal(): void {
       const tl = gsap.timeline();
       if (eyebrow) tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
       if (title) tl.to(title, { opacity: 1, y: 0, duration: 0.85, ease: "editorial" }, "-=0.35");
-      if (vergePath) {
-        tl.to(
-          vergePath,
-          { drawSVG: "0% 100%", duration: 1.6, ease: "power2.inOut" },
-          "-=0.4"
-        );
-      }
       if (bullets.length > 0) {
         tl.to(
           bullets,
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.85,
-            ease: "editorial",
-            stagger: 0.28
-          },
-          "-=1.3"
+          { opacity: 1, x: 0, duration: 0.85, ease: "editorial", stagger: 0.28 },
+          "+=0.15"
         );
       }
       if (closer) tl.to(closer, { opacity: 1, y: 0, duration: 0.9, ease: "editorial" }, "-=0.15");
@@ -371,6 +358,20 @@ function installPressuresReveal(): void {
       }
     }
   });
+
+  if (vergePath) {
+    gsap.to(vergePath, {
+      drawSVG: "0% 100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: slot,
+        start: "top 75%",
+        end: "bottom 50%",
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+  }
 }
 
 function installFrameReveal(): void {
@@ -432,47 +433,47 @@ function installMotifReveal(): void {
       const tl = gsap.timeline();
       if (eyebrow) tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
       if (title) tl.to(title, { opacity: 1, y: 0, duration: 0.85, ease: "editorial" }, "-=0.35");
-      if (arcPath) {
-        tl.to(
-          arcPath,
-          { drawSVG: "0% 100%", duration: 1.6, ease: "power2.inOut" },
-          "-=0.4"
-        );
-      }
-      if (arcDot && arcPath) {
-        tl.to(arcDot, { opacity: 1, duration: 0.35, ease: "editorial" }, "-=1.55");
-        tl.to(
-          arcDot,
-          {
-            duration: 1.55,
-            ease: "power2.inOut",
-            motionPath: {
-              path: arcPath,
-              align: arcPath,
-              alignOrigin: [0.5, 0.5],
-              autoRotate: false
-            }
-          },
-          "-=1.55"
-        );
-        tl.to(arcDot, { opacity: 0, duration: 0.5, ease: "editorial" }, "-=0.2");
-      }
       if (bullets.length > 0) {
         tl.to(
           bullets,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "editorial",
-            stagger: 0.2
-          },
-          "-=1.2"
+          { opacity: 1, y: 0, duration: 0.8, ease: "editorial", stagger: 0.2 },
+          "+=0.2"
         );
       }
       if (closer) tl.to(closer, { opacity: 1, y: 0, duration: 0.85, ease: "editorial" }, "-=0.15");
     }
   });
+
+  if (arcPath) {
+    const arcTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: slot,
+        start: "top 75%",
+        end: "bottom 45%",
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+    if (arcDot) arcTl.to(arcDot, { opacity: 1, duration: 0.05, ease: "none" }, 0);
+    arcTl.to(arcPath, { drawSVG: "0% 100%", duration: 0.9, ease: "none" }, 0);
+    if (arcDot) {
+      arcTl.to(
+        arcDot,
+        {
+          duration: 0.9,
+          ease: "none",
+          motionPath: {
+            path: arcPath,
+            align: arcPath,
+            alignOrigin: [0.5, 0.5],
+            autoRotate: false
+          }
+        },
+        0
+      );
+      arcTl.to(arcDot, { opacity: 0, duration: 0.05, ease: "none" }, 0.95);
+    }
+  }
 }
 
 function installFrameworkReveal(): void {
