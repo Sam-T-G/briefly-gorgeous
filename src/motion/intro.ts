@@ -151,6 +151,10 @@ function decorateMotif(): void {
   path.setAttribute("class", "intro-motif-arc-path");
   path.setAttribute("id", "intro-motif-arc-path");
   svg.appendChild(path);
+  const trail = document.createElementNS(SVG_NS, "path");
+  trail.setAttribute("d", "M8,100 C90,30 180,90 260,40 C320,4 360,46 392,28");
+  trail.setAttribute("class", "intro-motif-arc-trail");
+  svg.appendChild(trail);
   const prey = document.createElementNS(SVG_NS, "circle");
   prey.setAttribute("r", "3.4");
   prey.setAttribute("cx", "0");
@@ -422,6 +426,7 @@ function installMotifReveal(): void {
   const bullets = slot.querySelectorAll<HTMLElement>(".info-bullets li");
   const closer = slot.querySelector(".info-closer");
   const arcPath = slot.querySelector<SVGPathElement>(".intro-motif-arc-path");
+  const arcTrail = slot.querySelector<SVGPathElement>(".intro-motif-arc-trail");
   const prey = slot.querySelector<SVGCircleElement>(".intro-motif-arc-prey");
   const hunter = slot.querySelector<SVGCircleElement>(".intro-motif-arc-hunter");
 
@@ -430,6 +435,7 @@ function installMotifReveal(): void {
   if (bullets.length > 0) gsap.set(bullets, { opacity: 0, y: 10 });
   if (closer) gsap.set(closer, { opacity: 0, y: 8 });
   if (arcPath) gsap.set(arcPath, { drawSVG: "0% 0%" });
+  if (arcTrail) gsap.set(arcTrail, { drawSVG: "0% 0%" });
   if (prey) gsap.set(prey, { opacity: 0 });
   if (hunter) gsap.set(hunter, { opacity: 0 });
 
@@ -465,7 +471,6 @@ function installMotifReveal(): void {
     if (prey) arcTl.to(prey, { opacity: 1, duration: 0.05, ease: "none" }, 0);
     if (hunter) arcTl.to(hunter, { opacity: 0.85, duration: 0.08, ease: "none" }, 0.02);
     arcTl.to(arcPath, { drawSVG: "0% 100%", duration: 0.9, ease: "none" }, 0);
-    // Prey leads, linear pace.
     if (prey) {
       arcTl.to(
         prey,
@@ -482,9 +487,6 @@ function installMotifReveal(): void {
         0
       );
     }
-    // Hunter trails — power2.in lags through the middle then closes
-    // the gap as the curve reaches its end. Pursuit reads as a widening
-    // distance that quietly collapses.
     if (hunter) {
       arcTl.to(
         hunter,
@@ -501,8 +503,16 @@ function installMotifReveal(): void {
         0
       );
     }
-    if (prey) arcTl.to(prey, { opacity: 0, duration: 0.05, ease: "none" }, 0.95);
-    if (hunter) arcTl.to(hunter, { opacity: 0, duration: 0.05, ease: "none" }, 0.95);
+    if (arcTrail) {
+      arcTl.to(
+        arcTrail,
+        { drawSVG: "0% 100%", duration: 0.9, ease: "power2.in" },
+        0
+      );
+    }
+    if (prey) arcTl.to(prey, { fill: "#2A2F34", duration: 0.15, ease: "none" }, 0.85);
+    if (hunter) arcTl.to(hunter, { fill: "#b47148", duration: 0.15, ease: "none" }, 0.85);
+    arcTl.to(arcPath, { opacity: 0.35, duration: 0.1, ease: "none" }, 0.92);
   }
 }
 

@@ -978,6 +978,15 @@
 .intro-motif-arc-hunter {
   fill: var(--display, #2A2F34);
 }
+.intro-motif-arc-trail {
+  fill: none;
+  stroke: var(--display, #2A2F34);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-dasharray: 2 3;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.4;
+}
 
 /* opening-framework — verbs joined by drawn arrows */
 .intro-verbs {
