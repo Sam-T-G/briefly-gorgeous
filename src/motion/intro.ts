@@ -151,12 +151,18 @@ function decorateMotif(): void {
   path.setAttribute("class", "intro-motif-arc-path");
   path.setAttribute("id", "intro-motif-arc-path");
   svg.appendChild(path);
-  const dot = document.createElementNS(SVG_NS, "circle");
-  dot.setAttribute("r", "3.4");
-  dot.setAttribute("cx", "0");
-  dot.setAttribute("cy", "0");
-  dot.setAttribute("class", "intro-motif-arc-dot");
-  svg.appendChild(dot);
+  const prey = document.createElementNS(SVG_NS, "circle");
+  prey.setAttribute("r", "3.4");
+  prey.setAttribute("cx", "0");
+  prey.setAttribute("cy", "0");
+  prey.setAttribute("class", "intro-motif-arc-dot intro-motif-arc-prey");
+  svg.appendChild(prey);
+  const hunter = document.createElementNS(SVG_NS, "circle");
+  hunter.setAttribute("r", "2.9");
+  hunter.setAttribute("cx", "0");
+  hunter.setAttribute("cy", "0");
+  hunter.setAttribute("class", "intro-motif-arc-dot intro-motif-arc-hunter");
+  svg.appendChild(hunter);
   wrap.appendChild(svg);
   inner.insertBefore(wrap, inner.firstChild);
 }
@@ -416,14 +422,16 @@ function installMotifReveal(): void {
   const bullets = slot.querySelectorAll<HTMLElement>(".info-bullets li");
   const closer = slot.querySelector(".info-closer");
   const arcPath = slot.querySelector<SVGPathElement>(".intro-motif-arc-path");
-  const arcDot = slot.querySelector<SVGCircleElement>(".intro-motif-arc-dot");
+  const prey = slot.querySelector<SVGCircleElement>(".intro-motif-arc-prey");
+  const hunter = slot.querySelector<SVGCircleElement>(".intro-motif-arc-hunter");
 
   if (eyebrow) gsap.set(eyebrow, { opacity: 0, y: 6 });
   if (title) gsap.set(title, { opacity: 0, y: 12 });
   if (bullets.length > 0) gsap.set(bullets, { opacity: 0, y: 10 });
   if (closer) gsap.set(closer, { opacity: 0, y: 8 });
   if (arcPath) gsap.set(arcPath, { drawSVG: "0% 0%" });
-  if (arcDot) gsap.set(arcDot, { opacity: 0 });
+  if (prey) gsap.set(prey, { opacity: 0 });
+  if (hunter) gsap.set(hunter, { opacity: 0 });
 
   ScrollTrigger.create({
     trigger: slot,
@@ -454,11 +462,13 @@ function installMotifReveal(): void {
         invalidateOnRefresh: true
       }
     });
-    if (arcDot) arcTl.to(arcDot, { opacity: 1, duration: 0.05, ease: "none" }, 0);
+    if (prey) arcTl.to(prey, { opacity: 1, duration: 0.05, ease: "none" }, 0);
+    if (hunter) arcTl.to(hunter, { opacity: 0.85, duration: 0.08, ease: "none" }, 0.02);
     arcTl.to(arcPath, { drawSVG: "0% 100%", duration: 0.9, ease: "none" }, 0);
-    if (arcDot) {
+    // Prey leads, linear pace.
+    if (prey) {
       arcTl.to(
-        arcDot,
+        prey,
         {
           duration: 0.9,
           ease: "none",
@@ -471,8 +481,28 @@ function installMotifReveal(): void {
         },
         0
       );
-      arcTl.to(arcDot, { opacity: 0, duration: 0.05, ease: "none" }, 0.95);
     }
+    // Hunter trails — power2.in lags through the middle then closes
+    // the gap as the curve reaches its end. Pursuit reads as a widening
+    // distance that quietly collapses.
+    if (hunter) {
+      arcTl.to(
+        hunter,
+        {
+          duration: 0.9,
+          ease: "power2.in",
+          motionPath: {
+            path: arcPath,
+            align: arcPath,
+            alignOrigin: [0.5, 0.5],
+            autoRotate: false
+          }
+        },
+        0
+      );
+    }
+    if (prey) arcTl.to(prey, { opacity: 0, duration: 0.05, ease: "none" }, 0.95);
+    if (hunter) arcTl.to(hunter, { opacity: 0, duration: 0.05, ease: "none" }, 0.95);
   }
 }
 

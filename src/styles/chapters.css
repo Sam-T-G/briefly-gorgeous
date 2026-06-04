@@ -975,6 +975,9 @@
   fill: var(--gorgeous-ember, #b47148);
   opacity: 0;
 }
+.intro-motif-arc-hunter {
+  fill: var(--display, #2A2F34);
+}
 
 /* opening-framework — verbs joined by drawn arrows */
 .intro-verbs {
