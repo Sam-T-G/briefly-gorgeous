@@ -209,7 +209,7 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
   };
   const trajectories: Trajectory[] = [
     {
-      // Large near bird — high lazy arc across the upper sky.
+      // Large bird — high lazy arc, same direction as the sun.
       pathD: "M -10,26 Q 30,16 60,22 Q 88,28 112,32",
       birdD: "M -1.8,0.7 Q -0.9,-1.2 0,0.7 Q 0.9,-1.2 1.8,0.7",
       ease: "power1.inOut",
@@ -237,6 +237,27 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
       duration: 0.66,
       opacity: 0.6,
       strokeWidth: 0.4
+    },
+    {
+      // Foreground bird — large, sweeps right-to-left against the camera
+      // for parallax depth. Upper sky.
+      pathD: "M 114,30 Q 60,36 28,22 Q -2,12 -14,28",
+      birdD: "M -2.4,0.95 Q -1.2,-1.6 0,0.95 Q 1.2,-1.6 2.4,0.95",
+      ease: "none",
+      start: 0.08,
+      duration: 0.6,
+      opacity: 0.88,
+      strokeWidth: 1.05
+    },
+    {
+      // Foreground bird — largest, sweeps right-to-left across the mid sky.
+      pathD: "M 112,64 Q 68,54 36,70 Q 8,82 -12,60",
+      birdD: "M -2.9,1.05 Q -1.45,-1.9 0,1.05 Q 1.45,-1.9 2.9,1.05",
+      ease: "none",
+      start: 0.34,
+      duration: 0.58,
+      opacity: 0.86,
+      strokeWidth: 1.2
     }
   ];
 
