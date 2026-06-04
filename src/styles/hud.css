@@ -619,12 +619,12 @@
   display: none;
 }
 
-/* ===== Fullscreen hint — subtle pulsing prompt at bottom-right ===== */
+/* ===== Fullscreen affordance ===== */
 
+/* Base pill — used for both the persistent landing button and the transient
+   ESC hint. Positions are set per-variant below. */
 .fullscreen-hint {
   position: fixed;
-  bottom: clamp(1rem, 2.6vh, 1.75rem);
-  right: clamp(1rem, 2.6vw, 1.75rem);
   z-index: 90;
   display: inline-flex;
   align-items: center;
@@ -640,13 +640,9 @@
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  pointer-events: none;
   user-select: none;
   opacity: 0;
   transform: translateY(6px);
-  animation:
-    fullscreen-hint-enter 0.7s ease-out 0.3s forwards,
-    fullscreen-hint-pulse 2.8s ease-in-out 1s infinite;
 }
 
 .fullscreen-hint-key {
@@ -664,11 +660,77 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 .fullscreen-hint-label {
   font-weight: 500;
   white-space: nowrap;
+  max-width: 12rem;
+  opacity: 1;
+  transition:
+    max-width 0.55s cubic-bezier(.6,.1,.3,1),
+    opacity 0.35s ease,
+    margin 0.55s cubic-bezier(.6,.1,.3,1);
+}
+
+/* Landing variant — persistent, clickable. Stows to the right rail when the
+   viewer scrolls off the landing slot, un-stows when they return. */
+.fullscreen-hint-landing {
+  appearance: none;
+  cursor: pointer;
+  pointer-events: auto;
+  bottom: clamp(1rem, 2.6vh, 1.75rem);
+  right: clamp(1rem, 2.6vw, 1.75rem);
+  top: auto;
+  animation:
+    fullscreen-hint-enter 0.7s ease-out 0.3s forwards,
+    fullscreen-hint-pulse 2.8s ease-in-out 1s infinite;
+  transition:
+    top 0.7s cubic-bezier(.6,.1,.3,1),
+    bottom 0.7s cubic-bezier(.6,.1,.3,1),
+    right 0.55s cubic-bezier(.6,.1,.3,1),
+    padding 0.45s ease,
+    gap 0.45s ease,
+    transform 0.55s cubic-bezier(.6,.1,.3,1);
+}
+
+.fullscreen-hint-landing:hover {
+  color: var(--body, #444);
+  border-color: color-mix(in oklch, var(--body, #444) 28%, transparent);
+}
+.fullscreen-hint-landing:focus-visible {
+  outline: 2px solid var(--accent, var(--body));
+  outline-offset: 4px;
+}
+
+/* Stowed: docked just below the hud-dots column on the right rail.
+   Label collapses; key chip stays. The pulse stops so the rail reads quiet. */
+.fullscreen-hint-landing.is-stowed {
+  bottom: auto;
+  top: calc(50% + 5.5rem);
+  right: clamp(0.75rem, 1.4vw, 1.1rem);
+  transform: translateY(-50%);
+  padding: 0.32rem;
+  gap: 0;
+  animation: fullscreen-hint-enter 0.7s ease-out 0.3s forwards;
+}
+.fullscreen-hint-landing.is-stowed .fullscreen-hint-label {
+  max-width: 0;
+  opacity: 0;
+  margin-inline-start: -0.55rem;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ESC variant — transient prompt after entering fullscreen, bottom-right. */
+.fullscreen-hint-esc {
+  pointer-events: none;
+  bottom: clamp(1rem, 2.6vh, 1.75rem);
+  right: clamp(1rem, 2.6vw, 1.75rem);
+  animation:
+    fullscreen-hint-enter 0.7s ease-out 0.3s forwards,
+    fullscreen-hint-pulse 2.8s ease-in-out 1s infinite;
 }
 
 .fullscreen-hint.is-dismissed {
@@ -706,4 +768,7 @@
   animation: none;
   opacity: 0.85;
   transform: none;
+}
+:root[data-motion="reduced"] .fullscreen-hint-landing.is-stowed {
+  transform: translateY(-50%);
 }

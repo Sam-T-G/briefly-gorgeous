@@ -1,96 +1,134 @@
-// Subtle pulsing hint at bottom-right that prompts the next available action:
-//   - Not fullscreen → "F  full screen"
-//   - Fullscreen     → "ESC  exit full screen"
-// Each hint shows on its triggering state-transition, then fades away on its
-// own after a short timer (or sooner on user interaction). Touch-only devices
-// have no keyboard, so the hint is skipped entirely there.
+// Persistent fullscreen affordance.
+//
+// Not fullscreen: a small clickable pill at bottom-right of the landing slot
+// inviting "F  full screen". When the viewer scrolls off the landing slot the
+// pill stows to the right rail next to the chapter navigation dots, collapsing
+// to just the key chip. Scrolling back to the landing un-stows it. The pill
+// itself is clickable so a mouse-only viewer never needs to know the F key.
+//
+// Fullscreen: a transient "ESC  exit full screen" hint that auto-fades.
+//
+// Touch-only devices have no keyboard and no fullscreen affordance, so we skip.
 
-const FADE_AFTER_MS = 8000;
-const SCROLL_DISMISS_PX = 600;
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "../animation/register.js";
 
-type HintState = "enter-fullscreen" | "exit-fullscreen";
+const ESC_FADE_AFTER_MS = 8000;
 
-let currentHint: HTMLElement | null = null;
-let cleanup: (() => void) | null = null;
+let landingBtn: HTMLButtonElement | null = null;
+let stowTrigger: ScrollTrigger | null = null;
+let escHint: HTMLElement | null = null;
+let escTimer: number | null = null;
 
 export function installFullscreenHint(): void {
   if (typeof window === "undefined") return;
   if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) return;
 
-  // Initial: prompt fullscreen entry if we're not already there.
-  if (!document.fullscreenElement) show("enter-fullscreen");
+  if (!document.fullscreenElement) installLandingButton();
 
   document.addEventListener("fullscreenchange", () => {
-    show(document.fullscreenElement ? "exit-fullscreen" : "enter-fullscreen");
+    if (document.fullscreenElement) {
+      removeLandingButton();
+      showEscHint();
+    } else {
+      hideEscHint();
+      installLandingButton();
+    }
   });
 }
 
-function show(state: HintState): void {
-  dismissNow();
+function installLandingButton(): void {
+  if (landingBtn) return;
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "fullscreen-hint fullscreen-hint-landing";
+  btn.setAttribute("aria-label", "Enter full screen");
+
+  const key = document.createElement("kbd");
+  key.className = "fullscreen-hint-key";
+  key.textContent = "F";
+
+  const label = document.createElement("span");
+  label.className = "fullscreen-hint-label";
+  label.textContent = "full screen";
+
+  btn.appendChild(key);
+  btn.appendChild(label);
+  document.body.appendChild(btn);
+  landingBtn = btn;
+
+  btn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      void document.documentElement.requestFullscreen?.();
+    }
+  });
+
+  attachStowTrigger(btn);
+}
+
+function attachStowTrigger(btn: HTMLButtonElement): void {
+  const landing = document.getElementById("opening-landing");
+  if (!landing) return;
+
+  const setStowed = (stowed: boolean): void => {
+    btn.classList.toggle("is-stowed", stowed);
+  };
+
+  stowTrigger?.kill();
+  stowTrigger = ScrollTrigger.create({
+    trigger: landing,
+    start: "top 60%",
+    end: "bottom 40%",
+    onToggle: (self) => setStowed(!self.isActive)
+  });
+
+  // Initial state: stow if landing isn't already in view at install time.
+  const rect = landing.getBoundingClientRect();
+  const vh = window.innerHeight;
+  const inView = rect.top < vh * 0.6 && rect.bottom > vh * 0.4;
+  setStowed(!inView);
+}
+
+function removeLandingButton(): void {
+  stowTrigger?.kill();
+  stowTrigger = null;
+  if (!landingBtn) return;
+  landingBtn.remove();
+  landingBtn = null;
+}
+
+function showEscHint(): void {
+  hideEscHint();
 
   const hint = document.createElement("div");
-  hint.className = "fullscreen-hint";
+  hint.className = "fullscreen-hint fullscreen-hint-esc";
   hint.setAttribute("aria-hidden", "true");
 
   const key = document.createElement("kbd");
   key.className = "fullscreen-hint-key";
-  key.textContent = state === "enter-fullscreen" ? "F" : "ESC";
+  key.textContent = "ESC";
 
   const label = document.createElement("span");
   label.className = "fullscreen-hint-label";
-  label.textContent =
-    state === "enter-fullscreen" ? "full screen" : "exit full screen";
+  label.textContent = "exit full screen";
 
   hint.appendChild(key);
   hint.appendChild(label);
   document.body.appendChild(hint);
-  currentHint = hint;
+  escHint = hint;
 
-  // dismiss on the key the hint is prompting for (or any of the obvious
-  // ack signals: scroll past a threshold, auto-fade timer)
-  const onKey = (e: KeyboardEvent): void => {
-    if (state === "enter-fullscreen" && (e.key === "f" || e.key === "F")) {
-      fade();
-    } else if (state === "exit-fullscreen" && e.key === "Escape") {
-      fade();
-    }
-  };
-  const onScroll = (): void => {
-    if (window.scrollY > SCROLL_DISMISS_PX) fade();
-  };
-  // The F prompt stays put while the audience is still on the landing slot —
-  // they may linger there. Scrolling past the landing dismisses it.
-  // The ESC prompt is a brief in-fullscreen reminder, so it auto-fades.
-  const timer =
-    state === "exit-fullscreen"
-      ? window.setTimeout(fade, FADE_AFTER_MS)
-      : null;
-
-  window.addEventListener("keydown", onKey, { capture: true });
-  window.addEventListener("scroll", onScroll, { passive: true });
-
-  cleanup = (): void => {
-    window.removeEventListener("keydown", onKey, { capture: true });
-    window.removeEventListener("scroll", onScroll);
-    if (timer !== null) window.clearTimeout(timer);
-  };
+  escTimer = window.setTimeout(hideEscHint, ESC_FADE_AFTER_MS);
 }
 
-function fade(): void {
-  if (!currentHint) return;
-  currentHint.classList.add("is-dismissed");
-  const el = currentHint;
-  currentHint = null;
-  cleanup?.();
-  cleanup = null;
-  window.setTimeout(() => el.remove(), 900);
-}
-
-function dismissNow(): void {
-  cleanup?.();
-  cleanup = null;
-  if (currentHint) {
-    currentHint.remove();
-    currentHint = null;
+function hideEscHint(): void {
+  if (escTimer !== null) {
+    window.clearTimeout(escTimer);
+    escTimer = null;
   }
+  if (!escHint) return;
+  escHint.classList.add("is-dismissed");
+  const el = escHint;
+  escHint = null;
+  window.setTimeout(() => el.remove(), 900);
 }
