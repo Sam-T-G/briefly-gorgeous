@@ -669,12 +669,11 @@
   overflow: hidden;
 }
 
-/* Landing variant — persistent, clickable. GSAP owns stow/un-stow and the
-   resting pulse, so no CSS transitions or keyframe animations on this rule. */
+/* Landing variant — persistent on the landing slot, clickable. GSAP owns
+   opacity fade-in/out tied to landing-slot visibility. */
 .fullscreen-hint-landing {
   appearance: none;
   cursor: pointer;
-  pointer-events: auto;
   bottom: clamp(1rem, 2.6vh, 1.75rem);
   right: clamp(1rem, 2.6vw, 1.75rem);
   top: auto;
@@ -688,19 +687,6 @@
 .fullscreen-hint-landing:focus-visible {
   outline: 2px solid var(--accent, var(--body));
   outline-offset: 4px;
-}
-
-/* Quieter chrome on the stowed chip so it reads as docked-and-dormant.
-   The key chip drops its ember saturation and the border nearly disappears. */
-.fullscreen-hint-landing.is-stowed {
-  border-color: color-mix(in oklch, var(--body, #444) 6%, transparent);
-  background: color-mix(in oklch, var(--bg, white) 55%, transparent);
-}
-.fullscreen-hint-landing.is-stowed .fullscreen-hint-key {
-  background: color-mix(in oklch, var(--gorgeous-ember, #b47148) 62%, transparent);
-}
-.fullscreen-hint-landing.is-stowed .fullscreen-hint-label {
-  pointer-events: none;
 }
 
 /* ESC variant — transient prompt after entering fullscreen, bottom-right. */
