@@ -61,6 +61,7 @@ export function installChapter2Horizontal(): void {
 
   installSunsetColorArc(section, masterTween);
   installSunArcMeridian(section, masterTween);
+  installTwilightAtmosphere(section, masterTween);
   installOpenPanel(masterTween);
   installDeemedPanel(masterTween);
   installVergePanel(masterTween);
@@ -113,69 +114,76 @@ function installSunsetColorArc(section: HTMLElement, master: gsap.core.Tween): v
     }
   });
 
+  // Stage 1 — Golden hour: warm gold lifts in.
   tl.to(section, {
-    "--ch2-sky-top": "#D4B89C",
-    "--ch2-sky-mid": "#EBD4A8",
-    "--ch2-sky-bottom": "#F4E8D0",
-    "--ch2-sun-core": "#FBC97A",
+    "--ch2-sky-top": "#E5B898",
+    "--ch2-sky-mid": "#F4D6A0",
+    "--ch2-sky-bottom": "#F8E8C8",
+    "--ch2-sun-core": "#F8C878",
+    "--ch2-afterglow": "rgba(248, 200, 120, 0.18)",
     "--ch2-ink": "#2E2A30",
     "--ch2-ink-soft": "#4A4248",
     duration: 1, ease: "power1.inOut"
   }, 0);
-  tl.to(sun, { scale: 0.95, opacity: 0.6, duration: 1, ease: "power1.inOut" }, 0);
-  tl.to(afterglow, { opacity: 0.15, duration: 1, ease: "power1.inOut" }, 0);
+  tl.to(sun, { scale: 0.95, opacity: 0.55, duration: 1, ease: "power1.inOut" }, 0);
+  tl.to(afterglow, { opacity: 0.2, duration: 1, ease: "power1.inOut" }, 0);
 
+  // Stage 2 — Sunset: vivid coral and orange.
   tl.to(section, {
-    "--ch2-sky-top": "#C6907A",
-    "--ch2-sky-mid": "#EBB283",
-    "--ch2-sky-bottom": "#F4D2A8",
-    "--ch2-sun-core": "#FBA86A",
-    "--ch2-afterglow": "rgba(248, 168, 110, 0.45)",
-    "--ch2-ink": "#252836",
-    "--ch2-ink-soft": "#414652",
+    "--ch2-sky-top": "#C26A5E",
+    "--ch2-sky-mid": "#E89058",
+    "--ch2-sky-bottom": "#F4BC82",
+    "--ch2-sun-core": "#E87245",
+    "--ch2-afterglow": "rgba(232, 130, 80, 0.5)",
+    "--ch2-ink": "#2A1F38",
+    "--ch2-ink-soft": "#463A58",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { scale: 1.05, opacity: 0.8, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.4, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 1.05, opacity: 0.85, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.5, duration: 1, ease: "power1.inOut" }, "<");
 
+  // Stage 3 — Burning peak: magenta sky meets a deep red sun at horizon.
   tl.to(section, {
-    "--ch2-sky-top": "#A86F5C",
-    "--ch2-sky-mid": "#E69E70",
-    "--ch2-sky-bottom": "#F0C28E",
-    "--ch2-sun-core": "#F88B45",
-    "--ch2-afterglow": "rgba(248, 130, 70, 0.7)",
-    "--ch2-ink": "#1E2433",
-    "--ch2-ink-soft": "#3B4252",
+    "--ch2-sky-top": "#5A2A4E",
+    "--ch2-sky-mid": "#B8482E",
+    "--ch2-sky-bottom": "#D86A38",
+    "--ch2-sun-core": "#C8281E",
+    "--ch2-afterglow": "rgba(200, 60, 50, 0.75)",
+    "--ch2-ink": "#14102C",
+    "--ch2-ink-soft": "#2E2848",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { scale: 1.15, opacity: 0.95, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.65, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 1.12, opacity: 0.95, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.72, duration: 1, ease: "power1.inOut" }, "<");
 
+  // Stage 4 — Twilight: violet sky overhead, last ember at the horizon.
+  // Ink lightens so text stays readable against the deepening sky.
   tl.to(section, {
-    "--ch2-sky-top": "#B5836B",
-    "--ch2-sky-mid": "#E8B583",
-    "--ch2-sky-bottom": "#EBCEA8",
-    "--ch2-sun-core": "#DB6F2A",
-    "--ch2-afterglow": "rgba(220, 110, 60, 0.55)",
-    "--ch2-ink": "#27313F",
-    "--ch2-ink-soft": "#42495A",
+    "--ch2-sky-top": "#1E1838",
+    "--ch2-sky-mid": "#38264A",
+    "--ch2-sky-bottom": "#82384A",
+    "--ch2-sun-core": "#441820",
+    "--ch2-afterglow": "rgba(130, 56, 74, 0.5)",
+    "--ch2-ink": "#B8A088",
+    "--ch2-ink-soft": "#988068",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { scale: 1.05, opacity: 0.6, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.55, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 0.95, opacity: 0.35, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.5, duration: 1, ease: "power1.inOut" }, "<");
 
+  // Stage 5 — Blue hour: deep midnight indigo. Sun gone. Cool afterglow.
   tl.to(section, {
-    "--ch2-sky-top": "#D4C0AA",
-    "--ch2-sky-mid": "#EDE0C8",
-    "--ch2-sky-bottom": "#F6F1E6",
-    "--ch2-sun-core": "#C25C28",
-    "--ch2-afterglow": "rgba(220, 130, 80, 0.2)",
-    "--ch2-ink": "#3A3025",
-    "--ch2-ink-soft": "#5A4A3A",
+    "--ch2-sky-top": "#0A0E2A",
+    "--ch2-sky-mid": "#1A2240",
+    "--ch2-sky-bottom": "#2E3A5C",
+    "--ch2-sun-core": "#181830",
+    "--ch2-afterglow": "rgba(50, 70, 110, 0.28)",
+    "--ch2-ink": "#E8D8B8",
+    "--ch2-ink-soft": "#C8B898",
     duration: 1, ease: "power1.inOut"
   });
-  tl.to(sun, { scale: 0.95, opacity: 0, duration: 1, ease: "power1.inOut" }, "<");
-  tl.to(afterglow, { opacity: 0.15, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(sun, { scale: 0.75, opacity: 0, duration: 1, ease: "power1.inOut" }, "<");
+  tl.to(afterglow, { opacity: 0.28, duration: 1, ease: "power1.inOut" }, "<");
 }
 
 function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): void {
@@ -358,6 +366,83 @@ function installSunArcMeridian(section: HTMLElement, master: gsap.core.Tween): v
       traj.start
     );
     tl.to(bird, { opacity: 0, duration: 0.08, ease: "none" }, traj.start + traj.duration - 0.06);
+  }
+}
+
+function installTwilightAtmosphere(section: HTMLElement, master: gsap.core.Tween): void {
+  if (!master.scrollTrigger) return;
+  const track = section.querySelector(".ch2-track") as HTMLElement | null;
+  if (!track) return;
+
+  // Water reflection band — mirrors the sky vars in reversed direction.
+  // Reads as a calm reflective surface across the bottom of the scene.
+  const water = document.createElement("div");
+  water.className = "ch2-water-reflection";
+  water.setAttribute("aria-hidden", "true");
+  section.insertBefore(water, track);
+
+  // Lantern layer — warm glows that flicker on through twilight into blue
+  // hour, each with a vertical reflection streak below.
+  const layer = document.createElement("div");
+  layer.className = "ch2-lantern-layer";
+  layer.setAttribute("aria-hidden", "true");
+
+  type LanternData = { x: number; y: number; scale: number; start: number; opacity: number };
+  const lanternData: LanternData[] = [
+    { x: 8,  y: 80, scale: 0.9,  start: 0.56, opacity: 0.78 },
+    { x: 21, y: 83, scale: 1.0,  start: 0.58, opacity: 0.86 },
+    { x: 35, y: 79, scale: 1.12, start: 0.61, opacity: 0.92 },
+    { x: 47, y: 82, scale: 0.85, start: 0.59, opacity: 0.72 },
+    { x: 58, y: 80, scale: 1.0,  start: 0.62, opacity: 0.82 },
+    { x: 71, y: 84, scale: 0.95, start: 0.64, opacity: 0.78 },
+    { x: 86, y: 81, scale: 1.05, start: 0.66, opacity: 0.88 }
+  ];
+
+  const lanterns = lanternData.map((data) => {
+    const lantern = document.createElement("div");
+    lantern.className = "ch2-lantern";
+    lantern.style.left = `${data.x}%`;
+    lantern.style.top = `${data.y}%`;
+    const glow = document.createElement("div");
+    glow.className = "ch2-lantern-glow";
+    const core = document.createElement("div");
+    core.className = "ch2-lantern-core";
+    const reflection = document.createElement("div");
+    reflection.className = "ch2-lantern-reflection";
+    lantern.appendChild(glow);
+    lantern.appendChild(core);
+    lantern.appendChild(reflection);
+    layer.appendChild(lantern);
+    return { el: lantern, data };
+  });
+
+  section.appendChild(layer);
+
+  gsap.set(water, { opacity: 0 });
+  for (const { el, data } of lanterns) {
+    gsap.set(el, { xPercent: -50, yPercent: -50, scale: data.scale * 0.7, opacity: 0 });
+  }
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: "top top",
+      end: () => `+=${Math.max(0, track.scrollWidth - section.clientWidth)}`,
+      scrub: 1,
+      invalidateOnRefresh: true
+    }
+  });
+
+  // Water reflection eases up as twilight begins and deepens into blue hour.
+  tl.to(water, { opacity: 0.5, duration: 0.18, ease: "power1.in" }, 0.55);
+  tl.to(water, { opacity: 0.72, duration: 0.18, ease: "power1.inOut" }, 0.8);
+
+  for (const { el, data } of lanterns) {
+    tl.to(
+      el,
+      { opacity: data.opacity, scale: data.scale, duration: 0.07, ease: "power2.out" },
+      data.start
+    );
   }
 }
 
