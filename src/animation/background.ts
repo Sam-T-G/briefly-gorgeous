@@ -25,12 +25,19 @@ type Frame = {
   share: number;
 };
 
+// ch2-close's bg keyframe is BESIDE_PAPER (cream) instead of indigo: the
+// indigo→cream interpolation completes between ch2-lens and ch2-close, which
+// maps to ~0.6–0.8 of the scroll trigger — well inside the ch2-horizontal pin,
+// where the opaque ch2-sky still covers the viewport. Body/display/chrome stay
+// at LATE_TOBACCO at ch2-close so the lens panels' text colors transition
+// readably against the dark sky; they finish lifting to LIGHT values across
+// the ch2-close → ch3-open segment.
 const KEYFRAMES: Frame[] = [
   { id: "ch2-open",   bg: DEEMED_VELLUM,       body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
   { id: "ch2-deemed", bg: VERGE_BONE,          body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
   { id: "ch2-verge",  bg: LATE_TOBACCO,        body: PORCELAIN,     display: PORCELAIN,        chrome: PORCELAIN,       share: 1 },
   { id: "ch2-lens",   bg: DISAPPEARING_INDIGO, body: BODY_INVERTED, display: DISPLAY_INVERTED, chrome: CHROME_INVERTED, share: 1 },
-  { id: "ch2-close",  bg: DISAPPEARING_INDIGO, body: LATE_TOBACCO,  display: LATE_TOBACCO,     chrome: LATE_TOBACCO,    share: 1 },
+  { id: "ch2-close",  bg: BESIDE_PAPER,        body: LATE_TOBACCO,  display: LATE_TOBACCO,     chrome: LATE_TOBACCO,    share: 1 },
   { id: "ch3-open",   bg: BESIDE_PAPER,        body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 }
 ];
 
@@ -63,24 +70,21 @@ export function animateBackground(): void {
     "--display": first.display,
     "--chrome": first.chrome
   });
-  // The final keyframe (ch3-open) snaps instead of fading: the indigo→cream
-  // hand-off fires while the opaque ch2 sky still covers the viewport during
-  // the pin, so chapter 3 enters already in cream with no visible interpolation.
   let t = 0;
   for (let i = 1; i < KEYFRAMES.length; i++) {
     const f = KEYFRAMES[i]!;
-    const isLast = i === KEYFRAMES.length - 1;
-    const vars = {
-      "--bg": f.bg,
-      "--body": f.body,
-      "--display": f.display,
-      "--chrome": f.chrome
-    };
-    if (isLast) {
-      tl.set(root, vars, t);
-    } else {
-      tl.to(root, { ...vars, ease: "none", duration: f.share }, t);
-    }
+    tl.to(
+      root,
+      {
+        "--bg": f.bg,
+        "--body": f.body,
+        "--display": f.display,
+        "--chrome": f.chrome,
+        ease: "none",
+        duration: f.share
+      },
+      t
+    );
     t += f.share;
   }
 }
