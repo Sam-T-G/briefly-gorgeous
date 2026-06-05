@@ -63,21 +63,24 @@ export function animateBackground(): void {
     "--display": first.display,
     "--chrome": first.chrome
   });
+  // The final keyframe (ch3-open) snaps instead of fading: the indigo→cream
+  // hand-off fires while the opaque ch2 sky still covers the viewport during
+  // the pin, so chapter 3 enters already in cream with no visible interpolation.
   let t = 0;
   for (let i = 1; i < KEYFRAMES.length; i++) {
     const f = KEYFRAMES[i]!;
-    tl.to(
-      root,
-      {
-        "--bg": f.bg,
-        "--body": f.body,
-        "--display": f.display,
-        "--chrome": f.chrome,
-        ease: "none",
-        duration: f.share
-      },
-      t
-    );
+    const isLast = i === KEYFRAMES.length - 1;
+    const vars = {
+      "--bg": f.bg,
+      "--body": f.body,
+      "--display": f.display,
+      "--chrome": f.chrome
+    };
+    if (isLast) {
+      tl.set(root, vars, t);
+    } else {
+      tl.to(root, { ...vars, ease: "none", duration: f.share }, t);
+    }
     t += f.share;
   }
 }
