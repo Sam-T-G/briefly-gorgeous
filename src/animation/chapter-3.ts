@@ -7,6 +7,8 @@ import { revealChapterTitle, revealTransition } from "./opening.js";
 
 void DrawSVGPlugin;
 
+const TEXT_PACE = 1.15;
+
 export function animateChapter3(): void {
   revealChapterTitle("ch3-open");
 
@@ -46,6 +48,7 @@ function attachBilingualStream(id: string): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
+      tl.timeScale(TEXT_PACE);
       if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
       pairs.forEach((pair, i) => {
         const en = pair.querySelector(".quote-en");
@@ -129,6 +132,7 @@ function attachParataxisQuote(id: string): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
+      tl.timeScale(TEXT_PACE);
       if (setup) {
         tl.to(setup, { opacity: 1, y: 0, duration: 0.8, ease: "editorial" });
       }
@@ -183,13 +187,14 @@ function attachStandardStoryRecedes(id: string): void {
     trigger: slot,
     start: "top 70%",
     once: true,
-    onEnter: () =>
-      gsap.to(inner, {
+    onEnter: () => {
+      gsap.timeline().timeScale(TEXT_PACE).to(inner, {
         opacity: 1,
         y: 0,
         duration: 0.8,
         ease: "power2.out"
-      })
+      });
+    }
   });
 }
 

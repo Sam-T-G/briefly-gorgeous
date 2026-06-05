@@ -66,7 +66,6 @@ export function installChapter2Horizontal(): void {
   installDeemedPanel(masterTween);
   installVergePanel(masterTween);
   installLensPanel(masterTween);
-  installClosePanel(masterTween);
 
   requestAnimationFrame(() => ScrollTrigger.refresh());
 }
@@ -746,24 +745,6 @@ function installLensPanel(master: gsap.core.Tween): void {
       ease: "power2.in"
     }, 0.74);
   }
-}
-
-function installClosePanel(master: gsap.core.Tween): void {
-  const panel = document.getElementById("ch2-close");
-  if (!panel) return;
-  const paragraphs = Array.from(panel.querySelectorAll(".transition-paragraph")) as HTMLElement[];
-  if (paragraphs.length === 0) return;
-  gsap.set(paragraphs, { opacity: 0, y: 20, x: 24 });
-
-  const tl = panelTimeline(panel, master);
-  tl.to(paragraphs, {
-    opacity: 1, y: 0, x: 0,
-    stagger: 0.18, duration: 0.28, ease: "power2.out"
-  }, 0.1);
-  tl.to(paragraphs, {
-    x: () => -panel.clientWidth * 0.05,
-    opacity: 0.3, duration: 0.3, ease: "power2.in"
-  }, 0.75);
 }
 
 function buildHorizon(className: string): SVGElement {

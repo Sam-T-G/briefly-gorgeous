@@ -6,6 +6,8 @@ import "../animation/ease.js";
 
 void DrawSVGPlugin;
 
+const TEXT_PACE = 1.15;
+
 export function installChapter1Immersive(): void {
   if (!document.getElementById("ch1-open")) return;
 
@@ -103,6 +105,7 @@ function installOpenPanel(): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
+      tl.timeScale(TEXT_PACE);
       if (eyebrow) tl.to(eyebrow, { opacity: 0.7, y: 0, duration: 0.6, ease: "editorial" });
       tl.to(labelChars, {
         opacity: 1, y: 0, rotateX: 0,
@@ -151,6 +154,7 @@ function installMacaquePanel(): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
+      tl.timeScale(TEXT_PACE);
       if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.75, ease: "editorial" });
       if (words.length > 0) {
         tl.to(words, {
@@ -201,6 +205,7 @@ function installSoldierReadsPanel(): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
+      tl.timeScale(TEXT_PACE);
       if (setup) tl.to(setup, { opacity: 1, y: 0, duration: 0.7, ease: "editorial" });
       if (left) tl.to(left, { opacity: 1, x: 0, duration: 0.9, ease: "editorial" }, "-=0.3");
       if (cinnamonUnder) {
@@ -256,6 +261,7 @@ function installVerdictPanel(): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
+      tl.timeScale(TEXT_PACE);
       if (setup) tl.to(setup, { opacity: 0.78, y: 0, duration: 0.7, ease: "editorial" });
       tl.to(words, {
         opacity: 1, y: 0,
@@ -292,6 +298,7 @@ function installLensPanel(): void {
     once: true,
     onEnter: () => {
       const tl = gsap.timeline();
+      tl.timeScale(TEXT_PACE);
       if (setup) tl.to(setup, { opacity: 0.78, y: 0, duration: 0.7, ease: "editorial" });
       tl.to(items, {
         opacity: 0.95, y: 0, x: 0,
