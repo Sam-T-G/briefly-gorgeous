@@ -25,19 +25,18 @@ type Frame = {
   share: number;
 };
 
-// ch2-close's bg keyframe is BESIDE_PAPER (cream) instead of indigo: the
-// indigo→cream interpolation completes between ch2-lens and ch2-close, which
-// maps to ~0.6–0.8 of the scroll trigger — well inside the ch2-horizontal pin,
-// where the opaque ch2-sky still covers the viewport. Body/display/chrome stay
-// at LATE_TOBACCO at ch2-close so the lens panels' text colors transition
-// readably against the dark sky; they finish lifting to LIGHT values across
-// the ch2-close → ch3-open segment.
+// Both bg and body/display/chrome land on their ch3-open values at the
+// ch2-close keyframe (timeline progress 0.8). The interpolations complete
+// between ch2-lens and ch2-close — well inside the ch2-horizontal pin, where
+// the opaque ch2-sky still covers the viewport. That makes the ch2-close →
+// ch3-open segment a no-op for every var, so scrub catch-up after pin release
+// cannot bleed a color shift onto ch3-open's visible entry.
 const KEYFRAMES: Frame[] = [
   { id: "ch2-open",   bg: DEEMED_VELLUM,       body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
   { id: "ch2-deemed", bg: VERGE_BONE,          body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
   { id: "ch2-verge",  bg: LATE_TOBACCO,        body: PORCELAIN,     display: PORCELAIN,        chrome: PORCELAIN,       share: 1 },
   { id: "ch2-lens",   bg: DISAPPEARING_INDIGO, body: BODY_INVERTED, display: DISPLAY_INVERTED, chrome: CHROME_INVERTED, share: 1 },
-  { id: "ch2-close",  bg: BESIDE_PAPER,        body: LATE_TOBACCO,  display: LATE_TOBACCO,     chrome: LATE_TOBACCO,    share: 1 },
+  { id: "ch2-close",  bg: BESIDE_PAPER,        body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 },
   { id: "ch3-open",   bg: BESIDE_PAPER,        body: BODY_LIGHT,    display: DISPLAY_LIGHT,    chrome: CHROME_LIGHT,    share: 1 }
 ];
 
