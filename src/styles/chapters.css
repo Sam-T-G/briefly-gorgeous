@@ -1012,7 +1012,7 @@
   width: 2.4rem;
   height: 0.6rem;
   flex-shrink: 0;
-  transform: translateY(-0.15em);
+  transform: translateY(-0.45em);
 }
 .intro-verb-arrow svg {
   width: 100%;
